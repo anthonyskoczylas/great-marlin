@@ -1,0 +1,14 @@
+# ---- INTERNAL — never publish ----
+# working docs (financials, ops, plans, product/design notes)
+*.md
+# dev server + tooling
+serve.py
+launch.json
+# heavy render sources, arcs, backups (323MB)
+cgi-tests/
+# delinked page — gear not owned yet (owner ruling)
+gear.html
+# OS cruft
+.DS_Store
+**/.DS_Store
+._*

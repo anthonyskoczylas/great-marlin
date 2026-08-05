@@ -1,0 +1,257 @@
+/* ============================================================================
+   pages.css — design system for the STATIC subpages (guide / first day / getting here).
+
+   Tokens below are MIRRORED from index.html :root. index.html deliberately keeps
+   its CSS inline: its hero is a scroll-scrubbed all-intra video verified across
+   Safari + Chromium + reduced-motion, and refactoring it into a shared sheet risks
+   a fight nobody needs. If you change a token there, change it here too.
+
+   Same three lanes as index.html, and they never cross:
+     serif — display only.
+     sans  — everything that carries meaning (body, labels, buttons, footer).
+     mono  — instrument only: coordinates, readouts, the month strip. Never a sentence.
+   No border-radius anywhere. Hover durations .8–.9s on var(--ease).
+   ========================================================================== */
+
+@font-face{font-family:'Prata';src:url('fonts/prata.woff2') format('woff2');font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:'Fragment Mono';src:url('fonts/fragment-mono.woff2') format('woff2');font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:'Archivo';src:url('fonts/archivo.woff2') format('woff2');font-weight:400 500;font-style:normal;font-display:swap}
+
+:root{
+  --bg:#0d1322;
+  --deep:#080b15;
+  --ink:#f6f5f3;
+  --ink-soft:rgba(246,245,243,.72);
+  --muted:#9ca3af;
+  --dim:#767e93; /* was #6e768b — nudged to clear WCAG 4.5 on both grounds, visually identical */
+  --line:rgba(246,245,243,.16);
+  --line-soft:rgba(246,245,243,.08);
+  --accent:#f6f5f3; /* retired to ivory 2026-07-17 — owner ruled the blue off (gate hover, then the book button). Two-ink site. */
+  --serif:'Prata',georgia,serif;
+  --sans:'Archivo','Helvetica Neue',helvetica,arial,sans-serif;
+  --mono:'Fragment Mono','SF Mono',ui-monospace,monospace;
+  --ease:cubic-bezier(.78,0,.22,1);
+  --ease-out:cubic-bezier(.16,1,.3,1);
+  --pad:clamp(20px,4.5vw,64px);
+}
+
+*{margin:0;padding:0;box-sizing:border-box}
+html{scrollbar-width:thin;scrollbar-color:#1d294a transparent;scroll-behavior:smooth}
+::-webkit-scrollbar{width:6px}
+::-webkit-scrollbar-thumb{background:#1d294a}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:.9375rem;line-height:1.7;
+  -webkit-font-smoothing:antialiased;overflow-x:hidden}
+::selection{background:var(--accent);color:var(--bg)}
+img,video{max-width:100%;display:block}
+a{color:var(--ink)}
+h1,h2,h3{font-family:var(--serif);font-weight:400;line-height:1.04;letter-spacing:.01em}
+
+.m{font-family:var(--sans);font-size:.6875rem;letter-spacing:.3em;color:var(--muted);text-transform:uppercase}
+.m-dim{color:var(--dim)}
+/* the instrument lane */
+.inst{font-family:var(--mono)}
+
+.shell{max-width:74rem;margin:0 auto;padding:0 var(--pad)}
+.narrow{max-width:60rem}
+
+/* ================= WATER =================
+   assets/water.js paints here. It sits at z-index:-1, which lands ABOVE the
+   viewport background (body's bg propagates to the root and paints below every
+   layer) and BELOW all in-flow content. So any section that declares its own
+   background masks the water, and any section that doesn't lets it through.
+   That is deliberate, not incidental: .band shows water, .band-deep stays solid
+   near-black. The water lives in the dark BLUE rooms only.
+   If water.js opts out — reduced motion, coarse pointer, no WebGL2 — no canvas
+   is ever appended and the propagated --bg background is simply what you see. */
+.water{position:fixed;inset:0;z-index:-1;pointer-events:none;display:block}
+
+/* ================= FILM GRAIN (pure CSS, no JS) ================= */
+.grain{position:fixed;inset:-8%;z-index:90;pointer-events:none;opacity:.05;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)'/%3E%3C/svg%3E");}
+
+/* ================= CHROME ================= */
+.chrome{position:fixed;top:0;left:0;right:0;z-index:60;display:flex;align-items:center;justify-content:space-between;
+  padding:24px var(--pad);mix-blend-mode:difference}
+.chrome a{color:var(--ink);text-decoration:none}
+.mark{font-size:.75rem;letter-spacing:.42em;text-transform:uppercase;font-family:var(--sans)}
+.chrome-right{display:flex;align-items:center;gap:28px}
+.crumb{font-family:var(--sans);font-size:.6875rem;letter-spacing:.3em;text-transform:uppercase;color:var(--muted)}
+.booklink{font-family:var(--sans);font-size:.6875rem;letter-spacing:.28em;text-transform:uppercase;
+  border-bottom:1px solid var(--line);padding-bottom:4px;transition:border-color .8s var(--ease)}
+.booklink:hover{border-color:var(--ink)}
+@media(max-width:860px){.crumb{display:none}.chrome-right{gap:18px}}
+
+/* ================= PAGE HERO ================= */
+.pg-hero{position:relative;min-height:78svh;display:flex;align-items:flex-end;overflow:hidden}
+.pg-hero-media{position:absolute;inset:0}
+.pg-hero-media img{width:100%;height:100%;object-fit:cover}
+.pg-hero-grade{position:absolute;inset:0;
+  background:linear-gradient(180deg,rgba(8,11,21,.86) 0%,rgba(8,11,21,.34) 40%,rgba(13,19,34,.78) 78%,var(--bg) 100%)}
+.pg-hero-inner{position:relative;z-index:2;width:100%;padding-bottom:clamp(56px,9vh,110px);padding-top:150px}
+.pg-hero h1{font-size:clamp(2.4rem,6.2vw,5rem);max-width:16ch;margin-top:26px}
+.pg-hero .sub{margin-top:30px;max-width:52ch;color:var(--ink-soft)}
+.pg-hero .stamp{margin-top:38px;display:flex;gap:28px;flex-wrap:wrap;font-size:.625rem;letter-spacing:.26em;
+  color:var(--dim);text-transform:uppercase;font-family:var(--mono)}
+
+/* ================= SECTION FURNITURE ================= */
+.band{padding:clamp(110px,17vh,210px) 0}
+.band-deep{background:var(--deep)}
+.chapter-head{display:flex;justify-content:space-between;align-items:baseline;gap:24px;
+  border-top:1px solid var(--line);padding-top:20px;margin-bottom:clamp(48px,8vh,96px);flex-wrap:wrap}
+.chapter-head .idx::before{content:"+";color:var(--dim);margin-right:14px}
+
+.lede{font-family:var(--serif);font-size:clamp(1.75rem,4.2vw,3.3rem);line-height:1.3;max-width:26ch}
+.statement{font-family:var(--serif);font-size:clamp(1.6rem,3.4vw,2.6rem);line-height:1.3;max-width:22ch}
+.prose{max-width:56ch;color:var(--muted)}
+.prose + .prose{margin-top:24px}
+.prose strong{color:var(--ink);font-weight:400}
+.prose em{color:var(--ink-soft);font-style:normal}
+.split{display:grid;grid-template-columns:1fr 1fr;gap:clamp(32px,6vw,88px);align-items:start}
+@media(max-width:860px){.split{grid-template-columns:1fr;gap:36px}}
+
+/* ================= THE MONTH STRIP (season gauge) =================
+   a readout, not a table of contents — hence mono, hence the bars.
+   three levels only. inventing a fourth means inventing data. */
+.cal-wrap{overflow-x:auto;border-top:1px solid var(--line);padding-top:4px}
+.cal{width:100%;min-width:660px;border-collapse:collapse}
+.cal th,.cal td{padding:0;text-align:left}
+.cal thead th{font-family:var(--mono);font-size:.625rem;letter-spacing:.14em;color:var(--dim);
+  font-weight:400;padding:14px 0 16px;text-align:center;width:5.4%}
+.cal thead th:first-child{text-align:left;width:auto;padding-left:0}
+.cal tbody tr{border-bottom:1px solid var(--line-soft)}
+.cal tbody th{font-family:var(--serif);font-weight:400;font-size:1.0625rem;letter-spacing:.02em;
+  padding:18px 24px 18px 0;white-space:nowrap}
+.cal .mo{padding:18px 3px}
+.cal .mo i{display:block;height:9px;background:rgba(246,245,243,.06)}
+.cal .mo.good i{background:rgba(246,245,243,.26)}
+.cal .mo.peak i{background:var(--accent)}
+.cal-key{display:flex;gap:26px;flex-wrap:wrap;margin-top:28px;font-size:.625rem;letter-spacing:.26em;
+  color:var(--dim);text-transform:uppercase;font-family:var(--sans)}
+.cal-key span{display:inline-flex;align-items:center;gap:9px}
+.cal-key i{width:22px;height:9px;display:inline-block}
+.cal-key .k-peak{background:var(--accent)}
+.cal-key .k-good{background:rgba(246,245,243,.26)}
+.cal-key .k-slow{background:rgba(246,245,243,.06)}
+.cal-note{margin-top:34px;max-width:62ch;font-size:.8125rem;color:var(--dim);line-height:1.8}
+
+/* ================= LEDGER ROWS (species / facts) ================= */
+.ledger{list-style:none;border-top:1px solid var(--line)}
+.ledger li{display:grid;grid-template-columns:64px minmax(200px,1.1fr) minmax(150px,.6fr) 1.5fr;
+  gap:24px;align-items:baseline;padding:30px 0;border-bottom:1px solid var(--line-soft);
+  transition:padding-left .6s var(--ease-out)}
+.ledger li:hover{padding-left:20px}
+.ledger .no{font-size:.625rem;letter-spacing:.2em;color:var(--dim)}
+.ledger .name{font-family:var(--serif);font-size:clamp(1.3rem,2.6vw,2rem)}
+.ledger .season{font-size:.625rem;letter-spacing:.22em;color:var(--muted);text-transform:uppercase}
+.ledger .note{font-size:.75rem;color:var(--muted);line-height:1.7}
+@media(max-width:860px){.ledger li{grid-template-columns:44px 1fr;gap:8px 16px}
+  .ledger .season,.ledger .note{grid-column:2}}
+
+/* ================= NUMBER ROWS ================= */
+.figs{list-style:none;border-top:1px solid var(--line)}
+.figs li{display:grid;grid-template-columns:1.4fr minmax(160px,.6fr);gap:28px;align-items:baseline;
+  padding:34px 0;border-bottom:1px solid var(--line-soft)}
+.figs .what{font-size:.8125rem;color:var(--muted);line-height:1.75;max-width:46ch}
+.figs .fig{font-family:var(--serif);font-size:clamp(1.8rem,3.6vw,2.9rem);text-align:right;line-height:1}
+.figs .fig small{display:block;font-family:var(--sans);font-size:.625rem;letter-spacing:.26em;
+  color:var(--dim);margin-top:12px;text-transform:uppercase}
+@media(max-width:860px){.figs li{grid-template-columns:1fr;gap:14px}.figs .fig{text-align:left}}
+
+/* ================= TIMELINE ================= */
+.steps{list-style:none;border-top:1px solid var(--line)}
+.steps li{display:grid;grid-template-columns:minmax(140px,.44fr) 1.4fr;gap:clamp(20px,4vw,56px);
+  padding:38px 0;border-bottom:1px solid var(--line-soft)}
+.steps .when{font-family:var(--mono);font-size:.625rem;letter-spacing:.2em;color:var(--dim);padding-top:6px}
+.steps h3{font-size:clamp(1.25rem,2.4vw,1.75rem);margin-bottom:14px}
+.steps p{font-size:.8125rem;color:var(--muted);line-height:1.8;max-width:52ch}
+@media(max-width:860px){.steps li{grid-template-columns:1fr;gap:12px}}
+
+/* ================= LISTS ================= */
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:clamp(32px,6vw,80px)}
+@media(max-width:860px){.cols{grid-template-columns:1fr;gap:52px}}
+.tick{list-style:none;margin-top:26px;border-top:1px solid var(--line-soft)}
+.tick li{padding:16px 0;border-bottom:1px solid var(--line-soft);font-size:.8125rem;color:var(--muted);line-height:1.7}
+.tick li b{font-weight:400;color:var(--ink)}
+
+/* ================= Q & A ================= */
+.qa{list-style:none;border-top:1px solid var(--line)}
+.qa li{padding:40px 0;border-bottom:1px solid var(--line-soft)}
+.qa h3{font-size:clamp(1.15rem,2.2vw,1.55rem);max-width:34ch}
+.qa p{margin-top:16px;font-size:.8125rem;color:var(--muted);line-height:1.85;max-width:60ch}
+.qa p + p{margin-top:14px}
+.qa a{color:var(--ink-soft);border-bottom:1px solid var(--line);text-decoration:none;
+  transition:border-color .8s var(--ease),color .8s var(--ease)}
+.qa a:hover{border-color:var(--accent);color:#fff}
+
+/* ================= ASIDE / PULL ================= */
+.pull{border-left:1px solid var(--accent);padding:6px 0 6px 30px;margin:clamp(44px,7vh,80px) 0;max-width:52ch}
+.pull p{font-family:var(--serif);font-size:clamp(1.15rem,2.2vw,1.55rem);line-height:1.4}
+.pull .src{margin-top:18px;font-family:var(--sans);font-size:.625rem;letter-spacing:.24em;
+  color:var(--dim);text-transform:uppercase}
+
+/* ================= FIGURE ================= */
+.frame{overflow:hidden}
+.frame img{width:100%;height:100%;object-fit:cover}
+figcaption{margin-top:14px;font-size:.625rem;letter-spacing:.24em;color:var(--dim);text-transform:uppercase}
+
+/* ================= INLINE LINK (in prose) ================= */
+.xlink{color:var(--ink-soft);text-decoration:none;border-bottom:1px solid var(--line);
+  transition:border-color .8s var(--ease),color .8s var(--ease)}
+.xlink:hover{border-color:var(--accent);color:#fff}
+.guide-link{display:inline-block;margin-top:56px;font-family:var(--sans);font-size:.6875rem;letter-spacing:.28em;
+  text-transform:uppercase;text-decoration:none;border-bottom:1px solid var(--line);padding-bottom:6px;
+  transition:border-color .8s var(--ease),color .8s var(--ease)}
+.guide-link:hover{border-color:var(--accent);color:#fff}
+
+/* ================= CTA ================= */
+.closer{position:relative;padding:clamp(120px,18vh,200px) 0;text-align:center;background:var(--deep);
+  border-top:1px solid var(--line-soft)}
+.closer h2{font-size:clamp(2.2rem,5.4vw,4rem);max-width:16ch;margin:0 auto}
+.closer .note{margin:30px auto 0;max-width:42ch;color:var(--ink-soft)}
+.closer-actions{display:flex;gap:18px;justify-content:center;margin-top:50px;flex-wrap:wrap}
+.btn{font-family:var(--sans);font-size:.75rem;letter-spacing:.28em;text-transform:uppercase;text-decoration:none;
+  padding:20px 40px;display:inline-block;
+  transition:background .9s var(--ease),border-color .9s var(--ease),color .9s var(--ease),transform .9s var(--ease-out)}
+.btn-solid{background:transparent;color:var(--ink);border:1px solid var(--ink)}
+.btn-solid:hover{background:var(--ink);color:var(--bg);transform:translateY(-2px)}
+.btn-ghost{border:1px solid var(--line);color:var(--ink)}
+.btn-ghost:hover{border-color:var(--ink);transform:translateY(-2px)}
+
+/* ================= FOOTER ================= */
+.site-foot{border-top:1px solid var(--line-soft);padding:clamp(56px,8vh,88px) var(--pad) 0}
+.foot-grid{max-width:74rem;margin:0 auto;display:grid;grid-template-columns:1.5fr 1fr 1fr;gap:clamp(32px,5vw,64px)}
+.foot-grid h4{font-family:var(--sans);font-size:.625rem;letter-spacing:.3em;color:var(--dim);
+  text-transform:uppercase;font-weight:400;margin-bottom:22px}
+.foot-brand .fmark{font-family:var(--serif);font-size:1.5rem;letter-spacing:.02em}
+.foot-brand p{margin-top:18px;max-width:34ch;font-size:.8125rem;color:var(--muted);line-height:1.75}
+.foot-brand .coords{margin-top:22px;font-family:var(--mono);font-size:.625rem;letter-spacing:.16em;color:var(--dim)}
+.foot-list{list-style:none}
+.foot-list li{margin-bottom:13px}
+.foot-list a{font-size:.8125rem;color:var(--muted);text-decoration:none;transition:color .8s var(--ease)}
+.foot-list a:hover{color:var(--ink)}
+.foot-bar{max-width:74rem;margin:clamp(48px,7vh,80px) auto 0;border-top:1px solid var(--line-soft);
+  padding:28px 0;display:flex;justify-content:space-between;gap:18px;flex-wrap:wrap;
+  font-size:.625rem;letter-spacing:.26em;color:var(--dim);text-transform:uppercase}
+@media(max-width:860px){.foot-grid{grid-template-columns:1fr;gap:44px}}
+
+/* ================= REVEAL (IntersectionObserver, CSS-owned) =================
+   no GSAP on these pages. two escape hatches, both deliberate:
+
+   1. html.js — .rv only hides once JS is confirmed running, so a no-JS reader
+      (and any crawler that skips scripts) gets the page fully visible.
+   2. html.static — assets/reveal.js sets this when it catches the observer not
+      firing. it kills the hiding rule OUTRIGHT rather than adding .in, because
+      in the renderers where IO stalls the TRANSITION is usually stalled too —
+      measured: .in applied, cascade correct, opacity still pinned at 0 because
+      the transition never advanced. adding .in there would look like a fix and
+      still ship a blank page. same idiom as index.html's html.static net. */
+html.js:not(.static) .rv{opacity:0;transform:translateY(18px);
+  transition:opacity 1s var(--ease-out),transform 1s var(--ease-out)}
+html.js:not(.static) .rv.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  html.js .rv{opacity:1;transform:none;transition:none}
+}
+
+/* keyboard focus — currentColor adapts to each room's ink */
+a:focus-visible,button:focus-visible{outline:1px solid currentColor;outline-offset:4px}

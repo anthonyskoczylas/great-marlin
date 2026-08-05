@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+
+# working files — never index
+Disallow: /cgi-tests/
+
+Sitemap: https://greatmarlin.com/sitemap.xml
