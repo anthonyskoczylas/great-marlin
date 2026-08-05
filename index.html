@@ -31,7 +31,7 @@
       "url":"https://greatmarlin.com/",
       "image":"https://greatmarlin.com/assets/gm-hero.jpg",
       "telephone":"+1-321-356-1951",
-      "email":"anthonyskoczylas@yahoo.com",
+      "email":"greatmarlincr@gmail.com",
       "priceRange":"$1,250 - $1,750",
       "address":{
         "@type":"PostalAddress",
@@ -100,7 +100,7 @@
       "brand":{"@id":"https://greatmarlin.com/#business"},
       "offers":{
         "@type":"Offer",
-        "price":"1750",
+        "price":"1550",
         "priceCurrency":"USD",
         "availability":"https://schema.org/InStock",
         "url":"https://greatmarlin.com/#trips",
@@ -351,7 +351,7 @@ html.static #bearing{display:none}
    only empty fog. Pin the poster to a single viewport and bias the framing to
    the transom so the whole boat, name and all, lands inside the gate. */
 @media(max-width:860px){
-  .opening-media{height:100svh;background-position:58% 45%}
+  .opening-media{height:100svh;background-position:66% 50%}
   /* the scrub video never mounts on mobile (data-src only), but the empty <video>
      box is 100%×100% and paints opaque OVER the poster — it hid the boat entirely
      and the gate showed flat fog. drop it here; the poster is the mobile hero. */
@@ -425,12 +425,17 @@ html.dawn .grain{filter:sepia(.45) saturate(1.25)}
 .cue::after{content:"";width:1px;height:48px;background:linear-gradient(var(--muted),transparent);animation:cue 2.4s var(--ease) infinite}
 @keyframes cue{0%{transform:scaleY(0);transform-origin:top}45%{transform:scaleY(1);transform-origin:top}55%{transform:scaleY(1);transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
 
-/* mobile: statements stack and scroll (no pin) */
+/* mobile hero: the NAME leads over the clear fog at the top (navy reads there),
+   OFF the dark hull where it blended. The depth-line statements (st2/st3) are
+   dropped on mobile — below the 100svh poster they rendered navy-on-navy, an
+   invisible "empty" void. Coords sit at the foot, over the pale water. */
 @media(max-width:860px){
-  .stage{display:block;min-height:0;padding-top:30svh}
-  .st{position:relative;min-height:52svh;max-width:none;display:flex;flex-direction:column;justify-content:center;text-align:left}
+  .stage{display:block;min-height:0;padding-top:11svh}
+  .st{position:relative;min-height:auto;max-width:none;display:flex;flex-direction:column;justify-content:flex-start;text-align:left}
   .st h2,.st h1{font-size:clamp(2.1rem,9.5vw,3.2rem)}
-  .opening-coords{position:static;display:block;padding:0 0 110px;margin-left:0}
+  #st2,#st3{display:none}
+  #st1 .sub,#st1 .sub-stamp{text-shadow:0 1px 12px rgba(246,245,243,.55)}
+  .opening-coords{position:absolute;bottom:calc(30px + env(safe-area-inset-bottom));left:var(--pad);right:auto;padding:0;margin:0}
   .opening-media{position:absolute}
   .cue{display:none}
 }
@@ -826,7 +831,7 @@ html.static #hud{display:none}
     <div class="trip" data-reveal>
       <h3>Tortuga Island</h3>
       <p class="desc">A day at the island &#183; white sand &#183; water clear enough to snorkel &#183; no rods</p>
-      <p class="price">$1,750<small>Whole boat &#183; up to eight</small><a class="trip-ask" href="https://wa.me/13213561951?text=Hi%20%E2%80%94%20asking%20about%20the%20Tortuga%20Island%20day." target="_blank" rel="noopener">Ask on WhatsApp</a></p>
+      <p class="price">$1,550<small>Whole boat &#183; up to eight</small><a class="trip-ask" href="https://wa.me/13213561951?text=Hi%20%E2%80%94%20asking%20about%20the%20Tortuga%20Island%20day." target="_blank" rel="noopener">Ask on WhatsApp</a></p>
     </div>
     <div class="trip" data-reveal>
       <h3>Sunset cruise</h3>
@@ -859,7 +864,7 @@ html.static #hud{display:none}
     <p class="book-note" data-reveal>Message us. Dates, crew, what you want to catch &#8212; answers come fast.</p>
     <div class="book-actions" data-reveal>
       <a class="btn btn-ghost" href="https://wa.me/13213561951" target="_blank" rel="noopener">WhatsApp us</a>
-      <a class="btn btn-ghost" href="mailto:anthonyskoczylas@yahoo.com?subject=Charter%20booking%20request">Email</a>
+      <a class="btn btn-ghost" href="mailto:greatmarlincr@gmail.com?subject=Charter%20booking%20request">Email</a>
     </div>
     <p class="book-meta m m-dim" data-reveal>Herradura Bay &#183; Jac&#243; &#183; Costa Rica</p>
   </div>
