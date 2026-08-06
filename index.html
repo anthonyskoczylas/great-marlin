@@ -350,13 +350,16 @@ html.static #bearing{display:none}
    vertical middle of that tall box, i.e. BELOW the fold, and the gate showed
    only empty fog. Pin the poster to a single viewport and bias the framing to
    the transom so the whole boat, name and all, lands inside the gate.
-   background-position-x = 75%: on portrait, cover zooms the wide composition
+   background-position-x = 73%: on portrait, cover zooms the wide composition
    hard and the visible slice is narrow. 66% cut the crop straight through the
-   transom lettering; 78% cleared it but chopped too much bow. 75% is the sweet
-   spot — full GREAT MARLIN / PUNTARENAS legible with a small right margin, only
-   the bow pulpit tip off-frame left. Re-verify at 375w portrait if you touch it. */
+   transom lettering; 78% cleared it but left dead fog to the right and chopped
+   too much bow. owner ruling 2026-08-05: cut flush at the transom's aft corner —
+   73% lands the boat's back edge at the right edge (no fog margin) while giving
+   the bow the reclaimed space on the left. Full GREAT MARLIN / PUNTARENAS stays
+   legible. Re-verify at ~390w portrait if you touch it; tighter starts eating
+   the name, and the only way to gain MORE bow is a zoom-out (letterbox). */
 @media(max-width:860px){
-  .opening-media{height:100svh;background-position:75% 50%}
+  .opening-media{height:100svh;background-position:73% 50%}
   /* the scrub video never mounts on mobile (data-src only), but the empty <video>
      box is 100%×100% and paints opaque OVER the poster — it hid the boat entirely
      and the gate showed flat fog. drop it here; the poster is the mobile hero. */
@@ -419,7 +422,10 @@ html.dawn .grain{filter:sepia(.45) saturate(1.25)}
 .st h1{letter-spacing:.04em}
 .st .sub{margin-top:28px;max-width:64ch;margin-inline:auto}
 /* the day starts before the heat — said once, quietly, right under the name */
-.sub-stamp{margin-top:26px;font-size:.625rem;letter-spacing:.42em;color:rgba(13,19,34,.8)}
+/* slogan line — a brand signature, not an instrument stamp, so Archivo (not mono)
+   and italic, at a legible size with easy tracking. owner ruling 2026-08-05. */
+.sub-stamp{margin-top:22px;font-size:.875rem;letter-spacing:.06em;font-style:italic;color:rgba(13,19,34,.82);
+  max-width:34ch;margin-inline:auto;text-wrap:balance}
 /* the statements sit ON the pale fog, so they invert: measured 7.6:1 in navy vs
    2.24:1 in the site's off-white. the hero is the one light room in a dark house. */
 #opening .st h1,#opening .st h2{color:var(--bg)}
@@ -700,7 +706,7 @@ html.static #hud{display:none}
     <div class="st" id="st1">
       <h1 class="split-hide" data-split>Great Marlin</h1>
       <p class="sub m split-hide" data-split>Private sportfishing charter &#183; Herradura Bay &#183; Costa Rica</p>
-      <p class="sub-stamp m split-hide" data-split>Lines off at seven</p>
+      <p class="sub-stamp split-hide" data-split>Some boats are named. This one was earned.</p>
     </div>
     <div class="st" id="st2">
       <!-- verified 2026-07-16 against GEBCO bathymetry along the actual run
