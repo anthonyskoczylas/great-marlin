@@ -349,9 +349,14 @@ html.static #bearing{display:none}
    stretched the poster across all of it — cover then parked the boat near the
    vertical middle of that tall box, i.e. BELOW the fold, and the gate showed
    only empty fog. Pin the poster to a single viewport and bias the framing to
-   the transom so the whole boat, name and all, lands inside the gate. */
+   the transom so the whole boat, name and all, lands inside the gate.
+   background-position-x = 75%: on portrait, cover zooms the wide composition
+   hard and the visible slice is narrow. 66% cut the crop straight through the
+   transom lettering; 78% cleared it but chopped too much bow. 75% is the sweet
+   spot — full GREAT MARLIN / PUNTARENAS legible with a small right margin, only
+   the bow pulpit tip off-frame left. Re-verify at 375w portrait if you touch it. */
 @media(max-width:860px){
-  .opening-media{height:100svh;background-position:66% 50%}
+  .opening-media{height:100svh;background-position:75% 50%}
   /* the scrub video never mounts on mobile (data-src only), but the empty <video>
      box is 100%×100% and paints opaque OVER the poster — it hid the boat entirely
      and the gate showed flat fog. drop it here; the poster is the mobile hero. */
