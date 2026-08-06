@@ -347,19 +347,27 @@ html.static #bearing{display:none}
 /* MOBILE HERO (≤860): the scrub never mounts, so the poster IS the hero. But
    #opening runs ~2× viewport tall (the pinned statement stack), and inset:0
    stretched the poster across all of it — cover then parked the boat near the
-   vertical middle of that tall box, i.e. BELOW the fold, and the gate showed
-   only empty fog. Pin the poster to a single viewport and bias the framing to
-   the transom so the whole boat, name and all, lands inside the gate.
-   background-position-x = 73%: on portrait, cover zooms the wide composition
-   hard and the visible slice is narrow. 66% cut the crop straight through the
-   transom lettering; 78% cleared it but left dead fog to the right and chopped
-   too much bow. owner ruling 2026-08-05: cut flush at the transom's aft corner —
-   73% lands the boat's back edge at the right edge (no fog margin) while giving
-   the bow the reclaimed space on the left. Full GREAT MARLIN / PUNTARENAS stays
-   legible. Re-verify at ~390w portrait if you touch it; tighter starts eating
-   the name, and the only way to gain MORE bow is a zoom-out (letterbox). */
+   vertical middle of that tall box, i.e. BELOW the fold.
+   WHY NOT COVER: the poster is 1928×1074 (16:9) and a phone is ~9:19.5, so cover
+   shows only ~26% of the image width — a slice narrower than the boat itself.
+   That forces a bow-vs-name tradeoff (66% cut the transom lettering; 73% cut
+   flush at the aft corner but the bow stayed cropped). Owner wanted the WHOLE
+   boat — full bow AND full name — which geometry says is impossible under cover.
+   ZOOM-OUT INSTEAD (owner ruling 2026-08-05): background-size auto 60% shrinks
+   the boat until its full ~777px width fits the viewport (fits phones ≥~375w;
+   below that the bow/name start to clip — re-verify small widths if you touch it).
+   The poster then only fills the top 60%; the letterbox below would be a hard
+   navy cut, so a 2nd background layer — linear-gradient(#84919b→#84919b 60%→
+   #0d1322) — holds the poster's own bottom-water tone (#84919b, sampled) to the
+   seam, then fades to site navy. Reads as mist on water, not a rectangle edge.
+   posX 72% centres the boat; the .opening-grade overlay darkens the lower zone. */
 @media(max-width:860px){
-  .opening-media{height:100svh;background-position:73% 50%}
+  .opening-media{height:100svh;
+    background-image:url('assets/orbit360-poster.jpg?v=4'),linear-gradient(#84919b 0%,#84919b 60%,#0d1322 100%);
+    background-size:auto 60%,cover;
+    background-position:72% 0%,center;
+    background-repeat:no-repeat,no-repeat;
+    background-color:#0d1322}
   /* the scrub video never mounts on mobile (data-src only), but the empty <video>
      box is 100%×100% and paints opaque OVER the poster — it hid the boat entirely
      and the gate showed flat fog. drop it here; the poster is the mobile hero. */
