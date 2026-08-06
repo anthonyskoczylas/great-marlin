@@ -350,18 +350,19 @@ html.static #bearing{display:none}
    vertical middle of that tall box, i.e. BELOW the fold, and the gate showed
    only empty fog. Pin the poster to a single viewport and bias the framing to
    the transom so the whole boat, name and all, lands inside the gate.
-   background-position-x = 72.5%: on portrait, cover zooms the wide composition
-   hard and the visible slice is narrow. 66% cut through the transom lettering;
-   78% left dead fog right and chopped too much bow; 73% put the boat's aft
-   corner at the edge but the owner wanted more front. owner ruling 2026-08-05:
-   land the right edge exactly on the N of "GREAT MARLIN" — the aft corner runs
-   off-frame, buying the bow that much more room on the left. Full GREAT MARLIN /
-   PUNTARENAS stays legible (PUNTARENAS is shorter, sits clear). Tuned at 393w;
-   knife-edge — 72% clips the N, 73% adds margin. Re-verify at ~390w if you touch
-   it; the zoom-out that shows the WHOLE boat was built and REJECTED (too small +
-   visible seam), so cropping the bow here is deliberate, not a miss. */
+   background-position-x = 70.5%: on portrait, cover zooms the wide composition
+   hard and the visible slice is narrow. owner ruling 2026-08-05: land the right
+   edge exactly on the N of "GREAT MARLIN" — aft corner runs off-frame, buying the
+   bow max room on the left. ★ TUNE AGAINST THE TOOLBAR-SHOWN HEIGHT, NOT full svh:
+   real iOS Safari shows a bottom toolbar on the gate (no scroll to hide it), so
+   the element's effective height is ~704 not 852 at 393w — a WIDER element aspect,
+   which reveals more image width and pushes the boat's aft corner back into frame.
+   A full-height 393×852 preview mistunes this (72.5% there = fog margin on the
+   real phone). Verify at ~393×704. Full GREAT MARLIN / PUNTARENAS stays legible;
+   PUNTARENAS is shorter and sits clear. The zoom-out that shows the WHOLE boat was
+   built and REJECTED (too small + visible seam) — cropping the bow is deliberate. */
 @media(max-width:860px){
-  .opening-media{height:100svh;background-position:72.5% 50%}
+  .opening-media{height:100svh;background-position:70.5% 50%}
   /* the scrub video never mounts on mobile (data-src only), but the empty <video>
      box is 100%×100% and paints opaque OVER the poster — it hid the boat entirely
      and the gate showed flat fog. drop it here; the poster is the mobile hero. */
