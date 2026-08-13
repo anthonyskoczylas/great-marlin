@@ -1065,16 +1065,7 @@ if (hasGSAP) gsap.registerPlugin(ScrollTrigger);
 /* ---------- Lenis smooth scroll wired to GSAP ticker ---------- */
 var lenis = null, lenisTick = null;
 if (hasGSAP && typeof Lenis !== 'undefined' && !reduce){
-  lenis = new Lenis({
-    duration: 1.15,
-    smoothWheel: true,
-    /* mobile glide: route finger-scroll through Lenis so phones get the same
-       eased momentum as the wheel (was native/jerky before). syncTouchLerp
-       ~0.08 = a smooth-but-controlled drift, not floaty. */
-    syncTouch: true,
-    syncTouchLerp: 0.08,
-    touchInertiaMultiplier: 20
-  });
+  lenis = new Lenis({ duration: 1.15, smoothWheel: true });
   lenis.on('scroll', ScrollTrigger.update);
   /* named + null-guarded: if anything destroys lenis (static fallback), this
      listener must not become a throw-per-frame loop that kills the ticker */
