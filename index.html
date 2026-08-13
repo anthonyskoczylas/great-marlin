@@ -363,10 +363,11 @@ html.static #bearing{display:none}
    built and REJECTED (too small + visible seam) — cropping the bow is deliberate. */
 @media(max-width:860px){
   .opening-media{height:100svh;background-position:70.5% 50%}
-  /* the scrub video never mounts on mobile (data-src only), but the empty <video>
-     box is 100%×100% and paints opaque OVER the poster — it hid the boat entirely
-     and the gate showed flat fog. drop it here; the poster is the mobile hero. */
-  #openingMedia video{display:none}
+  /* mobile now mounts a LIGHT autoplay loop (orbit360-mobile.mp4) so the boat
+     turns — show the video and frame it exactly like the tuned poster crop
+     (object-position 70.5% matches .opening-media's background-position). The
+     poster still sits behind it as the gate/frame-0 and the load fallback. */
+  #openingMedia video{display:block;object-fit:cover;object-position:70.5% 50%}
 }
 /* the old grade was built to darken a bright wave video. the orbit is pale fog, and
    crushing it to navy throws away the whole look. so: leave the fog alone where the
@@ -1393,11 +1394,17 @@ var ORBIT_MQ = window.matchMedia('(min-width: 861px)');
 function mountOrbit(){
   var v = document.querySelector('#openingMedia video');
   if (!v || v.querySelector('source')) return;          /* already mounted */
-  if (reduce || !ORBIT_MQ.matches) return;              /* no scrub here — no download */
+  if (reduce) return;                                    /* reduced motion: poster only */
+  /* Desktop scrubs the full 12MB all-intra file frame-by-frame on scroll.
+     Phones can't scrub that smoothly (heavy per-seek decode), so mobile gets a
+     light 0.7MB loop that just AUTOPLAYS — the boat turns on its own, buttery,
+     no scroll-scrub. Different source, same orbit. */
+  var mobile = !ORBIT_MQ.matches;
   var s = document.createElement('source');
-  s.src = v.getAttribute('data-src');
+  s.src = mobile ? 'assets/orbit360-mobile.mp4?v=1' : v.getAttribute('data-src');
   s.type = 'video/mp4';
   v.appendChild(s);
+  if (mobile){ v.loop = true; v.muted = true; v.setAttribute('playsinline', ''); }
   v.load();
 }
 /* Belt and braces on purpose. mountOrbit() is idempotent (it returns early once a
@@ -1418,12 +1425,15 @@ function primeOrbit(){
   var v = document.querySelector('#openingMedia video');
   if (!v) return;
   mountOrbit();          /* belt and braces: never prime a video with no source */
+  /* desktop: play once to unlock the decoder, then pause — scroll is the playhead.
+     mobile: it's an autoplay loop, so let it keep running (never pause). */
+  var mobile = !ORBIT_MQ.matches;
   var p;
   try { p = v.play(); } catch(e){ return; }
   if (p && p.then){
-    p.then(function(){ v.pause(); try { v.currentTime = 0; } catch(e){} })
+    p.then(function(){ if (!mobile){ v.pause(); try { v.currentTime = 0; } catch(e){} } })
      .catch(function(){ /* autoplay blocked — chrome scrubs fine without the prime */ });
-  } else {
+  } else if (!mobile){
     try { v.pause(); v.currentTime = 0; } catch(e){}
   }
 }
