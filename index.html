@@ -367,8 +367,8 @@ html.static #bearing{display:none}
      at every angle of the 360 (a tall crop can't fit the wide broadside; a square
      can). object-fit:contain shows the full square; the fog fill above/below is
      the poster/bg, which is the same fog so it blends seamlessly. */
-  .opening-media{height:100svh;background-image:url('assets/orbit360-mobile-poster.jpg?v=4');background-size:cover;background-position:center}
-  #openingMedia video{display:block;object-fit:contain;object-position:center}
+  .opening-media{height:100svh;background-image:url('assets/orbit360-mobile-poster.jpg?v=6');background-size:cover;background-position:center}
+  #openingMedia video{display:block;object-fit:cover;object-position:center}
 }
 /* the old grade was built to darken a bright wave video. the orbit is pale fog, and
    crushing it to navy throws away the whole look. so: leave the fog alone where the
@@ -1393,7 +1393,7 @@ function mountOrbit(){
      no scroll-scrub. Different source, same orbit. */
   var mobile = !ORBIT_MQ.matches;
   var s = document.createElement('source');
-  s.src = mobile ? 'assets/orbit360-mobile.mp4?v=4' : v.getAttribute('data-src');
+  s.src = mobile ? 'assets/orbit360-mobile.mp4?v=6' : v.getAttribute('data-src');
   s.type = 'video/mp4';
   v.appendChild(s);
   if (mobile){ v.loop = true; v.muted = true; v.setAttribute('playsinline', ''); }
