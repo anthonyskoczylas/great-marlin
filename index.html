@@ -362,12 +362,13 @@ html.static #bearing{display:none}
    PUNTARENAS is shorter and sits clear. The zoom-out that shows the WHOLE boat was
    built and REJECTED (too small + visible seam) — cropping the bow is deliberate. */
 @media(max-width:860px){
-  .opening-media{height:100svh;background-position:70.5% 50%}
-  /* mobile now mounts a LIGHT autoplay loop (orbit360-mobile.mp4) so the boat
-     turns — show the video and frame it exactly like the tuned poster crop
-     (object-position 70.5% matches .opening-media's background-position). The
-     poster still sits behind it as the gate/frame-0 and the load fallback. */
-  #openingMedia video{display:block;object-fit:cover;object-position:70.5% 50%}
+  /* Mobile hero = the boat floating in fog. The autoplay loop is a SQUARE crop
+     that follows the boat (orbit360-mobile.mp4), so the WHOLE boat stays centered
+     at every angle of the 360 (a tall crop can't fit the wide broadside; a square
+     can). object-fit:contain shows the full square; the fog fill above/below is
+     the poster/bg, which is the same fog so it blends seamlessly. */
+  .opening-media{height:100svh;background-image:url('assets/orbit360-mobile-poster.jpg?v=3');background-size:cover;background-position:center}
+  #openingMedia video{display:block;object-fit:contain;object-position:center}
 }
 /* the old grade was built to darken a bright wave video. the orbit is pale fog, and
    crushing it to navy throws away the whole look. so: leave the fog alone where the
@@ -445,23 +446,17 @@ html.dawn .grain{filter:sepia(.45) saturate(1.25)}
    dropped on mobile — below the 100svh poster they rendered navy-on-navy, an
    invisible "empty" void. Coords sit at the foot, over the pale water. */
 @media(max-width:860px){
-  /* ACT I is a PINNED cinematic sequence on phones now (poster-only, no video
-     scrub): st1 -> st2 -> st3 trade places over the boat as you scroll, the same
-     move desktop makes. So .stage overlaps its statements (grid 1/1) instead of
-     stacking them in flow, and st2/st3 are un-hidden (they start masked at
-     yPercent:115 via initChoreo, revealed by the mobile timeline). */
-  .stage{display:grid;min-height:100svh;align-items:start;justify-items:start;padding-top:11svh}
-  .st{grid-area:1/1;position:relative;min-height:auto;max-width:none;width:100%;
-      display:flex;flex-direction:column;justify-content:flex-start;text-align:left}
+  /* phones: static hero — the NAME leads, the boat autoplays its orbit (see
+     mountOrbit). No pinned statement sequence (owner ruling 2026-08-12: the
+     pop-up-as-you-scroll lines were removed). st2/st3 stay desktop-only. */
+  .stage{display:block;min-height:0;padding-top:11svh}
+  .st{position:relative;min-height:auto;max-width:none;display:flex;flex-direction:column;justify-content:flex-start;text-align:left}
   .st h2,.st h1{font-size:clamp(2.1rem,9.5vw,3.2rem)}
-  /* the poetic lines can drift over the pale fog OR the hull — a soft light halo
-     keeps navy type legible either way (st1's sub already did this). */
-  #st2 h2,#st3 h2,#st1 .sub,#st1 .sub-stamp{text-shadow:0 1px 14px rgba(246,245,243,.6)}
-  #st2 .split-hide,#st3 .split-hide{max-width:15ch}
+  #st2,#st3{display:none}
+  #st1 .sub,#st1 .sub-stamp{text-shadow:0 1px 12px rgba(246,245,243,.55)}
   .opening-coords{position:absolute;bottom:calc(30px + env(safe-area-inset-bottom));left:var(--pad);right:auto;padding:0;margin:0}
   .opening-media{position:absolute}
-  /* scroll cue returns on mobile (left-aligned under the name), fades as you go */
-  .cue{display:flex;left:var(--pad);transform:none}
+  .cue{display:none}
 }
 
 /* ================= SHARED SECTION FURNITURE ================= */
@@ -1071,9 +1066,6 @@ document.querySelectorAll('[data-split]').forEach(function(el){
 
 var hasGSAP = typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined';
 if (hasGSAP) gsap.registerPlugin(ScrollTrigger);
-/* mobile now pins ACT I too — stop the iOS toolbar show/hide from resizing the
-   viewport mid-pin (the classic pin-jump). Height is read once, not per-scroll. */
-if (hasGSAP) ScrollTrigger.config({ ignoreMobileResize: true });
 
 /* ---------- Lenis smooth scroll wired to GSAP ticker ---------- */
 var lenis = null, lenisTick = null;
@@ -1401,7 +1393,7 @@ function mountOrbit(){
      no scroll-scrub. Different source, same orbit. */
   var mobile = !ORBIT_MQ.matches;
   var s = document.createElement('source');
-  s.src = mobile ? 'assets/orbit360-mobile.mp4?v=1' : v.getAttribute('data-src');
+  s.src = mobile ? 'assets/orbit360-mobile.mp4?v=3' : v.getAttribute('data-src');
   s.type = 'video/mp4';
   v.appendChild(s);
   if (mobile){ v.loop = true; v.muted = true; v.setAttribute('playsinline', ''); }
@@ -1569,27 +1561,13 @@ function initChoreo(){
   });
 
   mm.add('(max-width: 860px)', function(){
-    /* phones pin ACT I now — the poster is the stage and the three statements
-       trade places over it as you scroll, mirroring desktop. No orbit seek: the
-       scrub video is desktop-only, the poster carries the mobile hero. Shorter
-       pin (+210%) than desktop's 280% — three lines, no boat rotation to cover. */
-    gsap.set('.cue', { opacity: 0 });
-    var openM = gsap.timeline({
-      scrollTrigger: {
-        trigger: '#opening', start: 'top top', end: '+=240%',
-        scrub: 1, pin: true, anticipatePin: 1, invalidateOnRefresh: true
-      }
+    /* phones: NO pin, NO statement trade (owner removed the pop-up-on-scroll
+       lines 2026-08-12). The boat autoplays its orbit loop (mountOrbit) and the
+       hero scrolls away normally; coords just drift as it passes. */
+    gsap.to(pos, {
+      lat: 9.35, lon: 84.8667, ease: 'none', onUpdate: drawCoords,
+      scrollTrigger: { trigger: '#opening', start: 'top top', end: 'bottom center', scrub: true }
     });
-    openM
-      .to(pos, { lat: 9.35, lon: 84.8667, ease: 'none', duration: 9, onUpdate: drawCoords }, 0)
-      .fromTo('.cue', { opacity: 1 }, { opacity: 0, duration: 0.5 }, 0.9)
-      .to('#st1 .wi', { yPercent: -115, duration: 1.1, stagger: 0.04, ease: 'power2.in' }, 1.7)
-      .fromTo('#st2 .wi', { yPercent: 115 }, { yPercent: 0, duration: 1.3, stagger: 0.05, ease: 'power3.out' }, 2.7)
-      .to('#st2 .wi', { yPercent: -115, duration: 1.1, stagger: 0.04, ease: 'power2.in' }, 4.9)
-      .fromTo('#st3 .wi', { yPercent: 115 }, { yPercent: 0, duration: 1.5, stagger: 0.06, ease: 'power3.out' }, 6.1)
-      /* tail hold: st3 stays fully in for the last stretch while still pinned, so
-         it isn't yanked up under the nav the instant the pin releases */
-      .to({}, { duration: 2.4 });
     return function(){};
   });
 
