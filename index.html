@@ -362,13 +362,13 @@ html.static #bearing{display:none}
    PUNTARENAS is shorter and sits clear. The zoom-out that shows the WHOLE boat was
    built and REJECTED (too small + visible seam) — cropping the bow is deliberate. */
 @media(max-width:860px){
-  /* Mobile hero = the boat floating in fog. The autoplay loop is a SQUARE crop
-     that follows the boat (orbit360-mobile.mp4), so the WHOLE boat stays centered
-     at every angle of the 360 (a tall crop can't fit the wide broadside; a square
-     can). object-fit:contain shows the full square; the fog fill above/below is
-     the poster/bg, which is the same fog so it blends seamlessly. */
-  .opening-media{height:100svh;background-image:url('assets/orbit360-mobile-poster.jpg?v=4');background-size:cover;background-position:center}
-  #openingMedia video{display:block;object-fit:contain;object-position:center}
+  /* Mobile hero = a purpose-built VERTICAL (9:16) Higgsfield clip (same CGI
+     fog/glass/dawn look as desktop): a smooth cinematic push-in that settles on
+     the whole boat, boat centered throughout, seamless boomerang loop. Native
+     9:16 so object-fit:cover fills the screen full-bleed (like the PC hero) with
+     no letterbox. Poster = frame 0 (the whole boat) so the gate reads strong. */
+  .opening-media{height:100svh;background-image:url('assets/orbit360-mobile-poster.jpg?v=5');background-size:cover;background-position:center}
+  #openingMedia video{display:block;object-fit:cover;object-position:center}
 }
 /* the old grade was built to darken a bright wave video. the orbit is pale fog, and
    crushing it to navy throws away the whole look. so: leave the fog alone where the
@@ -1393,7 +1393,7 @@ function mountOrbit(){
      no scroll-scrub. Different source, same orbit. */
   var mobile = !ORBIT_MQ.matches;
   var s = document.createElement('source');
-  s.src = mobile ? 'assets/orbit360-mobile.mp4?v=4' : v.getAttribute('data-src');
+  s.src = mobile ? 'assets/orbit360-mobile.mp4?v=5' : v.getAttribute('data-src');
   s.type = 'video/mp4';
   v.appendChild(s);
   if (mobile){ v.loop = true; v.muted = true; v.setAttribute('playsinline', ''); }
