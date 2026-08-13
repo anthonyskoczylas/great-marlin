@@ -362,12 +362,10 @@ html.static #bearing{display:none}
    PUNTARENAS is shorter and sits clear. The zoom-out that shows the WHOLE boat was
    built and REJECTED (too small + visible seam) — cropping the bow is deliberate. */
 @media(max-width:860px){
-  /* Mobile hero = the boat floating in fog. The autoplay loop is a SQUARE crop
-     that follows the boat (orbit360-mobile.mp4), so the WHOLE boat stays centered
-     at every angle of the 360 (a tall crop can't fit the wide broadside; a square
-     can). object-fit:contain shows the full square; the fog fill above/below is
-     the poster/bg, which is the same fog so it blends seamlessly. */
-  .opening-media{height:100svh;background-image:url('assets/orbit360-mobile-poster.jpg?v=9');background-size:cover;background-position:center}
+  /* Mobile hero = SCROLL-SCRUB (like desktop): a portrait all-intra crop
+     (orbit360-scrub.mp4) whose currentTime is driven by scroll. Full-bleed cover;
+     poster = frame 0 (bow) so the gate matches the scrub start. */
+  .opening-media{height:100svh;background-image:url('assets/orbit360-mobile-poster.jpg?v=10');background-size:cover;background-position:center}
   #openingMedia video{display:block;object-fit:cover;object-position:center}
 }
 /* the old grade was built to darken a bright wave video. the orbit is pale fog, and
@@ -1066,6 +1064,9 @@ document.querySelectorAll('[data-split]').forEach(function(el){
 
 var hasGSAP = typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined';
 if (hasGSAP) gsap.registerPlugin(ScrollTrigger);
+/* mobile pins + scrubs ACT I too now — stop the iOS toolbar show/hide from
+   resizing the viewport mid-pin (the classic pin-jump). */
+if (hasGSAP) ScrollTrigger.config({ ignoreMobileResize: true });
 
 /* ---------- Lenis smooth scroll wired to GSAP ticker ---------- */
 var lenis = null, lenisTick = null;
@@ -1387,16 +1388,16 @@ function mountOrbit(){
   var v = document.querySelector('#openingMedia video');
   if (!v || v.querySelector('source')) return;          /* already mounted */
   if (reduce) return;                                    /* reduced motion: poster only */
-  /* Desktop scrubs the full 12MB all-intra file frame-by-frame on scroll.
-     Phones can't scrub that smoothly (heavy per-seek decode), so mobile gets a
-     light 0.7MB loop that just AUTOPLAYS — the boat turns on its own, buttery,
-     no scroll-scrub. Different source, same orbit. */
+  /* Both desktop and mobile now SCROLL-SCRUB the orbit (scroll = the boat's
+     rotation). Desktop uses the full-frame all-intra file; mobile uses a lighter
+     all-intra PORTRAIT crop (orbit360-scrub.mp4, every frame a keyframe so iOS
+     can seek it without a decode stall). Never plays — currentTime is the camera. */
   var mobile = !ORBIT_MQ.matches;
+  v.muted = true; v.setAttribute('playsinline', '');
   var s = document.createElement('source');
-  s.src = mobile ? 'assets/orbit360-mobile.mp4?v=9' : v.getAttribute('data-src');
+  s.src = mobile ? 'assets/orbit360-scrub.mp4?v=1' : v.getAttribute('data-src');
   s.type = 'video/mp4';
   v.appendChild(s);
-  if (mobile){ v.loop = true; v.muted = true; v.setAttribute('playsinline', ''); }
   v.load();
 }
 /* Belt and braces on purpose. mountOrbit() is idempotent (it returns early once a
@@ -1417,16 +1418,15 @@ function primeOrbit(){
   var v = document.querySelector('#openingMedia video');
   if (!v) return;
   mountOrbit();          /* belt and braces: never prime a video with no source */
-  /* desktop: play once to unlock the decoder, then pause — scroll is the playhead.
-     mobile: it's an autoplay loop, so let it keep running (never pause). */
-  var mobile = !ORBIT_MQ.matches;
+  /* play once to unlock the decoder (Safari won't render a seeked frame of a
+     video that never played), then pause — scroll is the playhead on both. */
   var p;
   try { p = v.play(); } catch(e){ return; }
   if (p && p.then){
-    p.then(function(){ if (!mobile){ v.pause(); try { v.currentTime = 0; } catch(e){} } })
+    p.then(function(){ v.pause(); try { v.currentTime = 0.001; } catch(e){} })
      .catch(function(){ /* autoplay blocked — chrome scrubs fine without the prime */ });
-  } else if (!mobile){
-    try { v.pause(); v.currentTime = 0; } catch(e){}
+  } else {
+    try { v.pause(); v.currentTime = 0.001; } catch(e){}
   }
 }
 
@@ -1499,6 +1499,18 @@ function initChoreo(){
     try { orbit.currentTime = f / ORBIT_FPS; } catch(e){}
   }
 
+  /* scroll->rotation remap: the render eases (a bow-on dead-zone in the middle,
+     fast at the ends), so a linear scrub feels stuck then whips. This LUT maps
+     even scroll progress to even ANGULAR progress. Built from the measured
+     per-frame motion of orbit360.mp4. */
+  var REMAP=[0,0.0207,0.0406,0.0576,0.072,0.0873,0.1027,0.1184,0.1332,0.1484,0.1668,0.1879,0.2091,0.2326,0.2528,0.3671,0.4989,0.6414,0.7549,0.7884,0.829,0.8663,0.8891,0.9027,0.9144,0.9244,0.9334,0.9422,0.9513,0.9611,0.9706,0.9824,1];
+  function remap(p){
+    p = Math.min(Math.max(p, 0), 1);
+    var x = p * (REMAP.length - 1), i = Math.floor(x), f = x - i;
+    if (i >= REMAP.length - 1) return REMAP[REMAP.length - 1];
+    return REMAP[i] + (REMAP[i + 1] - REMAP[i]) * f;
+  }
+
   var mm = gsap.matchMedia();
 
   /* live coordinates: marina -> the offshore drop */
@@ -1561,13 +1573,20 @@ function initChoreo(){
   });
 
   mm.add('(max-width: 860px)', function(){
-    /* phones: NO pin, NO statement trade (owner removed the pop-up-on-scroll
-       lines 2026-08-12). The boat autoplays its orbit loop (mountOrbit) and the
-       hero scrolls away normally; coords just drift as it passes. */
-    gsap.to(pos, {
-      lat: 9.35, lon: 84.8667, ease: 'none', onUpdate: drawCoords,
-      scrollTrigger: { trigger: '#opening', start: 'top top', end: 'bottom center', scrub: true }
+    /* phones: SCROLL-SCRUB the boat (owner ask 2026-08-12) — same as desktop but
+       NO statement text. Pin the hero, scroll drives the rotation via the REMAP
+       (even angular speed, no dead-zone stall), coords tick to the drop. All-intra
+       crop (orbit360-scrub.mp4) so iOS seeks each frame without a decode stall. */
+    var orbitPm = { p: 0 };
+    var openM = gsap.timeline({
+      scrollTrigger: {
+        trigger: '#opening', start: 'top top', end: '+=240%',
+        scrub: 1, pin: true, anticipatePin: 1, invalidateOnRefresh: true
+      }
     });
+    openM
+      .to(orbitPm, { p: 1, ease: 'none', duration: 9, onUpdate: function(){ seekOrbit(remap(orbitPm.p)); } }, 0)
+      .to(pos, { lat: 9.35, lon: 84.8667, ease: 'none', duration: 9, onUpdate: drawCoords }, 0);
     return function(){};
   });
 
