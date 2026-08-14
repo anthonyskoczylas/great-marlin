@@ -454,7 +454,9 @@ html.dawn .grain{filter:sepia(.45) saturate(1.25)}
   #st1 .sub,#st1 .sub-stamp{text-shadow:0 1px 12px rgba(246,245,243,.55)}
   .opening-coords{position:absolute;bottom:calc(30px + env(safe-area-inset-bottom));left:var(--pad);right:auto;padding:0;margin:0}
   .opening-media{position:absolute}
-  .cue{display:none}
+  /* scroll cue returns on mobile (scroll now drives the boat) — centered, raised
+     clear of the home indicator; fades once you start scrolling */
+  .cue{display:flex;bottom:calc(46px + env(safe-area-inset-bottom))}
 }
 
 /* ================= SHARED SECTION FURNITURE ================= */
@@ -1577,6 +1579,7 @@ function initChoreo(){
        NO statement text. Pin the hero, scroll drives the rotation via the REMAP
        (even angular speed, no dead-zone stall), coords tick to the drop. All-intra
        crop (orbit360-scrub.mp4) so iOS seeks each frame without a decode stall. */
+    gsap.set('.cue', { opacity: 0 });          /* hidden until the gate opens (enter() fades it in) */
     var orbitPm = { p: 0 };
     var openM = gsap.timeline({
       scrollTrigger: {
@@ -1586,7 +1589,8 @@ function initChoreo(){
     });
     openM
       .to(orbitPm, { p: 1, ease: 'none', duration: 9, onUpdate: function(){ seekOrbit(remap(orbitPm.p)); } }, 0)
-      .to(pos, { lat: 9.35, lon: 84.8667, ease: 'none', duration: 9, onUpdate: drawCoords }, 0);
+      .to(pos, { lat: 9.35, lon: 84.8667, ease: 'none', duration: 9, onUpdate: drawCoords }, 0)
+      .fromTo('.cue', { opacity: 1 }, { opacity: 0, duration: 0.6 }, 0.6);   /* fade the cue as you start scrolling */
     return function(){};
   });
 
