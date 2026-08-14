@@ -455,8 +455,9 @@ html.dawn .grain{filter:sepia(.45) saturate(1.25)}
   .opening-coords{position:absolute;bottom:calc(30px + env(safe-area-inset-bottom));left:var(--pad);right:auto;padding:0;margin:0}
   .opening-media{position:absolute}
   /* scroll cue returns on mobile (scroll now drives the boat) — centered, raised
-     clear of the home indicator; fades once you start scrolling */
-  .cue{display:flex;bottom:calc(46px + env(safe-area-inset-bottom))}
+     clear of the home indicator. Starts HIDDEN (opacity 0) so it never shows
+     through the transparent gate; enter() fades it in, scrub timeline fades it out. */
+  .cue{display:flex;opacity:0;bottom:calc(46px + env(safe-area-inset-bottom))}
 }
 
 /* ================= SHARED SECTION FURNITURE ================= */
@@ -1589,9 +1590,17 @@ function initChoreo(){
     });
     openM
       .to(orbitPm, { p: 1, ease: 'none', duration: 9, onUpdate: function(){ seekOrbit(remap(orbitPm.p)); } }, 0)
-      .to(pos, { lat: 9.35, lon: 84.8667, ease: 'none', duration: 9, onUpdate: drawCoords }, 0)
-      .fromTo('.cue', { opacity: 1 }, { opacity: 0, duration: 0.6 }, 0.6);   /* fade the cue as you start scrolling */
-    return function(){};
+      .to(pos, { lat: 9.35, lon: 84.8667, ease: 'none', duration: 9, onUpdate: drawCoords }, 0);
+    /* fade the cue on the first real scroll (robust — scroll is locked until the
+       gate opens, so this never fires early) */
+    var fadeCueOnce = function(){
+      if (window.scrollY > 6){
+        gsap.to('.cue', { opacity: 0, duration: 0.4, overwrite: true });
+        window.removeEventListener('scroll', fadeCueOnce);
+      }
+    };
+    window.addEventListener('scroll', fadeCueOnce, { passive: true });
+    return function(){ window.removeEventListener('scroll', fadeCueOnce); };
   });
 
   /* shared: word reveals — masked rise by default, blur-in where marked */
