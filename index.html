@@ -504,6 +504,18 @@ section{position:relative}
 .specs{display:flex;flex-wrap:wrap;margin-top:clamp(64px,10vh,120px);border-top:1px solid var(--line)}
 .spec{flex:1 1 160px;padding:22px 20px 22px 0;border-bottom:1px solid var(--line-soft)}
 .spec b{display:block;font-weight:400;font-family:var(--serif);font-size:1.15rem;letter-spacing:.03em;margin-top:6px}
+/* the transom band: one wide real still under the specs. cover-crop anchored to
+   the BOTTOM so the name and the stern crew always survive; the tower is what goes. */
+.boat-band{position:relative;overflow:hidden;margin:clamp(64px,10vh,120px) 0 0;aspect-ratio:16/9;background:var(--deep)}
+.boat-band img{width:100%;height:100%;object-fit:cover;object-position:50% 100%;display:block}
+.boat-band figcaption{position:absolute;right:20px;bottom:18px;z-index:2;text-align:right;font-size:.625rem;letter-spacing:.24em;
+  color:var(--ink-soft);text-shadow:0 1px 12px rgba(8,11,21,.8)}
+@media(max-width:860px){
+  /* phones: the caption wrapped straight across the name on the transom — it lives under the photo instead */
+  .boat-band{aspect-ratio:auto;overflow:visible}
+  .boat-band img{aspect-ratio:4/5;height:auto}
+  .boat-band figcaption{position:static;text-align:left;padding:12px 0 0;font-size:.5625rem;letter-spacing:.2em;color:var(--muted);text-shadow:none}
+}
 /* ================= THE FINE PRINT ================= */
 #policy{background:var(--deep);padding:clamp(84px,14vh,160px) 0}
 .policy-grid{display:grid;grid-template-columns:minmax(220px,320px) 1fr;gap:clamp(40px,6vw,96px);align-items:center}
@@ -520,6 +532,24 @@ section{position:relative}
 
 /* ================= ACT III — FISH ================= */
 #fish{background:var(--deep);padding:clamp(110px,17vh,210px) 0}
+/* proof tiles: three real stills, hairline gaps, no hover zoom (owner-vetoed) */
+.catch{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;margin-bottom:clamp(56px,9vh,110px)}
+.catch-tile{position:relative;margin:0;overflow:hidden;background:var(--bg)}
+.catch-tile img{width:100%;aspect-ratio:4/5;object-fit:cover;display:block}
+/* a quiet scrim under the caption so it survives white hull and pale water */
+.catch-tile::after{content:"";position:absolute;left:0;right:0;bottom:0;height:34%;z-index:1;pointer-events:none;
+  background:linear-gradient(180deg,rgba(8,11,21,0),rgba(8,11,21,.62))}
+.catch-tile figcaption{position:absolute;left:18px;right:18px;bottom:16px;z-index:2;font-size:.625rem;letter-spacing:.24em;
+  color:var(--ink-soft);text-shadow:0 1px 12px rgba(8,11,21,.8)}
+@media(max-width:860px){
+  /* phones: two-up + one wide; captions sit UNDER the tiles (over the photo they landed on faces) */
+  .catch{grid-template-columns:1fr 1fr;gap:18px 2px;margin-bottom:clamp(48px,8vh,90px)}
+  .catch-tile{background:none;overflow:visible}
+  .catch-tile::after{display:none}
+  .catch-tile:last-child{grid-column:1/-1}
+  .catch-tile:last-child img{aspect-ratio:16/10}
+  .catch-tile figcaption{position:static;padding:10px 0 0;font-size:.5625rem;letter-spacing:.2em;color:var(--muted);text-shadow:none}
+}
 .species{list-style:none;border-top:1px solid var(--line)}
 .species li{display:grid;grid-template-columns:64px minmax(200px,1.1fr) minmax(150px,.6fr) 1.5fr;
   gap:24px;align-items:baseline;padding:30px 0;border-bottom:1px solid var(--line-soft);
@@ -756,28 +786,27 @@ html.static #hud{display:none}
        clip-zoom reveal this replaced is the one effect the owner vetoed.
        Videos are boomerang loops cut from our own orbit arcs; lazy-mounted
        (data-clip) and only play while the gallery is on screen. -->
-  <!-- ★ ALL PANELS ARE PLACEHOLDERS (owner ruling 2026-07-16): real boat
-       photos pulled pending a proper shoot; CGI orbit reuse pulled too.
-       Current media = Pexels free-licence ocean/underwater footage. The
-       aerial boat is deliberately distant/anonymous — never pass off a
-       lookalike as the Great Marlin. Swap these for Tony's drone footage
-       + new photos when they land. -->
+  <!-- 2026-09-17: every panel is now OURS. Panels 1+3 = Tony's drone clips
+       (gm-orbit / gm-stern, cool grade). Panels 2+4 = real stills from the
+       boat (Higgsfield 4K upscale + the same cool grade), which replaced the
+       last two Pexels placeholders (coast / deepwater). Stills sit in the same
+       wipe stack as the clips — the wipe is the move, not the medium. -->
   <div id="gallery" aria-label="The water off Costa Rica's central Pacific">
     <figure class="g-panel">
       <video muted loop playsinline preload="none" poster="assets/clips/gm-orbit-poster.jpg" data-clip="assets/clips/gm-orbit.mp4" aria-hidden="true"></video>
       <figcaption class="m">Off Herradura</figcaption>
     </figure>
     <figure class="g-panel">
-      <video muted loop playsinline preload="none" poster="assets/clips/coast-poster.jpg" data-clip="assets/clips/coast.mp4" aria-hidden="true"></video>
-      <figcaption class="m">The coast falls away</figcaption>
+      <img src="assets/photos/sail-boatside.jpg" alt="A Pacific sailfish alongside the boat, held at the gunwale for release" decoding="async" style="object-position:44% 50%">
+      <figcaption class="m">Sailfish at the gunwale</figcaption>
     </figure>
     <figure class="g-panel">
       <video muted loop playsinline preload="none" poster="assets/clips/gm-stern-poster.jpg" data-clip="assets/clips/gm-stern.mp4" aria-hidden="true"></video>
       <figcaption class="m">Home water</figcaption>
     </figure>
     <figure class="g-panel">
-      <video muted loop playsinline preload="none" poster="assets/clips/deepwater-poster.jpg" data-clip="assets/clips/deepwater.mp4" aria-hidden="true"></video>
-      <figcaption class="m">Deep water</figcaption>
+      <img src="assets/photos/family-mahi.jpg" alt="A family of six on the stern holding a mahi mahi, the wake bright behind them" decoding="async" style="object-position:50% 70%">
+      <figcaption class="m">Mahi, heading home</figcaption>
     </figure>
   </div>
 
@@ -800,6 +829,13 @@ html.static #hud{display:none}
         <div class="spec"><span class="m m-dim">Comfort</span><b>Private head</b></div>
       </div>
 
+      <!-- her name on the transom: the one photo that proves the boat is the boat.
+           bottom-anchored crop keeps the name + the stern crew; the tower goes. -->
+      <figure class="boat-band">
+        <img src="assets/photos/transom-crew.jpg" alt="The Great Marlin at her mooring, crew and guests on the stern, her name across the transom" loading="lazy" decoding="async">
+        <figcaption class="m">Her name on the transom &#183; back at the mooring</figcaption>
+      </figure>
+
     </div>
   </div>
 </section>
@@ -810,6 +846,22 @@ html.static #hud{display:none}
     <div class="chapter-head">
       <span class="m idx">02 &#8212; The Fish</span>
       <span class="m m-dim">Billfish released &#183; meat fish kept</span>
+    </div>
+    <!-- proof, not stock: three real days on this boat. images load visible —
+         no fade-in on photos (owner rule) — only the ledger below animates. -->
+    <div class="catch" aria-label="Recent days aboard">
+      <figure class="catch-tile">
+        <img src="assets/photos/roosterfish.jpg" alt="A roosterfish held up on the bow before release, the coast behind" loading="lazy" decoding="async">
+        <figcaption class="m">Roosterfish &#183; inshore &#183; released</figcaption>
+      </figure>
+      <figure class="catch-tile">
+        <img src="assets/photos/crew-sailfish.jpg" alt="Crew and guests leaning over the gunwale with a sailfish alongside" loading="lazy" decoding="async" style="object-position:50% 40%">
+        <figcaption class="m">Sailfish &#183; boatside &#183; released</figcaption>
+      </figure>
+      <figure class="catch-tile">
+        <img src="assets/photos/sail-release.jpg" alt="A mate in gloves steadying a sailfish in the water for release" loading="lazy" decoding="async" style="object-position:50% 68%">
+        <figcaption class="m">The release</figcaption>
+      </figure>
     </div>
     <ul class="species">
       <li><span class="no">01</span><span class="name">Pacific sailfish</span><span class="season">Dec &#8212; Apr peak &#183; Jun &#8212; Aug second run</span><span class="note">The reason this coast is famous, and the fish we plan the day around.</span></li>

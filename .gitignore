@@ -12,3 +12,6 @@ gear.html
 .DS_Store
 **/.DS_Store
 ._*
+
+# print collateral lives in ../print-shop (never publish)
+print/
