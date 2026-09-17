@@ -361,7 +361,10 @@ html.static #bearing{display:none}
    real phone). Verify at ~393×704. Full GREAT MARLIN / PUNTARENAS stays legible;
    PUNTARENAS is shorter and sits clear. The zoom-out that shows the WHOLE boat was
    built and REJECTED (too small + visible seam) — cropping the bow is deliberate. */
-@media(max-width:860px){
+/* PHONE hero = a finger on a narrow screen. A narrow MOUSE window (half-width or
+   zoomed Safari on a Mac, owner 2026-09-17 "loads in too close") keeps the desktop
+   orbit — the phone crop is tuned for 393px and reads far too tight at 700-860. */
+@media(max-width:860px) and (pointer:coarse){
   /* Mobile hero = SCROLL-SCRUB (like desktop): a portrait all-intra crop
      (orbit360-scrub.mp4) whose currentTime is driven by scroll. Full-bleed cover;
      poster = frame 0 (bow) so the gate matches the scrub start. */
@@ -441,7 +444,7 @@ html.dawn .grain{filter:sepia(.45) saturate(1.25)}
    OFF the dark hull where it blended. The depth-line statements (st2/st3) are
    dropped on mobile — below the 100svh poster they rendered navy-on-navy, an
    invisible "empty" void. Coords sit at the foot, over the pale water. */
-@media(max-width:860px){
+@media(max-width:860px) and (pointer:coarse){
   /* phones: static hero — the NAME leads, the boat autoplays its orbit (see
      mountOrbit). No pinned statement sequence (owner ruling 2026-08-12: the
      pop-up-as-you-scroll lines were removed). st2/st3 stay desktop-only. */
@@ -486,7 +489,7 @@ section{position:relative}
    ("[ 01 · THE BOAT ]"), which was overlapping them (owner caught it 2026-07-16) */
 .g-panel figcaption{position:absolute;right:var(--pad);bottom:28px;z-index:2;text-align:right;
   color:var(--ink-soft);text-shadow:0 1px 12px rgba(8,11,21,.8);letter-spacing:.24em}
-@media(max-width:860px){
+@media(max-width:860px) and (pointer:coarse){
   /* phones: no pin, no wipes — an honest stacked reel */
   #gallery{height:auto;background:none}
   .g-panel{position:relative;inset:auto;height:62svh}
@@ -502,16 +505,21 @@ section{position:relative}
 .specs{display:flex;flex-wrap:wrap;margin-top:clamp(64px,10vh,120px);border-top:1px solid var(--line)}
 .spec{flex:1 1 160px;padding:22px 20px 22px 0;border-bottom:1px solid var(--line-soft)}
 .spec b{display:block;font-weight:400;font-family:var(--serif);font-size:1.15rem;letter-spacing:.03em;margin-top:6px}
-/* the transom band: two PRE-CROPPED files (16:9 desktop / 4:5 phones) — no CSS cover-crop,
-   so what you see is exactly the file (Safari painted a stale black tile on the big
-   cover-cropped version, owner caught it 2026-09-17). caption sits UNDER the photo. */
-.boat-band{margin:clamp(64px,10vh,120px) 0 0}
+/* the transom band: the whole photo at its own aspect (no cover-crop, ever — the
+   crops kept losing the tower), portrait on the left, the slogan centred beside it. */
+.boat-band{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:clamp(40px,6vw,96px);align-items:center;margin:clamp(64px,10vh,120px) 0 0}
+.boat-band figure{margin:0}
 .boat-band img{width:100%;height:auto;display:block;background:var(--deep)}
-.boat-band figcaption{padding:14px 0 0;text-align:right;font-size:.625rem;letter-spacing:.24em;color:var(--muted)}
+.boat-band figcaption{padding:14px 0 0;font-size:.625rem;letter-spacing:.24em;color:var(--muted)}
+.boat-band .earned{margin:0;max-width:13ch}
 /* the slogan, in the display voice (serif) like the chapter statement above it —
    .statement alone is scoped to .boat-grid, so this gets its own rule */
-.earned{font-family:var(--serif);font-size:clamp(1.6rem,3.4vw,2.6rem);line-height:1.3;max-width:20ch;margin:clamp(40px,6vh,72px) 0 0}
-@media(max-width:860px){.boat-band figcaption{text-align:left;font-size:.5625rem;letter-spacing:.2em}}
+.earned{font-family:var(--serif);font-size:clamp(1.6rem,3.4vw,2.6rem);line-height:1.3;max-width:20ch;margin:0}
+@media(max-width:860px){
+  .boat-band{grid-template-columns:1fr;gap:40px}
+  .boat-band figcaption{font-size:.5625rem;letter-spacing:.2em}
+  .boat-band .earned{max-width:20ch}
+}
 /* ================= THE FINE PRINT ================= */
 #policy{background:var(--deep);padding:clamp(84px,14vh,160px) 0}
 .policy-grid{display:grid;grid-template-columns:minmax(220px,320px) 1fr;gap:clamp(40px,6vw,96px);align-items:center}
@@ -636,10 +644,10 @@ section{position:relative}
 /* ================= STATIC + REDUCED MOTION SAFETY NET ================= */
 /* desktop stacks the three opening statements in one grid cell — without the
    pinned timeline only the wordmark statement may show */
-@media(min-width:861px){
+@media(min-width:861px),(pointer:fine){
   html.static #st1,html.static #st2{display:none}
 }
-@media(min-width:861px) and (prefers-reduced-motion: reduce){
+@media(min-width:861px) and (prefers-reduced-motion: reduce),(pointer:fine) and (prefers-reduced-motion: reduce){
   /* phones show the NAME (st1); the scrolling statements are desktop-only */
   html.js #st2,html.js #st3{display:none}
 }
@@ -834,17 +842,18 @@ html.static #hud{display:none}
       </div>
 
       <!-- her name on the transom: the one photo that proves the boat is the boat.
-           bottom-anchored crop keeps the name + the stern crew; the tower goes. -->
-      <figure class="boat-band">
-        <picture>
-          <source media="(max-width:860px)" srcset="assets/photos/transom-crew-tall.jpg">
-          <img src="assets/photos/transom-crew.jpg" alt="The Great Marlin at her mooring, crew and guests on the stern, her name across the transom" loading="lazy" decoding="sync">
-        </picture>
-        <figcaption class="m">Her name on the transom &#183; back at the mooring</figcaption>
-      </figure>
-      <!-- the slogan used to sit on the hero; owner moved it here 2026-09-17 ("looks
-           sloppy on the front page") — it belongs under the photo of the name. -->
-      <p class="statement earned split-hide" data-split>Some boats are named. This one was earned.</p>
+           The WHOLE photo, tower and riggers included (owner 2026-09-17: "show the
+           full boat, not the cut-off version") — portrait on the left, the slogan
+           beside it. One column on phones. -->
+      <div class="boat-band">
+        <figure>
+          <img src="assets/photos/transom-crew-full.jpg" srcset="assets/photos/transom-crew-full-1000.jpg 1000w, assets/photos/transom-crew-full.jpg 1600w" sizes="(max-width:860px) 100vw, 46vw" alt="The Great Marlin at her mooring, tower and outriggers up, crew and guests on the stern, her name across the transom" loading="lazy" decoding="sync">
+          <figcaption class="m">Her name on the transom &#183; back at the mooring</figcaption>
+        </figure>
+        <!-- the slogan used to sit on the hero; owner moved it here 2026-09-17 ("looks
+             sloppy on the front page") — it belongs beside the photo of the name. -->
+        <p class="earned split-hide" data-split>Some boats are named. This one was earned.</p>
+      </div>
 
     </div>
   </div>
@@ -1151,7 +1160,15 @@ if (hasGSAP && typeof Lenis !== 'undefined' && !reduce){
 document.querySelectorAll('[data-scroll]').forEach(function(a){
   a.addEventListener('click', function(e){
     var target = document.querySelector(a.getAttribute('href'));
-    if (target && lenis){ e.preventDefault(); lenis.scrollTo(target, { duration: 1.6 }); }
+    if (!target || !lenis) return;
+    e.preventDefault();
+    /* a PINNED target (the hero) sits at the END of its scroll track once you are
+       past it, so scrolling "to the element" landed at the end of the orbit
+       (owner 2026-09-17: "loads in too close"). Go to where its pin starts. */
+    var dest = target, st = window.ScrollTrigger && ScrollTrigger.getAll().filter(function(t){ return t.pin && (t.trigger === target || t.pin === target); })[0];
+    if (st) dest = st.start;
+    else if (target.id === 'opening') dest = 0;
+    lenis.scrollTo(dest, { duration: 1.6 });
   });
 });
 
@@ -1449,7 +1466,7 @@ function initGate(){
    poster it was already showing. Attach the source only where it does work.
    The listener matters: an iPad in portrait is 768px and crosses 861 on rotation, so
    a one-shot check at load would leave a rotated tablet with a dead hero. */
-var ORBIT_MQ = window.matchMedia('(min-width: 861px)');
+var ORBIT_MQ = window.matchMedia('(min-width: 861px), (pointer: fine)'); /* desktop orbit for any mouse window, phone crop only for fingers */
 function mountOrbit(){
   var v = document.querySelector('#openingMedia video');
   if (!v || v.querySelector('source')) return;          /* already mounted */
@@ -1517,10 +1534,12 @@ function enter(withSound){
         if (bearingEl && ORBIT_MQ.matches){ bearingEl.style.opacity = 1; updateBearing(0); }
       })
       .fromTo('#st1 .wi', { yPercent: 115 }, { yPercent: 0, duration: 1.15, stagger: 0.055, ease: 'power4.out' }, '-=0.05')
-      .to('.cue', { opacity: 1, duration: 0.8, ease: 'power2.out' }, '-=0.6');
+      .to('.cue', { opacity: 1, duration: 0.8, ease: 'power2.out' }, '-=0.6')
+      .add(function(){ docEl.dispatchEvent(new CustomEvent('gm:entered')); });
   } else {
     gate.style.display = 'none';
     if (hasGSAP) gsap.set('.split-hide .wi', { yPercent: 0 });
+    docEl.dispatchEvent(new CustomEvent('gm:entered'));
   }
 }
 document.getElementById('enterBtn').addEventListener('click', function(){ enter(true); });
@@ -1591,7 +1610,7 @@ function initChoreo(){
     coordsEl.textContent = '[ ' + dms(pos.lat) + ' N · ' + dms(pos.lon) + ' W ]';
   }
 
-  mm.add('(min-width: 861px)', function(){
+  mm.add('(min-width: 861px), (pointer: fine)', function(){
     /* the gate is transparent — the cue must not read "Scroll" through it while
        scroll is still locked. The pre-roll's finish fades it in. */
     gsap.set('.cue', { opacity: 0 });
@@ -1599,7 +1618,7 @@ function initChoreo(){
     var open = gsap.timeline({
       scrollTrigger: {
         trigger: '#opening', start: 'top top', end: '+=280%',
-        scrub: 1, pin: true, anticipatePin: 1, invalidateOnRefresh: true
+        scrub: 1, pin: true, anticipatePin: 1 /* no invalidateOnRefresh: it re-recorded the .to() start values mid-animation on every resize, freezing the boat + coords wherever they were (owner 2026-09-17) */
       }
     });
     var orbitP = { p: 0 };
@@ -1615,6 +1634,20 @@ function initChoreo(){
       .to('#st2 .wi', { yPercent: -115, duration: 1.1, stagger: 0.04, ease: 'power2.in' }, 4.7)
       .fromTo('#st3 .wi', { yPercent: 115 }, { yPercent: 0, duration: 1.5, stagger: 0.06, ease: 'power3.out' }, 5.9)
       .to('.cue', { opacity: 0, duration: 0.6 }, 0.4);
+    /* a resize mid-hero refreshes the trigger and left the boat/coords at frame 0
+       while the scroll sat at the end — re-render at the real progress. */
+    ScrollTrigger.addEventListener('refresh', function(){
+      var st = open.scrollTrigger; if (!st) return;
+      /* a refresh reverts the title's exit tween to its pre-enter start (words hidden
+         below), so scrolling back up after a resize showed no title. once entered, the
+         title's rest state is 0 — re-assert it and re-record the exit tween from there. */
+      if (entered){ gsap.set('#st1 .wi', { yPercent: 0 }); open.getTweensOf('#st1 .wi').forEach(function(t){ t.invalidate(); }); }
+      open.progress(st.progress);
+    });
+    /* the title's exit tween recorded its start (yPercent 115, the pre-enter state) when
+       this timeline was built, so scrolling back above the first statement HID the title.
+       once the gate has opened and the words have risen, re-record from where they are (0). */
+    docEl.addEventListener('gm:entered', function(){ open.getTweensOf('#st1 .wi').forEach(function(t){ t.invalidate(); }); });
 
     /* ACT II: the gallery — pinned stack, each panel wipes UP over the last.
        feadship's own move: clip-path inset(100% 0 0 0) → inset(0). The CSS
@@ -1625,7 +1658,7 @@ function initChoreo(){
       var gtl = gsap.timeline({
         scrollTrigger: {
           trigger: '#gallery', start: 'top top', end: '+=' + ((gpanels.length - 1) * 90) + '%',
-          scrub: 1, pin: true, anticipatePin: 1, invalidateOnRefresh: true
+          scrub: 1, pin: true, anticipatePin: 1 /* no invalidateOnRefresh: it re-recorded the .to() start values mid-animation on every resize, freezing the boat + coords wherever they were (owner 2026-09-17) */
         }
       });
       gpanels.slice(1).forEach(function(p){
@@ -1641,7 +1674,7 @@ function initChoreo(){
     return function(){};
   });
 
-  mm.add('(max-width: 860px)', function(){
+  mm.add('(max-width: 860px) and (pointer: coarse)', function(){
     /* phones: SCROLL-SCRUB the boat (owner ask 2026-08-12) — same as desktop but
        NO statement text. Pin the hero, scroll drives the rotation via the REMAP
        (even angular speed, no dead-zone stall), coords tick to the drop. All-intra
@@ -1651,7 +1684,7 @@ function initChoreo(){
     var openM = gsap.timeline({
       scrollTrigger: {
         trigger: '#opening', start: 'top top', end: '+=240%',
-        scrub: 1, pin: true, anticipatePin: 1, invalidateOnRefresh: true
+        scrub: 1, pin: true, anticipatePin: 1 /* no invalidateOnRefresh: it re-recorded the .to() start values mid-animation on every resize, freezing the boat + coords wherever they were (owner 2026-09-17) */
       }
     });
     openM
