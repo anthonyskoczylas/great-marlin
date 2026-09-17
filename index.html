@@ -425,10 +425,8 @@ html.dawn .grain{filter:sepia(.45) saturate(1.25)}
 .st h1{letter-spacing:.04em}
 .st .sub{margin-top:28px;max-width:64ch;margin-inline:auto}
 /* the day starts before the heat — said once, quietly, right under the name */
-/* slogan line — a brand signature, not an instrument stamp, so Archivo (not mono)
-   and italic, at a legible size with easy tracking. owner ruling 2026-08-05. */
-.sub-stamp{margin-top:22px;font-size:.875rem;letter-spacing:.06em;font-style:italic;color:rgba(13,19,34,.82);
-  max-width:34ch;margin-inline:auto;text-wrap:balance}
+/* the slogan left the hero 2026-09-17 (owner: the faux-italic line read sloppy up
+   front). it now closes THE BOAT chapter under the transom photo — see .earned. */
 /* the statements sit ON the pale fog, so they invert: measured 7.6:1 in navy vs
    2.24:1 in the site's off-white. the hero is the one light room in a dark house. */
 #opening .st h1,#opening .st h2{color:var(--bg)}
@@ -504,18 +502,16 @@ section{position:relative}
 .specs{display:flex;flex-wrap:wrap;margin-top:clamp(64px,10vh,120px);border-top:1px solid var(--line)}
 .spec{flex:1 1 160px;padding:22px 20px 22px 0;border-bottom:1px solid var(--line-soft)}
 .spec b{display:block;font-weight:400;font-family:var(--serif);font-size:1.15rem;letter-spacing:.03em;margin-top:6px}
-/* the transom band: one wide real still under the specs. cover-crop anchored to
-   the BOTTOM so the name and the stern crew always survive; the tower is what goes. */
-.boat-band{position:relative;overflow:hidden;margin:clamp(64px,10vh,120px) 0 0;aspect-ratio:16/9;background:var(--deep)}
-.boat-band img{width:100%;height:100%;object-fit:cover;object-position:50% 100%;display:block}
-.boat-band figcaption{position:absolute;right:20px;bottom:18px;z-index:2;text-align:right;font-size:.625rem;letter-spacing:.24em;
-  color:var(--ink-soft);text-shadow:0 1px 12px rgba(8,11,21,.8)}
-@media(max-width:860px){
-  /* phones: the caption wrapped straight across the name on the transom — it lives under the photo instead */
-  .boat-band{aspect-ratio:auto;overflow:visible}
-  .boat-band img{aspect-ratio:4/5;height:auto}
-  .boat-band figcaption{position:static;text-align:left;padding:12px 0 0;font-size:.5625rem;letter-spacing:.2em;color:var(--muted);text-shadow:none}
-}
+/* the transom band: two PRE-CROPPED files (16:9 desktop / 4:5 phones) — no CSS cover-crop,
+   so what you see is exactly the file (Safari painted a stale black tile on the big
+   cover-cropped version, owner caught it 2026-09-17). caption sits UNDER the photo. */
+.boat-band{margin:clamp(64px,10vh,120px) 0 0}
+.boat-band img{width:100%;height:auto;display:block;background:var(--deep)}
+.boat-band figcaption{padding:14px 0 0;text-align:right;font-size:.625rem;letter-spacing:.24em;color:var(--muted)}
+/* the slogan, in the display voice (serif) like the chapter statement above it —
+   .statement alone is scoped to .boat-grid, so this gets its own rule */
+.earned{font-family:var(--serif);font-size:clamp(1.6rem,3.4vw,2.6rem);line-height:1.3;max-width:20ch;margin:clamp(40px,6vh,72px) 0 0}
+@media(max-width:860px){.boat-band figcaption{text-align:left;font-size:.5625rem;letter-spacing:.2em}}
 /* ================= THE FINE PRINT ================= */
 #policy{background:var(--deep);padding:clamp(84px,14vh,160px) 0}
 .policy-grid{display:grid;grid-template-columns:minmax(220px,320px) 1fr;gap:clamp(40px,6vw,96px);align-items:center}
@@ -533,7 +529,7 @@ section{position:relative}
 /* ================= ACT III — FISH ================= */
 #fish{background:var(--deep);padding:clamp(110px,17vh,210px) 0}
 /* proof tiles: three real stills, hairline gaps, no hover zoom (owner-vetoed) */
-.catch{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;margin-bottom:clamp(56px,9vh,110px)}
+.catch{display:grid;grid-template-columns:repeat(4,1fr);gap:2px;margin-bottom:clamp(56px,9vh,110px)}
 .catch-tile{position:relative;margin:0;overflow:hidden;background:var(--bg)}
 .catch-tile img{width:100%;aspect-ratio:4/5;object-fit:cover;display:block}
 /* a quiet scrim under the caption so it survives white hull and pale water */
@@ -546,20 +542,27 @@ section{position:relative}
   .catch{grid-template-columns:1fr 1fr;gap:18px 2px;margin-bottom:clamp(48px,8vh,90px)}
   .catch-tile{background:none;overflow:visible}
   .catch-tile::after{display:none}
-  .catch-tile:last-child{grid-column:1/-1}
-  .catch-tile:last-child img{aspect-ratio:16/10}
+  /* four tiles = a clean 2×2 on phones */
   .catch-tile figcaption{position:static;padding:10px 0 0;font-size:.5625rem;letter-spacing:.2em;color:var(--muted);text-shadow:none}
 }
 .species{list-style:none;border-top:1px solid var(--line)}
-.species li{display:grid;grid-template-columns:64px minmax(200px,1.1fr) minmax(150px,.6fr) 1.5fr;
-  gap:24px;align-items:baseline;padding:30px 0;border-bottom:1px solid var(--line-soft);
-  transition:padding-left .6s var(--ease-out)}
+.species li{display:grid;grid-template-columns:64px minmax(200px,1.1fr) minmax(150px,.6fr) 1.5fr 200px;
+  gap:24px;align-items:center;padding:22px 0;border-bottom:1px solid var(--line-soft);
+  transition:padding-left .6s var(--ease-out);position:relative}
+/* the species plates: eight illustrations in one hand (side profile, facing left), a
+   fixed frame per row so every fish sits at the same scale. owner request 2026-09-17. */
+.fish-art{display:block;width:200px;height:84px;justify-self:end;object-fit:contain;object-position:right center}
 .species li:hover{padding-left:20px}
 .species .no{font-size:.625rem;letter-spacing:.2em;color:var(--dim)}
 .species .name{font-family:var(--serif);font-size:clamp(1.3rem,2.6vw,2rem)}
 .species .season{font-size:.625rem;letter-spacing:.22em;color:var(--muted)}
 .species .note{font-size:.75rem;color:var(--muted);line-height:1.7}
-@media(max-width:860px){.species li{grid-template-columns:44px 1fr;gap:8px 16px}.species .season,.species .note{grid-column:2}}
+@media(max-width:860px){
+  .species li{grid-template-columns:44px 1fr;gap:8px 16px;align-items:baseline;padding:26px 0}
+  .species .season,.species .note{grid-column:2}
+  .species .name{padding-right:132px}
+  .fish-art{position:absolute;right:0;top:22px;width:124px;height:56px}
+}
 .guide-link{display:inline-block;margin-top:56px;font-family:var(--sans);font-size:.6875rem;letter-spacing:.28em;text-transform:uppercase;
   text-decoration:none;border-bottom:1px solid var(--line);padding-bottom:6px;transition:border-color .8s var(--ease),color .8s var(--ease)}
 .guide-link:hover{border-color:var(--accent);color:#fff}
@@ -745,7 +748,6 @@ html.static #hud{display:none}
     <div class="st" id="st1">
       <h1 class="split-hide" data-split>Great Marlin</h1>
       <p class="sub m split-hide" data-split>Private sportfishing charter &#183; Herradura Bay &#183; Costa Rica</p>
-      <p class="sub-stamp split-hide" data-split>Some boats are named. This one was earned.</p>
     </div>
     <div class="st" id="st2">
       <!-- verified 2026-07-16 against GEBCO bathymetry along the actual run
@@ -797,8 +799,8 @@ html.static #hud{display:none}
       <figcaption class="m">Off Herradura</figcaption>
     </figure>
     <figure class="g-panel">
-      <img src="assets/photos/sail-boatside.jpg" alt="A Pacific sailfish alongside the boat, held at the gunwale for release" decoding="async" style="object-position:44% 50%">
-      <figcaption class="m">Sailfish at the gunwale</figcaption>
+      <video muted loop playsinline preload="none" poster="assets/clips/gm-bow-poster.jpg" data-clip="assets/clips/gm-bow.mp4" aria-hidden="true"></video>
+      <figcaption class="m">Riggers up</figcaption>
     </figure>
     <figure class="g-panel">
       <video muted loop playsinline preload="none" poster="assets/clips/gm-stern-poster.jpg" data-clip="assets/clips/gm-stern.mp4" aria-hidden="true"></video>
@@ -832,9 +834,15 @@ html.static #hud{display:none}
       <!-- her name on the transom: the one photo that proves the boat is the boat.
            bottom-anchored crop keeps the name + the stern crew; the tower goes. -->
       <figure class="boat-band">
-        <img src="assets/photos/transom-crew.jpg" alt="The Great Marlin at her mooring, crew and guests on the stern, her name across the transom" loading="lazy" decoding="async">
+        <picture>
+          <source media="(max-width:860px)" srcset="assets/photos/transom-crew-tall.jpg">
+          <img src="assets/photos/transom-crew.jpg" alt="The Great Marlin at her mooring, crew and guests on the stern, her name across the transom" loading="lazy" decoding="sync">
+        </picture>
         <figcaption class="m">Her name on the transom &#183; back at the mooring</figcaption>
       </figure>
+      <!-- the slogan used to sit on the hero; owner moved it here 2026-09-17 ("looks
+           sloppy on the front page") — it belongs under the photo of the name. -->
+      <p class="statement earned split-hide" data-split>Some boats are named. This one was earned.</p>
 
     </div>
   </div>
@@ -851,6 +859,10 @@ html.static #hud{display:none}
          no fade-in on photos (owner rule) — only the ledger below animates. -->
     <div class="catch" aria-label="Recent days aboard">
       <figure class="catch-tile">
+        <img src="assets/photos/sail-boatside.jpg" alt="A Pacific sailfish alongside the boat, held at the gunwale for release" loading="lazy" decoding="async" style="object-position:37% 50%">
+        <figcaption class="m">Sailfish &#183; at the gunwale</figcaption>
+      </figure>
+      <figure class="catch-tile">
         <img src="assets/photos/roosterfish.jpg" alt="A roosterfish held up on the bow before release, the coast behind" loading="lazy" decoding="async">
         <figcaption class="m">Roosterfish &#183; inshore &#183; released</figcaption>
       </figure>
@@ -864,14 +876,14 @@ html.static #hud{display:none}
       </figure>
     </div>
     <ul class="species">
-      <li><span class="no">01</span><span class="name">Pacific sailfish</span><span class="season">Dec &#8212; Apr peak &#183; Jun &#8212; Aug second run</span><span class="note">The reason this coast is famous, and the fish we plan the day around.</span></li>
-      <li><span class="no">02</span><span class="name">Yellowfin tuna</span><span class="season">Aug &#8212; Oct peak &#183; from May</span><span class="note">Found under the spinner dolphin. Sashimi at the dock.</span></li>
-      <li><span class="no">03</span><span class="name">Mahi mahi</span><span class="season">Nov &#8212; Dec run &#183; green season</span><span class="note">Colour, acrobatics, dinner.</span></li>
-      <li><span class="no">04</span><span class="name">Blue marlin</span><span class="season">Jul &#8212; Oct &#183; offshore &#183; a bonus</span><span class="note">The real fishery is sixty miles further out. On a day trip, a blue is luck.</span></li>
-      <li><span class="no">05</span><span class="name">Wahoo</span><span class="season">No reliable season</span><span class="note">The fastest strike in the spread. We won&#8217;t print a calendar we can&#8217;t defend.</span></li>
-      <li><span class="no">06</span><span class="name">Roosterfish</span><span class="season">All year &#183; inshore</span><span class="note">The signature inshore fight. Released every time.</span></li>
-      <li><span class="no">07</span><span class="name">Cubera snapper</span><span class="season">All year &#183; Jul &#8212; Dec strongest</span><span class="note">A brawler that lives in the rocks and knows it.</span></li>
-      <li><span class="no">08</span><span class="name">Jack crevalle</span><span class="season">All year &#183; inshore</span><span class="note">Pound for pound, the meanest pull of the day.</span></li>
+      <li><span class="no">01</span><span class="name">Pacific sailfish</span><span class="season">Dec &#8212; Apr peak &#183; Jun &#8212; Aug second run</span><span class="note">The reason this coast is famous, and the fish we plan the day around.</span><img class="fish-art" src="assets/fish/sailfish.webp" alt="" loading="lazy" decoding="async"></li>
+      <li><span class="no">02</span><span class="name">Yellowfin tuna</span><span class="season">Aug &#8212; Oct peak &#183; from May</span><span class="note">Found under the spinner dolphin. Sashimi at the dock.</span><img class="fish-art" src="assets/fish/yellowfin.webp" alt="" loading="lazy" decoding="async"></li>
+      <li><span class="no">03</span><span class="name">Mahi mahi</span><span class="season">Nov &#8212; Dec run &#183; green season</span><span class="note">Colour, acrobatics, dinner.</span><img class="fish-art" src="assets/fish/mahi.webp" alt="" loading="lazy" decoding="async"></li>
+      <li><span class="no">04</span><span class="name">Blue marlin</span><span class="season">Jul &#8212; Oct &#183; offshore &#183; a bonus</span><span class="note">The real fishery is sixty miles further out. On a day trip, a blue is luck.</span><img class="fish-art" src="assets/fish/marlin.webp" alt="" loading="lazy" decoding="async"></li>
+      <li><span class="no">05</span><span class="name">Wahoo</span><span class="season">No reliable season</span><span class="note">The fastest strike in the spread. We won&#8217;t print a calendar we can&#8217;t defend.</span><img class="fish-art" src="assets/fish/wahoo.webp" alt="" loading="lazy" decoding="async"></li>
+      <li><span class="no">06</span><span class="name">Roosterfish</span><span class="season">All year &#183; inshore</span><span class="note">The signature inshore fight. Released every time.</span><img class="fish-art" src="assets/fish/roosterfish.webp" alt="" loading="lazy" decoding="async"></li>
+      <li><span class="no">07</span><span class="name">Cubera snapper</span><span class="season">All year &#183; Jul &#8212; Dec strongest</span><span class="note">A brawler that lives in the rocks and knows it.</span><img class="fish-art" src="assets/fish/cubera.webp" alt="" loading="lazy" decoding="async"></li>
+      <li><span class="no">08</span><span class="name">Jack crevalle</span><span class="season">All year &#183; inshore</span><span class="note">Pound for pound, the meanest pull of the day.</span><img class="fish-art" src="assets/fish/jack.webp" alt="" loading="lazy" decoding="async"></li>
     </ul>
     <a class="guide-link" href="costa-rica-fishing.html">Read: the seasons, the numbers, the law</a>
   </div>
@@ -935,6 +947,7 @@ html.static #hud{display:none}
     <h2 class="split-hide" data-split data-blur>Put a date on the water.</h2>
     <p class="book-note" data-reveal>Message us. Dates, crew, what you want to catch &#8212; answers come fast.</p>
     <div class="book-actions" data-reveal>
+      <a class="btn btn-solid" href="book.html">Plan the day</a>
       <a class="btn btn-ghost" href="https://wa.me/13213561951" target="_blank" rel="noopener">WhatsApp us</a>
       <a class="btn btn-ghost" href="mailto:greatmarlincr@gmail.com?subject=Charter%20booking%20request">Email</a>
     </div>
@@ -1013,7 +1026,7 @@ html.static #hud{display:none}
   </div>
 </footer>
 
-<a id="bookbar" href="#book" data-scroll aria-hidden="false">Put a date on the water &#8594;</a>
+<a id="bookbar" href="book.html" aria-hidden="false">Put a date on the water &#8594;</a>
 
 <script src="vendor/gsap.min.js" defer></script>
 <script src="vendor/ScrollTrigger.min.js" defer></script>
@@ -1596,8 +1609,11 @@ function initChoreo(){
       /* the boat turns for the full length of the pin — scroll IS the camera */
       .to(orbitP, { p: 1, ease: 'none', duration: 9, onUpdate: function(){ seekOrbit(orbitP.p); } }, 0)
       .to(pos, { lat: 9.35, lon: 84.8667, ease: 'none', duration: 9, onUpdate: drawCoords }, 0)
-      .to('#st1 .wi', { yPercent: -115, duration: 1.1, stagger: 0.04, ease: 'power2.in' }, 1.3)
-      .fromTo('#st2 .wi', { yPercent: 115 }, { yPercent: 0, duration: 1.3, stagger: 0.05, ease: 'power3.out' }, 2.5)
+      /* st1 (h1 + the small sub line, ~11 words) must be fully OUT before st2 lands:
+         with stagger .04 the sub's last words were still leaving under st2's headline
+         (owner caught the overlap 2026-09-17). tighter stagger, later st2. */
+      .to('#st1 .wi', { yPercent: -115, duration: 1.1, stagger: 0.03, ease: 'power2.in' }, 1.3)
+      .fromTo('#st2 .wi', { yPercent: 115 }, { yPercent: 0, duration: 1.3, stagger: 0.05, ease: 'power3.out' }, 2.9)
       .to('#st2 .wi', { yPercent: -115, duration: 1.1, stagger: 0.04, ease: 'power2.in' }, 4.7)
       .fromTo('#st3 .wi', { yPercent: 115 }, { yPercent: 0, duration: 1.5, stagger: 0.06, ease: 'power3.out' }, 5.9)
       .to('.cue', { opacity: 0, duration: 0.6 }, 0.4);
