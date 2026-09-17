@@ -529,7 +529,7 @@ section{position:relative}
 /* ================= ACT III — FISH ================= */
 #fish{background:var(--deep);padding:clamp(110px,17vh,210px) 0}
 /* proof tiles: three real stills, hairline gaps, no hover zoom (owner-vetoed) */
-.catch{display:grid;grid-template-columns:repeat(4,1fr);gap:2px;margin-bottom:clamp(56px,9vh,110px)}
+.catch{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;margin-bottom:clamp(56px,9vh,110px)}
 .catch-tile{position:relative;margin:0;overflow:hidden;background:var(--bg)}
 .catch-tile img{width:100%;aspect-ratio:4/5;object-fit:cover;display:block}
 /* a quiet scrim under the caption so it survives white hull and pale water */
@@ -542,7 +542,8 @@ section{position:relative}
   .catch{grid-template-columns:1fr 1fr;gap:18px 2px;margin-bottom:clamp(48px,8vh,90px)}
   .catch-tile{background:none;overflow:visible}
   .catch-tile::after{display:none}
-  /* four tiles = a clean 2×2 on phones */
+  .catch-tile:last-child{grid-column:1/-1}
+  .catch-tile:last-child img{aspect-ratio:16/10}
   .catch-tile figcaption{position:static;padding:10px 0 0;font-size:.5625rem;letter-spacing:.2em;color:var(--muted);text-shadow:none}
 }
 .species{list-style:none;border-top:1px solid var(--line)}
@@ -790,8 +791,9 @@ html.static #hud{display:none}
        (data-clip) and only play while the gallery is on screen. -->
   <!-- 2026-09-17: every panel is now OURS. Panels 1+3 = Tony's drone clips
        (gm-orbit / gm-stern, cool grade). Panels 2+4 = real stills from the
-       boat (Higgsfield 4K upscale + the same cool grade), which replaced the
-       last two Pexels placeholders (coast / deepwater). Stills sit in the same
+       boat (Higgsfield 4K upscale + half-strength cool grade): a guest
+       watching a sailfish tail-walk off the stern (owner: "clients fishing",
+       2026-09-17), and the family with the mahi. Stills sit in the same
        wipe stack as the clips — the wipe is the move, not the medium. -->
   <div id="gallery" aria-label="The water off Costa Rica's central Pacific">
     <figure class="g-panel">
@@ -799,8 +801,8 @@ html.static #hud{display:none}
       <figcaption class="m">Off Herradura</figcaption>
     </figure>
     <figure class="g-panel">
-      <video muted loop playsinline preload="none" poster="assets/clips/gm-bow-poster.jpg" data-clip="assets/clips/gm-bow.mp4" aria-hidden="true"></video>
-      <figcaption class="m">Riggers up</figcaption>
+      <img src="assets/photos/sail-jump.jpg" alt="A guest at the stern watches a sailfish tail-walk across the surface a boat-length away" decoding="async" style="object-position:56% 62%">
+      <figcaption class="m">Sailfish up, right off the stern</figcaption>
     </figure>
     <figure class="g-panel">
       <video muted loop playsinline preload="none" poster="assets/clips/gm-stern-poster.jpg" data-clip="assets/clips/gm-stern.mp4" aria-hidden="true"></video>
@@ -858,10 +860,6 @@ html.static #hud{display:none}
     <!-- proof, not stock: three real days on this boat. images load visible —
          no fade-in on photos (owner rule) — only the ledger below animates. -->
     <div class="catch" aria-label="Recent days aboard">
-      <figure class="catch-tile">
-        <img src="assets/photos/sail-boatside.jpg" alt="A Pacific sailfish alongside the boat, held at the gunwale for release" loading="lazy" decoding="async" style="object-position:37% 50%">
-        <figcaption class="m">Sailfish &#183; at the gunwale</figcaption>
-      </figure>
       <figure class="catch-tile">
         <img src="assets/photos/roosterfish.jpg" alt="A roosterfish held up on the bow before release, the coast behind" loading="lazy" decoding="async">
         <figcaption class="m">Roosterfish &#183; inshore &#183; released</figcaption>
