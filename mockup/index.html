@@ -285,9 +285,9 @@ a{color:inherit}
   padding:24px 0;border-bottom:2px solid var(--rule-light);transition:background .35s var(--ease)}
 .rate h3{font-size:clamp(2rem,3.6vw,3.4rem)}
 .rate .desc{color:var(--soft-on-light);font-size:.9875rem;line-height:1.5}
-.rate .price{color:var(--flag-on-light);font-family:var(--display);font-stretch:62%;font-weight:900;font-size:clamp(2.6rem,4.6vw,4.4rem);line-height:.9;font-variant-numeric:tabular-nums}
+.rate .price{font-family:var(--display);font-stretch:62%;font-weight:900;font-size:clamp(2.6rem,4.6vw,4.4rem);line-height:.9;font-variant-numeric:tabular-nums}
 .rate .price small{display:block;margin-top:6px;font-family:var(--display);font-stretch:80%;font-weight:700;text-transform:uppercase;letter-spacing:.05em;font-size:.8125rem;color:var(--soft-on-light)}
-.rate .price.req{font-size:clamp(1.6rem,2.4vw,2.2rem);text-transform:uppercase;color:var(--hull)}
+.rate .price.req{font-size:clamp(1.6rem,2.4vw,2.2rem);text-transform:uppercase}
 .rate .go{display:flex;flex-direction:column;align-items:flex-end;gap:10px}
 .rate .go .btn{padding:12px 18px 11px;font-size:.875rem}
 .rate .go .wa{font-size:.8125rem;font-family:var(--display);font-stretch:80%;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--soft-on-light);text-decoration:none;border-bottom:1px solid var(--rule-light)}
@@ -308,7 +308,14 @@ a{color:inherit}
 #book .bg{position:absolute;inset:0}
 #book .bg img{width:100%;height:100%;object-fit:cover}
 #book::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(11,15,22,.15) 0%,rgba(11,15,22,.2) 40%,rgba(11,15,22,.85) 100%)}
-@media(max-width:860px){#book::after{background:linear-gradient(180deg,rgba(11,15,22,.1) 0%,rgba(11,15,22,.35) 35%,rgba(11,15,22,.92) 62%,rgba(11,15,22,.96) 100%)}}
+/* phones: photo on top with the boat whole, words on the hull below it */
+@media(max-width:860px){
+  #book{display:block;min-height:0}
+  #book .bg{position:relative;height:62svh}
+  #book .bg img{object-position:64% 50%}
+  #book::after{inset:0 0 auto 0;height:62svh;background:linear-gradient(180deg,rgba(11,15,22,0) 70%,rgba(11,15,22,1) 100%)}
+  #book .wrap{padding-top:8px}
+}
 #book .wrap{position:relative;z-index:2;width:100%;padding-bottom:clamp(56px,10vh,110px)}
 #book h2{font-size:clamp(3.6rem,10vw,10rem);max-width:9ch}
 #book p{margin-top:20px;max-width:40ch;color:var(--soft-on-dark);font-size:1.125rem}
