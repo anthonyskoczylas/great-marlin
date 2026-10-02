@@ -539,6 +539,26 @@ section{position:relative}
   .catch-tile figcaption{position:static;padding:10px 0 0;font-size:.5625rem;letter-spacing:.2em;color:var(--muted);text-shadow:none}
 }
 .species{list-style:none;border-top:1px solid var(--line)}
+/* BELOW THE SURFACE — one graded film (4 library clips, crossfaded, 21s loop):
+   bait ball → dolphins on it → the surface boils → roosterfish. Poster shows
+   immediately (no fade-in on imagery); the caption follows the scene. Library
+   footage, so the captions describe the water, never claim a catch. */
+.below{position:relative;margin:0 0 clamp(56px,9vh,110px);overflow:hidden;background:var(--bg)}
+.below video{width:100%;aspect-ratio:21/9;object-fit:cover;display:block}
+.below::after{content:"";position:absolute;left:0;right:0;bottom:0;height:55%;z-index:1;pointer-events:none;
+  background:linear-gradient(180deg,rgba(8,11,21,0),rgba(8,11,21,.55) 55%,rgba(8,11,21,.88))}
+.below figcaption{position:absolute;left:22px;right:22px;bottom:18px;z-index:2;display:flex;align-items:flex-end;justify-content:space-between;gap:16px}
+.below .below-txt{display:flex;flex-direction:column;gap:8px}
+.below .below-kicker{font-size:.5625rem;letter-spacing:.3em;color:rgba(246,245,243,.55);text-shadow:0 1px 12px rgba(8,11,21,.9)}
+.below .below-cap{font-size:.625rem;letter-spacing:.24em;color:var(--ink);text-shadow:0 1px 14px rgba(8,11,21,.95);transition:opacity .5s var(--ease)}
+.below .below-cap.swap{opacity:0}
+.below-ticks{display:flex;gap:6px;padding-bottom:4px}
+.below-ticks i{display:block;width:18px;height:1px;background:var(--line);transition:background .6s var(--ease)}
+.below-ticks i.on{background:var(--ink)}
+@media(max-width:860px){
+  .below video{aspect-ratio:4/3}
+  .below figcaption{left:16px;right:16px;bottom:14px}
+}
 .species li{display:grid;grid-template-columns:64px minmax(200px,1.1fr) minmax(150px,.6fr) 1.5fr 200px;
   gap:24px;align-items:center;padding:22px 0;border-bottom:1px solid var(--line-soft);
   transition:padding-left .6s var(--ease-out);position:relative}
@@ -867,6 +887,17 @@ html.static #hud{display:none}
         <figcaption class="m">Marlin &#183; at the gunwale &#183; released</figcaption>
       </figure>
     </div>
+    <!-- library footage (Pexels, free licence) — the water, not our days aboard -->
+    <figure class="below" id="below" aria-label="Below the surface: bait, dolphins and roosterfish">
+      <video data-clip="assets/clips/below.mp4?v=1" poster="assets/clips/below-poster.jpg" muted playsinline loop preload="none" aria-hidden="true"></video>
+      <figcaption>
+        <span class="below-txt">
+          <span class="m below-kicker">Below the surface</span>
+          <span class="m below-cap" id="belowCap">Bait, balled up</span>
+        </span>
+        <span class="below-ticks" aria-hidden="true"><i class="on"></i><i></i><i></i><i></i></span>
+      </figcaption>
+    </figure>
     <ul class="species">
       <li><span class="no">01</span><span class="name">Pacific sailfish</span><span class="season">Dec &#8212; Apr peak &#183; Jun &#8212; Aug second run</span><span class="note">The reason this coast is famous, and the fish we plan the day around.</span><img class="fish-art" src="assets/fish/sailfish.webp" alt="" loading="lazy" decoding="async"></li>
       <li><span class="no">02</span><span class="name">Yellowfin tuna</span><span class="season">Aug &#8212; Oct peak &#183; from May</span><span class="note">Found under the spinner dolphin. Sashimi at the dock.</span><img class="fish-art" src="assets/fish/yellowfin.webp" alt="" loading="lazy" decoding="async"></li>
@@ -1043,6 +1074,42 @@ html.static #hud{display:none}
       sync();
     }
   });
+})();
+
+/* BELOW THE SURFACE — mount the film near the viewport, play only while on
+   screen, swap the caption at each crossfade midpoint (5.5 / 10.5 / 15.5s).
+   Reduced motion: never plays, the poster stands in. */
+(function(){
+  var fig = document.getElementById('below');
+  if (!fig) return;
+  var v = fig.querySelector('video'), cap = document.getElementById('belowCap');
+  var ticks = fig.querySelectorAll('.below-ticks i');
+  var SCENES = [[0, 'Bait, balled up'], [5.5, 'Dolphins working the school'], [10.5, 'The surface boils'], [15.5, 'Roosterfish, cruising']];
+  var shown = 0;
+  var reduceM = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function mount(){
+    if (v.querySelector('source')) return;
+    var s = document.createElement('source');
+    s.src = v.getAttribute('data-clip'); s.type = 'video/mp4';
+    v.appendChild(s); v.load();
+  }
+  v.addEventListener('timeupdate', function(){
+    var t = v.currentTime, i = 0;
+    for (var k = 0; k < SCENES.length; k++) if (t >= SCENES[k][0]) i = k;
+    if (i === shown) return;
+    shown = i;
+    ticks.forEach(function(el, j){ el.classList.toggle('on', j === i); });
+    cap.classList.add('swap');
+    setTimeout(function(){ cap.textContent = SCENES[i][1]; cap.classList.remove('swap'); }, 450);
+  });
+  if (reduceM) return;
+  if (!('IntersectionObserver' in window)){ mount(); v.play().catch(function(){}); return; }
+  new IntersectionObserver(function(es){
+    es.forEach(function(en){
+      if (en.isIntersecting){ mount(); try { v.play().catch(function(){}); } catch(e){} }
+      else { try { v.pause(); } catch(e){} }
+    });
+  }, { rootMargin: '200px 0px' }).observe(fig);
 })();
 
 /* TODAY OFF HERRADURA — live weather + sea state from Open-Meteo (free, no key,
