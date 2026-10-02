@@ -15,3 +15,6 @@ gear.html
 
 # print collateral lives in ../print-shop (never publish)
 print/
+
+# impeccable design-tool working files (reviews, briefs, captures)
+.impeccable/

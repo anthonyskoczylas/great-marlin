@@ -3,5 +3,7 @@ Allow: /
 
 # working files — never index
 Disallow: /cgi-tests/
+# redesign preview — private, never index
+Disallow: /mockup/
 
 Sitemap: https://greatmarlin.com/sitemap.xml
