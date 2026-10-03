@@ -307,7 +307,7 @@ form.off{display:none}
 .copybox{white-space:pre-wrap;font-family:var(--mono);font-size:.8125rem;line-height:1.7;color:var(--soft-on-light);padding:18px;background:var(--tower);margin-top:20px}
 .plan-help{max-width:62rem;margin:22px auto 0;padding:0 var(--pad);color:var(--soft-on-light);text-align:center}
 .plan-help a{color:var(--hull);font-weight:700;text-decoration:none;border-bottom:2px solid var(--flag-on-light)}
-.toast{position:fixed;left:50%;bottom:28px;transform:translateX(-50%);padding:12px 18px;background:var(--hull);color:var(--tower);border-bottom:3px solid var(--flag);
+.toast{position:fixed;left:50%;bottom:64px;transform:translateX(-50%);padding:12px 18px;background:var(--hull);color:var(--tower);border-bottom:3px solid var(--flag);
   font-family:var(--display);font-stretch:80%;font-weight:800;text-transform:uppercase;letter-spacing:.05em;font-size:.875rem;opacity:0;transition:opacity .3s;pointer-events:none;z-index:99;white-space:nowrap}
 .toast.on{opacity:1}
 @media(max-width:860px){
@@ -319,6 +319,15 @@ form.off{display:none}
   .sum{grid-template-columns:1fr;gap:2px 0}
   .sum dt{padding-top:10px}
 }
+
+/* GOLD variant (preview switch): same roles, brass instead of release-flag orange */
+html.gold{--flag:#d6a641;--flag-ink:#1a1204;--flag-on-light:#86600f}
+.accent-switch{position:fixed;right:12px;top:78px;z-index:70;display:flex;background:#0b0f16;border:2px solid rgba(242,244,243,.25);
+  font-family:'Archivo',sans-serif;font-stretch:80%;font-weight:800;text-transform:uppercase;letter-spacing:.05em;font-size:.75rem}
+.accent-switch button{background:none;border:0;color:rgba(242,244,243,.7);padding:8px 12px;cursor:pointer;display:flex;align-items:center;gap:7px}
+.accent-switch button i{width:10px;height:10px;display:block}
+.accent-switch button.on{color:#f2f4f3;background:#151b25}
+@media(max-width:860px){.accent-switch{top:auto;bottom:calc(12px + env(safe-area-inset-bottom));right:12px}.accent-switch button{padding:7px 10px}}
 
 /* reveal hook from the old pages: content is visible by default here */
 .rv{opacity:1}
