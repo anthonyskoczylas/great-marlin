@@ -117,6 +117,13 @@
 <script>
 document.documentElement.className += ' js';
 if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+/* a #section in the address is a one-time jump: take it off so a refresh starts at the top */
+window.__arrive = '';
+if (location.hash){
+  var navE = performance.getEntriesByType && performance.getEntriesByType('navigation')[0];
+  if (!(navE && navE.type === 'reload')) window.__arrive = location.hash;
+  history.replaceState(null, '', location.pathname + location.search);
+}
 </script>
 <style>
 @font-face{font-family:'Archivo';src:url('assets/fonts/archivo-var.woff2') format('woff2');font-weight:100 900;font-stretch:62% 125%;font-style:normal;font-display:swap}
@@ -199,6 +206,9 @@ a{color:inherit}
 .nav .btn{padding:10px 16px 9px;font-size:.875rem}
 .nav .btn-flag:hover{background:var(--tower);border-color:var(--tower);color:var(--hull)}
 .nav:not(.solid) .btn-flag:hover{background:var(--tower);border-color:var(--tower);color:var(--hull)}
+/* nav Plan my day: see-through, gold outline (Tony 10-03) */
+.nav .btn-flag,.nav:not(.solid) .btn-flag{background:transparent;border-color:var(--flag);color:var(--flag)}
+.nav .btn-flag:hover,.nav:not(.solid) .btn-flag:hover{background:var(--flag);border-color:var(--flag);color:var(--flag-ink)}
 .menu-btn{display:none;background:none;border:2px solid currentColor;color:inherit;width:42px;height:42px;cursor:pointer;align-items:center;justify-content:center}
 .menu-btn svg{width:20px;height:20px}
 .sheet{position:fixed;inset:0;z-index:60;background:var(--hull);color:var(--tower);display:flex;flex-direction:column;
@@ -827,9 +837,19 @@ if (hasGSAP && typeof Lenis !== 'undefined' && !reduce){
   gsap.ticker.add(lenisTick);
   gsap.ticker.lagSmoothing(0);
 }
-function goTo(sel){
+function goTo(sel, now){
   var t = document.querySelector(sel); if (!t) return;
-  if (lenis) lenis.scrollTo(t, { offset: sel === '#opening' ? 0 : -60 }); else t.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth' });
+  if (lenis) lenis.scrollTo(t, { offset: sel === '#opening' ? 0 : -60, immediate: !!now }); else t.scrollIntoView({ behavior: (reduce || now) ? 'auto' : 'smooth' });
+}
+/* arriving from another page with a section (e.g. index.html#boat): jump there once pins are measured */
+if (window.__arrive && /^#[\w-]+$/.test(window.__arrive)){
+  var arriveAt = window.__arrive;
+  window.addEventListener('load', function(){ setTimeout(function(){ if (hasGSAP) ScrollTrigger.refresh(); goTo(arriveAt, true);
+    /* late layout (conditions board, map, fonts) can shift the page: settle once more */
+    setTimeout(function(){ var t = document.querySelector(arriveAt); if (t && Math.abs(t.getBoundingClientRect().top - 60) > 12){ if (hasGSAP) ScrollTrigger.refresh(); goTo(arriveAt, true); } }, 900);
+  }, 120); });
+} else {
+  scrollTo(0, 0);
 }
 document.querySelectorAll('[data-scroll]').forEach(function(a){
   a.addEventListener('click', function(e){

@@ -336,3 +336,7 @@ form.off{display:none}
 /* reveal hook from the old pages: content is visible by default here */
 .rv{opacity:1}
 @media (prefers-reduced-motion: reduce){*,*::before,*::after{animation:none!important;transition:none!important}html{scroll-behavior:auto}}
+
+/* nav Plan my day: see-through, gold outline (Tony 10-03) */
+.nav .btn-flag,.nav:not(.solid) .btn-flag,.topnav .btn-flag{background:transparent;border-color:var(--flag);color:var(--flag)}
+.nav .btn-flag:hover,.nav:not(.solid) .btn-flag:hover,.topnav .btn-flag:hover{background:var(--flag);border-color:var(--flag);color:var(--flag-ink)}
