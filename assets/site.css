@@ -217,11 +217,12 @@ figcaption{margin-top:10px;font-family:var(--display);font-stretch:80%;font-weig
 .band-deep .guide-link:hover{color:var(--flag)}
 
 /* ---------- closer: the Pacific field ---------- */
-.closer{background:var(--pacific);color:var(--tower);padding:clamp(88px,14vh,160px) 0}
+.closer{background:var(--hull);color:var(--tower);padding:clamp(88px,14vh,160px) 0;border-top:2px solid var(--flag)}
 .closer h2{font-family:var(--display);font-stretch:62%;font-weight:900;text-transform:uppercase;line-height:.86;font-size:clamp(3.2rem,8vw,7.6rem);max-width:12ch;text-wrap:balance}
 .closer .note{margin-top:20px;max-width:46ch;color:var(--soft-on-pacific);font-size:1.125rem}
 .closer-actions{display:flex;gap:12px;margin-top:28px;flex-wrap:wrap}
-.closer .btn-ghost:hover{background:var(--tower);border-color:var(--tower);color:var(--pacific)}
+.closer .btn-ghost{border-color:var(--flag);color:var(--flag)}
+.closer .btn-ghost:hover{background:var(--flag);border-color:var(--flag);color:var(--flag-ink)}
 
 @media(max-width:860px){.pg-hero-grade{background:linear-gradient(180deg,rgba(9,18,40,.4) 0%,rgba(9,18,40,.55) 30%,rgba(9,18,40,.9) 62%,rgba(9,18,40,.97) 100%)}}
 
