@@ -161,8 +161,6 @@
             <div class="sendrow">
               <button type="button" class="btn btn-flag" id="send-direct">Send my request</button>
               <button type="button" class="btn btn-ghost" id="send-wa">WhatsApp instead</button>
-              <button type="button" class="btn btn-ghost" id="send-mail">Email app instead</button>
-              <button type="button" class="btn btn-ghost" id="send-copy">Copy the details</button>
             </div>
             <div class="nav"><button type="button" class="btn btn-ghost" data-prev>Back</button><span></span></div>
           </form>
@@ -403,8 +401,6 @@
   }
   $('#send-direct').addEventListener('click', direct);
   $('#send-wa').addEventListener('click', function(){ send('wa'); });
-  $('#send-mail').addEventListener('click', function(){ send('mail'); });
-  $('#send-copy').addEventListener('click', function(){ if (ready()) copy(build().text); });
   $('#sent-copy').addEventListener('click', function(){ copy($('#sent-text').textContent); });
   $('#p-form').addEventListener('submit', function(e){ e.preventDefault(); direct(); });
 
