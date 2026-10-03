@@ -111,6 +111,9 @@ a{color:inherit}
 .pull{background:var(--pacific);color:var(--tower);padding:clamp(24px,3.4vw,44px);margin:clamp(40px,7vh,72px) 0 0;max-width:62rem}
 .pull p{font-family:var(--body);font-weight:700;font-size:clamp(1.25rem,2vw,1.7rem);line-height:1.28;max-width:40ch}
 .pull .src{margin-top:16px;font-weight:400;font-size:1rem;line-height:1.55;color:var(--soft-on-pacific);max-width:60ch}
+/* on navy bands the lighter block is noise: drop it, keep a gold rule */
+.band-deep .pull{background:none;border-left:4px solid var(--flag);padding:4px 0 4px clamp(20px,2.4vw,32px)}
+.band-deep .pull .src{color:var(--soft-on-dark)}
 
 /* ---------- season strip: months are a readout ---------- */
 .cal-wrap{overflow-x:auto;border-top:4px solid currentColor;margin-top:8px}
