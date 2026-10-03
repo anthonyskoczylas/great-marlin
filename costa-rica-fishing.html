@@ -16,12 +16,9 @@
 <meta property="og:description" content="Verified seasons, real release numbers, and the parts nobody puts on a charter website. Herradura Bay, Costa Rica.">
 <meta property="og:image" content="https://greatmarlin.com/assets/gm-bow.jpg">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="theme-color" content="#080b15">
-
-<link rel="preload" href="assets/fonts/prata.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="assets/fonts/archivo.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="assets/fonts/fragment-mono.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="assets/pages.css">
+<meta name="theme-color" content="#101d3a">
+<link rel="preload" href="assets/fonts/archivo-var.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="assets/site.css">
 <script>document.documentElement.className+=' js';</script>
 
 <script type="application/ld+json">
@@ -46,24 +43,45 @@
 </head>
 <body>
 
-<div class="grain" aria-hidden="true"></div>
-
-<header class="chrome">
-  <a class="mark" href="index.html">Great Marlin</a>
-  <div class="chrome-right">
-    <span class="crumb">The guide</span>
-    <a class="booklink" href="index.html#book">Book</a>
+<header class="topnav">
+  <a class="brand" href="index.html">Great Marlin</a>
+  <ul class="nav-links">
+    <li><a href="index.html#boat">The boat</a></li>
+    <li><a href="index.html#fish">The fish</a></li>
+    <li><a href="index.html#rates">Rates</a></li>
+    <li><a href="getting-here.html">Getting here</a></li>
+  </ul>
+  <div class="nav-cta">
+    <a class="btn btn-flag" href="book.html">Plan my day</a>
+    <button class="menu-btn" id="menuBtn" type="button" aria-expanded="false" aria-controls="sheet" aria-label="Open menu">
+      <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 6h16M2 14h16"/></svg>
+    </button>
   </div>
 </header>
+<nav class="sheet" id="sheet" aria-label="Menu" aria-hidden="true">
+  <button class="sheet-close" id="sheetClose" type="button" aria-label="Close menu">
+    <svg viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3l12 12M15 3L3 15"/></svg>
+  </button>
+  <a class="big" href="index.html">Home</a>
+  <a class="big" href="index.html#rates">Rates</a>
+  <a class="big" href="costa-rica-fishing.html">The fishing</a>
+  <a class="big" href="first-time-offshore.html">Your first day</a>
+  <a class="big" href="getting-here.html">Getting here</a>
+  <a class="big" href="transportation.html">Transportation</a>
+  <a class="big" href="tours.html">Tours</a>
+  <div class="sheet-foot">
+    <a class="btn btn-flag" href="book.html">Plan my day</a>
+    <a class="btn btn-line" href="https://wa.me/13213561951" target="_blank" rel="noopener">WhatsApp us</a>
+  </div>
+</nav>
 
 <main>
 
   <!-- ============ HERO ============ -->
   <header class="pg-hero">
-    <div class="pg-hero-media"><img src="assets/gm-bow.jpg" alt="The bow of Great Marlin pointed at open Pacific off Herradura Bay, Costa Rica" fetchpriority="high"></div>
+    <div class="pg-hero-media"><img src="assets/photos/sail-boatside.jpg" alt="A marlin alongside the Great Marlin, held at the gunwale before release" fetchpriority="high" style="object-position:30% 50%"></div>
     <div class="pg-hero-grade"></div>
     <div class="pg-hero-inner shell">
-      <span class="m m-dim">The guide</span>
       <h1>Fishing Costa&nbsp;Rica's central Pacific</h1>
       <p class="sub">What this water actually does — month by month, in real numbers. The seasons, the fish, the method, and the parts nobody else puts on a charter website.</p>
       <div class="stamp">
@@ -77,10 +95,7 @@
   <!-- ============ 01 THE WATER ============ -->
   <section class="band" id="water">
     <div class="shell">
-      <div class="chapter-head">
-        <span class="m idx">01 — The Water</span>
-        <span class="m m-dim">Why this bay</span>
-      </div>
+      <div class="sec-head"><h2 class="d sec-title">The Water</h2><p class="sec-sub lbl">Why this bay</p></div>
 
       <div class="split">
         <div>
@@ -103,10 +118,7 @@
   <!-- ============ 02 THE SEASON ============ -->
   <section class="band band-deep" id="season">
     <div class="shell">
-      <div class="chapter-head">
-        <span class="m idx">02 — The Season</span>
-        <span class="m m-dim">Both of them fish</span>
-      </div>
+      <div class="sec-head"><h2 class="d sec-title">The Season</h2><p class="sec-sub lbl">Both of them fish</p></div>
 
       <div class="split" style="margin-bottom:clamp(56px,9vh,110px)">
         <div><p class="statement rv">Costa Rica has two seasons, and the second one is the secret.</p></div>
@@ -173,10 +185,7 @@
   <!-- ============ 03 THE NUMBERS ============ -->
   <section class="band" id="numbers">
     <div class="shell">
-      <div class="chapter-head">
-        <span class="m idx">03 — The Numbers</span>
-        <span class="m m-dim">Sailfish releases · per boat · per day</span>
-      </div>
+      <div class="sec-head"><h2 class="d sec-title">The Numbers</h2><p class="sec-sub lbl">Sailfish releases · per boat · per day</p></div>
 
       <div class="split" style="margin-bottom:clamp(48px,8vh,96px)">
         <div><p class="statement rv">Every number you have read about this place is a tournament number.</p></div>
@@ -219,64 +228,50 @@
   <!-- ============ 04 THE FISH ============ -->
   <section class="band band-deep" id="fish">
     <div class="shell">
-      <div class="chapter-head">
-        <span class="m idx">04 — The Fish</span>
-        <span class="m m-dim">Billfish released · meat fish kept</span>
-      </div>
+      <div class="sec-head"><h2 class="d sec-title">The Fish</h2><p class="sec-sub lbl">Billfish released · meat fish kept</p></div>
 
       <ul class="ledger rv">
         <li>
-          <span class="no">01</span>
           <span class="name">Pacific sailfish</span>
           <span class="season">Dec — Apr peak · Jun — Aug second run</span>
           <span class="note">The reason this coast is famous, and the fish we plan the day around. Eight to ten feet of lit-up billfish behind a bait you can watch from the tower.</span>
         </li>
         <li>
-          <span class="no">02</span>
           <span class="name">Yellowfin tuna</span>
           <span class="season">Aug — Oct peak · from May</span>
           <span class="note">Found under the spinner dolphin in schools of forty to eighty pounds. Arrives with the rains. Sashimi at the dock, and the hardest pull of your life on the way there.</span>
         </li>
         <li>
-          <span class="no">03</span>
           <span class="name">Mahi mahi</span>
           <span class="season">Nov — Dec run · green-season debris</span>
           <span class="note">Colour, acrobatics, dinner. Green-season rain flushes trees and branches offshore and dorado live underneath them. A second, heavier run lands late October into December.</span>
         </li>
         <li>
-          <span class="no">04</span>
           <span class="name">Blue marlin</span>
           <span class="season">Jul — Oct · offshore · a bonus</span>
           <span class="note">The real fishery is sixty to a hundred and fifty miles out. On a day trip, a blue is luck. Mostly under three hundred pounds here — this is not Kona and we will not pretend it is.</span>
         </li>
         <li>
-          <span class="no">05</span>
           <span class="name">Wahoo</span>
           <span class="season">No reliable season</span>
           <span class="note">The fastest strike in the spread. They turn up, we take them, and we will not print a calendar we cannot defend.</span>
         </li>
       </ul>
 
-      <div class="chapter-head" style="margin-top:clamp(80px,12vh,140px)">
-        <span class="m idx">Inshore</span>
-        <span class="m m-dim">Year round · the calendar barely moves</span>
-      </div>
+      <div class="sec-head" style="margin-top:clamp(80px,12vh,140px)"><h2 class="d sec-title">Inshore</h2><p class="sec-sub lbl">Year round · the calendar barely moves</p></div>
 
       <ul class="ledger rv">
         <li>
-          <span class="no">06</span>
           <span class="name">Roosterfish</span>
           <span class="season">All year</span>
           <span class="note">The signature inshore fight, along the rocks and the beach. Released every time. Anyone quoting you a roosterfish season is guessing — the sources contradict each other, and so do the fish.</span>
         </li>
         <li>
-          <span class="no">07</span>
           <span class="name">Cubera snapper</span>
           <span class="season">All year · Jul — Dec strongest</span>
           <span class="note">A brawler that lives in the rocks and knows exactly where they are. The one inshore species here with a season we trust.</span>
         </li>
         <li>
-          <span class="no">08</span>
           <span class="name">Jack crevalle</span>
           <span class="season">All year</span>
           <span class="note">Pound for pound, the meanest pull of the day. Nobody flies to Costa Rica for them. Everybody remembers them.</span>
@@ -290,10 +285,7 @@
   <!-- ============ 05 METHOD & LAW ============ -->
   <section class="band" id="method">
     <div class="shell">
-      <div class="chapter-head">
-        <span class="m idx">05 — Method &amp; Law</span>
-        <span class="m m-dim">The regulation wrote the technique</span>
-      </div>
+      <div class="sec-head"><h2 class="d sec-title">Method &amp; Law</h2><p class="sec-sub lbl">The regulation wrote the technique</p></div>
 
       <div class="split" style="margin-bottom:clamp(56px,9vh,110px)">
         <div><p class="statement rv">Here, the conservation rule and the fishing technique are the same thing.</p></div>
@@ -330,48 +322,48 @@
       <h2>Now you know more than the brochure.</h2>
       <p class="note">Tell us your dates and what you want to catch. You will get an honest read on what the water is doing that week — including when the answer is "come in February instead."</p>
       <div class="closer-actions">
-        <a class="btn btn-solid" href="https://wa.me/13213561951?text=Hi%20Great%20Marlin%20%E2%80%94%20I%20read%20the%20fishing%20guide%20and%20I%27m%20checking%20dates." rel="noopener">WhatsApp us</a>
-        <a class="btn btn-ghost" href="index.html#trips">Days and rates</a>
+        <a class="btn btn-flag" href="https://wa.me/13213561951?text=Hi%20Great%20Marlin%20%E2%80%94%20I%20read%20the%20fishing%20guide%20and%20I%27m%20checking%20dates." rel="noopener">WhatsApp us</a>
+        <a class="btn btn-ghost" href="index.html#rates">Days and rates</a>
       </div>
     </div>
   </section>
 
 </main>
 
-<footer class="site-foot">
-  <div class="foot-grid">
-    <div class="foot-brand">
-      <div class="fmark">Great Marlin</div>
-      <p>A 36-foot sportfisher working the drop off Herradura Bay, Costa Rica. One boat, one crew, your group only.</p>
-      <div class="coords">[ 09° 38' 43" N · 84° 39' 35" W ]</div>
+<footer class="foot">
+  <div class="shell">
+    <div class="foot-grid">
+      <div>
+        <p class="d big">Great Marlin</p>
+        <p class="about">A 36-foot sportfisher working the drop off Herradura Bay, Costa Rica. One boat, one crew, your group only.</p>
+      </div>
+      <div>
+        <h2 class="fh">The week</h2>
+        <ul>
+          <li><a href="costa-rica-fishing.html">Fishing the central Pacific</a></li>
+          <li><a href="first-time-offshore.html">Your first day offshore</a></li>
+          <li><a href="getting-here.html">Getting to Herradura</a></li>
+          <li><a href="transportation.html">Transportation</a></li>
+          <li><a href="tours.html">Tours &amp; days ashore</a></li>
+        </ul>
+      </div>
+      <div>
+        <h2 class="fh">The boat</h2>
+        <ul>
+          <li><a href="index.html#boat">The boat</a></li>
+          <li><a href="index.html#fish">What we chase</a></li>
+          <li><a href="index.html#rates">Days and rates</a></li>
+          <li><a href="book.html">Plan the day</a></li>
+        </ul>
+      </div>
     </div>
-    <div>
-      <h4>The week</h4>
-      <ul class="foot-list">
-        <li><a href="costa-rica-fishing.html">Fishing the central Pacific</a></li>
-        <li><a href="first-time-offshore.html">Your first day offshore</a></li>
-        <li><a href="getting-here.html">Getting to Herradura</a></li>
-        <li><a href="transportation.html">Transportation</a></li>
-        <li><a href="tours.html">Tours &amp; days ashore</a></li>
-      </ul>
+    <div class="foot-bar lbl">
+      <span>Great Marlin &#183; P12387 &#183; Puntarenas</span>
+      <span>Herradura Bay &#183; Jaco &#183; Costa Rica</span>
     </div>
-    <div>
-      <h4>The boat</h4>
-      <ul class="foot-list">
-        <li><a href="index.html#boat">The boat</a></li>
-        <li><a href="index.html#fish">What we chase</a></li>
-        <li><a href="index.html#trips">Days and rates</a></li>
-        <li><a href="index.html#book">Book</a></li>
-      </ul>
-    </div>
-  </div>
-  <div class="foot-bar">
-    <span>Great Marlin · P12387 · Puntarenas</span>
-    <span>Herradura Bay · Jacó · Costa Rica</span>
   </div>
 </footer>
 
-<script src="assets/reveal.js" defer></script>
-<script src="assets/water.js" defer></script>
+<script src="assets/site.js" defer></script>
 </body>
 </html>

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-endpoint="https://gm-mail.vercel.app/api/request">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -16,117 +16,55 @@
 <meta property="og:description" content="Pick the day, when and how many. Whole-boat price before you send. One thread, answers fast.">
 <meta property="og:image" content="https://greatmarlin.com/assets/og-card.jpg">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="theme-color" content="#080b15">
-
-<link rel="preload" href="assets/fonts/prata.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="assets/fonts/archivo.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="assets/fonts/fragment-mono.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="assets/pages.css">
+<meta name="theme-color" content="#101d3a">
+<link rel="preload" href="assets/fonts/archivo-var.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="assets/site.css">
 <script>document.documentElement.className+=' js';</script>
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
 
-<style>
-/* ================= THE PLANNER =================
-   Four questions, one thread. Same instrument language as the rest of the site:
-   serif for the question, sans for meaning, mono for readouts; hairlines, no boxes
-   with fills, no colour but the two inks. The whole-boat number is always on screen. */
-.plan-prog{list-style:none;margin:0 0 clamp(44px,7vh,76px);padding:0;display:flex;
-  border-top:1px solid var(--line);border-bottom:1px solid var(--line-soft)}
-.plan-prog li{flex:1;padding:18px 0;font-family:var(--sans);font-size:.625rem;letter-spacing:.28em;text-transform:uppercase;
-  color:var(--dim);display:flex;gap:14px;align-items:baseline;transition:color .6s var(--ease)}
-.plan-prog li span{font-family:var(--mono);letter-spacing:.2em}
-.plan-prog li.on{color:var(--ink)}
-.plan-prog li.done{color:var(--muted)}
-
-.pane{display:none}
-.pane.on{display:block}
-.pane h2{font-family:var(--serif);font-weight:400;font-size:clamp(1.8rem,3.6vw,2.8rem);line-height:1.2;max-width:18ch}
-.pane .lead{margin-top:18px;color:var(--muted);max-width:52ch;line-height:1.7}
-
-.opts{display:grid;grid-template-columns:1fr 1fr;gap:2px;margin-top:40px}
-.opt{position:relative;display:block;padding:26px 24px 24px;border:1px solid var(--line-soft);cursor:pointer;
-  transition:border-color .5s var(--ease),background .5s var(--ease)}
-.opt:hover{border-color:var(--line)}
-.opt.on{border-color:var(--ink)}
-.opt input{position:absolute;opacity:0;pointer-events:none}
-.opt b{display:block;font-family:var(--serif);font-weight:400;font-size:1.45rem;line-height:1.1}
-.opt .meta{display:block;margin-top:12px;font-family:var(--sans);font-size:.625rem;letter-spacing:.24em;text-transform:uppercase;color:var(--muted)}
-.opt .meta em{font-style:normal;color:var(--ink)}
-.opt small{display:block;margin-top:12px;color:var(--muted);font-size:.8125rem;line-height:1.6}
-
-.fld{margin-top:34px}
-.fld label{display:block;font-family:var(--sans);font-size:.625rem;letter-spacing:.28em;text-transform:uppercase;color:var(--muted);margin-bottom:12px}
-.fld input,.fld textarea{width:100%;background:transparent;border:0;border-bottom:1px solid var(--line);border-radius:0;
-  color:var(--ink);font-family:var(--sans);font-size:1.0625rem;padding:12px 0;outline:none;transition:border-color .5s var(--ease)}
-.fld textarea{min-height:96px;resize:vertical;line-height:1.6}
-.fld input:focus,.fld textarea:focus{border-color:var(--ink)}
-.fld input[type=date]{color-scheme:dark;-webkit-appearance:none;appearance:none}
-.fld input::placeholder,.fld textarea::placeholder{color:var(--dim)}
-.row2{display:grid;grid-template-columns:1fr 1fr;gap:40px}
-.check{display:flex;align-items:center;gap:14px;margin-top:18px;font-size:.8125rem;color:var(--muted);cursor:pointer}
-.check input{width:16px;height:16px;accent-color:var(--ink)}
-
-.step{display:flex;align-items:center;gap:22px;padding-top:4px}
-.step button{width:46px;height:46px;border:1px solid var(--line);background:none;color:var(--ink);font-size:1.25rem;cursor:pointer;
-  transition:border-color .5s var(--ease)}
-.step button:hover{border-color:var(--ink)}
-.step output{font-family:var(--serif);font-size:2.1rem;min-width:2ch;text-align:center;line-height:1}
-
-.readout{margin-top:44px;padding:22px 0;border-top:1px solid var(--line-soft);border-bottom:1px solid var(--line-soft);
-  display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap;align-items:baseline}
-.readout b{font-family:var(--serif);font-weight:400;font-size:1.9rem;line-height:1}
-
-.nav{display:flex;justify-content:space-between;gap:18px;margin-top:52px;flex-wrap:wrap}
-.plan .btn{appearance:none;-webkit-appearance:none;background:transparent;cursor:pointer}
-.plan .btn-solid{background:transparent}
-.plan .btn-solid:hover{background:var(--ink)}
-
-.sum{display:grid;grid-template-columns:max-content 1fr;gap:18px 40px;margin:40px 0 0;padding:30px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line-soft)}
-.sum dt{font-family:var(--sans);font-size:.625rem;letter-spacing:.28em;text-transform:uppercase;color:var(--dim);align-self:baseline;padding-top:6px}
-.sum dd{margin:0;font-family:var(--serif);font-size:1.25rem;line-height:1.35}
-.total{display:flex;justify-content:space-between;align-items:baseline;gap:24px;flex-wrap:wrap;padding:24px 0;border-bottom:1px solid var(--line-soft)}
-.total b{font-family:var(--serif);font-weight:400;font-size:clamp(2rem,4vw,3rem);line-height:1}
-.fine{margin-top:16px;color:var(--dim);font-size:.8125rem;line-height:1.7;max-width:56ch}
-.sendrow{display:flex;gap:18px;flex-wrap:wrap;margin-top:44px}
-form.off{display:none}
-.sent{display:none;margin-top:10px}
-.sent.on{display:block}
-.sent h3{font-family:var(--serif);font-weight:400;font-size:clamp(1.6rem,3vw,2.4rem);line-height:1.2}
-.copybox{white-space:pre-wrap;font-family:var(--mono);font-size:.8125rem;line-height:1.75;color:var(--ink-soft);padding:24px;border:1px solid var(--line-soft);margin-top:30px}
-.toast{position:fixed;left:50%;bottom:32px;transform:translateX(-50%);padding:12px 20px;border:1px solid var(--line);background:var(--deep);
-  font-family:var(--sans);font-size:.6875rem;letter-spacing:.24em;text-transform:uppercase;color:var(--ink);opacity:0;transition:opacity .4s;pointer-events:none;z-index:99;white-space:nowrap}
-.toast.on{opacity:1}
-@media(max-width:860px){
-  .opts,.row2{grid-template-columns:1fr}
-  .plan-prog li{font-size:.5625rem;letter-spacing:.18em;gap:8px;padding:14px 0}
-  .plan-prog li span{display:none}
-  .nav .btn{width:100%;text-align:center}
-  .sum{grid-template-columns:1fr;gap:6px 0}
-  .sum dt{padding-top:14px}
-}
-</style>
 </head>
 <body>
 
-<div class="grain" aria-hidden="true"></div>
-
-<header class="chrome">
-  <a class="mark" href="index.html">Great Marlin</a>
-  <div class="chrome-right">
-    <span class="crumb">Plan</span>
-    <a class="booklink" href="https://wa.me/13213561951" target="_blank" rel="noopener">WhatsApp</a>
+<header class="topnav">
+  <a class="brand" href="index.html">Great Marlin</a>
+  <ul class="nav-links">
+    <li><a href="index.html#boat">The boat</a></li>
+    <li><a href="index.html#fish">The fish</a></li>
+    <li><a href="index.html#rates">Rates</a></li>
+    <li><a href="getting-here.html">Getting here</a></li>
+  </ul>
+  <div class="nav-cta">
+    <a class="btn btn-flag" href="book.html">Plan my day</a>
+    <button class="menu-btn" id="menuBtn" type="button" aria-expanded="false" aria-controls="sheet" aria-label="Open menu">
+      <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 6h16M2 14h16"/></svg>
+    </button>
   </div>
 </header>
+<nav class="sheet" id="sheet" aria-label="Menu" aria-hidden="true">
+  <button class="sheet-close" id="sheetClose" type="button" aria-label="Close menu">
+    <svg viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3l12 12M15 3L3 15"/></svg>
+  </button>
+  <a class="big" href="index.html">Home</a>
+  <a class="big" href="index.html#rates">Rates</a>
+  <a class="big" href="costa-rica-fishing.html">The fishing</a>
+  <a class="big" href="first-time-offshore.html">Your first day</a>
+  <a class="big" href="getting-here.html">Getting here</a>
+  <a class="big" href="transportation.html">Transportation</a>
+  <a class="big" href="tours.html">Tours</a>
+  <div class="sheet-foot">
+    <a class="btn btn-flag" href="book.html">Plan my day</a>
+    <a class="btn btn-line" href="https://wa.me/13213561951" target="_blank" rel="noopener">WhatsApp us</a>
+  </div>
+</nav>
 
 <main>
 
   <!-- ============ HERO ============ -->
-  <header class="pg-hero">
+  <header class="pg-hero pg-hero-short">
     <div class="pg-hero-media"><img src="assets/book-boat.jpg" alt="The Great Marlin in her own deep water, from the air" fetchpriority="high"></div>
     <div class="pg-hero-grade"></div>
     <div class="pg-hero-inner shell">
-      <span class="m m-dim">Book</span>
       <h1>Put a date on the water.</h1>
       <p class="sub">Four questions. The whole-boat number is on the screen before you send, and the message lands in the same thread we answer from. Nobody else shares your day.</p>
       <div class="stamp">
@@ -138,7 +76,7 @@ form.off{display:none}
   </header>
 
   <!-- ============ THE PLANNER ============ -->
-  <section class="band band-deep" id="planner">
+  <section class="band plan-band" id="planner">
     <div class="shell narrow">
 
       <ol class="plan-prog" aria-label="Steps">
@@ -162,7 +100,7 @@ form.off{display:none}
             <label class="opt"><input type="radio" name="day" value="sunset"><b>Sunset cruise</b><span class="meta"><em>On request</em> · the last hour of light</span><small>The coast from the water, an easy evening run.</small></label>
             <label class="opt"><input type="radio" name="day" value="custom"><b>Custom &amp; events</b><span class="meta"><em>On request</em> · multi-day · film days</span><small>Tell us the occasion. We build the day around it.</small></label>
           </div>
-          <div class="nav"><span></span><button type="button" class="btn btn-solid" data-next>Next &#8212; when</button></div>
+          <div class="nav"><span></span><button type="button" class="btn btn-flag" data-next>Next &#8212; when</button></div>
         </div>
 
         <!-- 02 WHEN -->
@@ -185,7 +123,7 @@ form.off{display:none}
             </div>
           </div>
           <div class="readout" id="readout"></div>
-          <div class="nav"><button type="button" class="btn btn-ghost" data-prev>Back</button><button type="button" class="btn btn-solid" data-next>Next &#8212; the dock</button></div>
+          <div class="nav"><button type="button" class="btn btn-ghost" data-prev>Back</button><button type="button" class="btn btn-flag" data-next>Next &#8212; the dock</button></div>
         </div>
 
         <!-- 03 THE DOCK -->
@@ -202,34 +140,36 @@ form.off{display:none}
             <label for="p-stay">Where are you staying?</label>
             <input id="p-stay" type="text" name="stay" placeholder="Hotel, villa or town — Jacó, Herradura, Los Sueños, Hermosa&#8230;" autocomplete="off">
           </div>
-          <div class="nav"><button type="button" class="btn btn-ghost" data-prev>Back</button><button type="button" class="btn btn-solid" data-next>Next &#8212; read it back</button></div>
+          <div class="nav"><button type="button" class="btn btn-ghost" data-prev>Back</button><button type="button" class="btn btn-flag" data-next>Next &#8212; read it back</button></div>
         </div>
 
         <!-- 04 SEND -->
         <div class="pane" data-pane="send">
           <h2>Read it back, then send.</h2>
-          <p class="lead">This builds the message. WhatsApp is fastest; email works too. Nothing is held until you hear from us &#8212; and you will, fast.</p>
+          <p class="lead">Send it from here and a confirmation lands in your inbox straight away. Prefer WhatsApp? That works too. Nothing is held until you hear from us, and you will, fast.</p>
           <div id="summary"></div>
           <form id="p-form" novalidate>
             <div class="row2">
               <div class="fld"><label for="p-name">Your name</label><input id="p-name" name="name" required autocomplete="name"></div>
               <div class="fld"><label for="p-phone">WhatsApp or phone</label><input id="p-phone" name="phone" autocomplete="tel" inputmode="tel"></div>
             </div>
-            <div class="fld"><label for="p-email">Email</label><input id="p-email" name="email" type="email" autocomplete="email"></div>
+            <div class="fld"><label for="p-email">Email (your confirmation goes here)</label><input id="p-email" name="email" type="email" autocomplete="email" required></div>
+            <div class="hp" aria-hidden="true"><label>Leave this empty<input name="website" tabindex="-1" autocomplete="off"></label></div>
             <div class="fld"><label for="p-notes">What do you want to catch? Kids&#8217; ages? Anything else</label><textarea id="p-notes" name="notes"></textarea></div>
             <div class="sendrow">
-              <button type="button" class="btn btn-solid" id="send-wa">Send on WhatsApp</button>
-              <button type="button" class="btn btn-ghost" id="send-mail">Send by email</button>
+              <button type="button" class="btn btn-flag" id="send-direct">Send my request</button>
+              <button type="button" class="btn btn-ghost" id="send-wa">WhatsApp instead</button>
+              <button type="button" class="btn btn-ghost" id="send-mail">Email app instead</button>
               <button type="button" class="btn btn-ghost" id="send-copy">Copy the details</button>
             </div>
             <div class="nav"><button type="button" class="btn btn-ghost" data-prev>Back</button><span></span></div>
           </form>
           <div class="sent" id="sent">
-            <h3>Your day is written up.</h3>
-            <p class="lead">If WhatsApp or mail didn&#8217;t open on its own, use the buttons. We answer from the same thread &#8212; dates, crew, what&#8217;s biting.</p>
+            <h3 id="sent-h">Your day is written up.</h3>
+            <p class="lead" id="sent-lead">If WhatsApp or mail didn&#8217;t open on its own, use the buttons. We answer from the same thread &#8212; dates, crew, what&#8217;s biting.</p>
             <div class="copybox" id="sent-text"></div>
             <div class="sendrow">
-              <a class="btn btn-solid" id="sent-wa" href="#" target="_blank" rel="noopener">Open WhatsApp</a>
+              <a class="btn btn-flag" id="sent-wa" href="#" target="_blank" rel="noopener">Open WhatsApp</a>
               <a class="btn btn-ghost" id="sent-mail" href="#">Open email</a>
               <button type="button" class="btn btn-ghost" id="sent-copy">Copy</button>
             </div>
@@ -255,50 +195,50 @@ form.off{display:none}
 
 </main>
 
-<footer class="site-foot">
-  <div class="foot-grid">
-    <div class="foot-brand">
-      <div class="fmark">Great Marlin</div>
-      <p>A 36-foot sportfisher working the drop off Herradura Bay, Costa Rica. One boat, one crew, your group only.</p>
-      <div class="coords">[ 09° 38' 43" N · 84° 39' 35" W ]</div>
+<footer class="foot">
+  <div class="shell">
+    <div class="foot-grid">
+      <div>
+        <p class="d big">Great Marlin</p>
+        <p class="about">A 36-foot sportfisher working the drop off Herradura Bay, Costa Rica. One boat, one crew, your group only.</p>
+      </div>
+      <div>
+        <h2 class="fh">The week</h2>
+        <ul>
+          <li><a href="costa-rica-fishing.html">Fishing the central Pacific</a></li>
+          <li><a href="first-time-offshore.html">Your first day offshore</a></li>
+          <li><a href="getting-here.html">Getting to Herradura</a></li>
+          <li><a href="transportation.html">Transportation</a></li>
+          <li><a href="tours.html">Tours &amp; days ashore</a></li>
+        </ul>
+      </div>
+      <div>
+        <h2 class="fh">The boat</h2>
+        <ul>
+          <li><a href="index.html#boat">The boat</a></li>
+          <li><a href="index.html#fish">What we chase</a></li>
+          <li><a href="index.html#rates">Days and rates</a></li>
+          <li><a href="book.html">Plan the day</a></li>
+        </ul>
+      </div>
     </div>
-    <div>
-      <h4>The week</h4>
-      <ul class="foot-list">
-        <li><a href="costa-rica-fishing.html">Fishing the central Pacific</a></li>
-        <li><a href="first-time-offshore.html">Your first day offshore</a></li>
-        <li><a href="getting-here.html">Getting to Herradura</a></li>
-        <li><a href="transportation.html">Transportation</a></li>
-        <li><a href="tours.html">Tours &amp; days ashore</a></li>
-      </ul>
+    <div class="foot-bar lbl">
+      <span>Great Marlin &#183; P12387 &#183; Puntarenas</span>
+      <span>Herradura Bay &#183; Jaco &#183; Costa Rica</span>
     </div>
-    <div>
-      <h4>The boat</h4>
-      <ul class="foot-list">
-        <li><a href="index.html#boat">The boat</a></li>
-        <li><a href="index.html#fish">What we chase</a></li>
-        <li><a href="index.html#trips">Days and rates</a></li>
-        <li><a href="book.html">Plan the day</a></li>
-      </ul>
-    </div>
-  </div>
-  <div class="foot-bar">
-    <span>Great Marlin · P12387 · Puntarenas</span>
-    <span>Herradura Bay · Jacó · Costa Rica</span>
   </div>
 </footer>
 
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
-<script src="assets/reveal.js" defer></script>
-<script src="assets/water.js" defer></script>
+<script src="assets/site.js" defer></script>
 <script>
 (function(){
   var $ = function(s, c){ return (c || document).querySelector(s); };
   var $$ = function(s, c){ return Array.prototype.slice.call((c || document).querySelectorAll(s)); };
   var WA = '13213561951', EMAIL = 'greatmarlincr@gmail.com';
 
-  /* the price sheet mirrors index.html#trips — change both or neither */
+  /* the price sheet mirrors index.html#rates — change both or neither */
   var DAYS = {
     full:    { name: 'Full day',        desc: 'offshore, past the drop',          price: 1750, base: 6, extra: 100, max: 10, inc: 'Lunch, beer, water and fruit aboard' },
     half:    { name: 'Half day',        desc: 'inshore and nearshore, mornings',  price: 1350, base: 6, extra: 100, max: 10, inc: 'Beer, water, fruit and snacks aboard' },
@@ -420,11 +360,44 @@ form.off{display:none}
     try { localStorage.removeItem('gm_plan'); } catch (e) {}
     sent.scrollIntoView({ behavior: 'smooth', block: 'center' });
   }
+  /* direct send: emails the guest a confirmation and us the request (gm-mail on Vercel).
+     No endpoint set, or the send fails: fall back to the WhatsApp / email-app path. */
+  var ENDPOINT = document.documentElement.getAttribute('data-endpoint') || '';
+  var t0 = Date.now(), human = false;
+  ['pointerdown', 'keydown', 'touchstart'].forEach(function(t){ document.addEventListener(t, function(){ human = true; }, { once: true, passive: true }); });
+  function sentOk(email){
+    var r = build(), s = $('#sent');
+    $('#sent-text').textContent = r.text; $('#sent-wa').href = r.wa; $('#sent-mail').href = r.mail;
+    $('#sent-h').textContent = 'Request sent.';
+    $('#sent-lead').textContent = 'A confirmation is on its way to ' + email + '. We check the boat’s calendar and answer from the same thread. Nothing else to do.';
+    s.classList.add('on'); s.classList.add('ok'); $('#p-form').classList.add('off');
+    try { localStorage.removeItem('gm_plan'); } catch (e) {}
+    s.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
+  function direct(){
+    if (!ready()) return;
+    var el = $('#p-form').elements, email = el['email'].value.trim();
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) { el['email'].focus(); return toast('Your email, so the confirmation can reach you'); }
+    if (!ENDPOINT) return send('mail');
+    var d = DAYS[state.day], e = est(), btn = $('#send-direct');
+    btn.disabled = true; btn.textContent = 'Sending…';
+    var payload = { kind: 'boat', trip: d.name, base: d.desc, rate: e ? money(e) : 'On request', dateText: dateLabel(), pax: state.crew,
+      transport: RIDES[state.ride] || '', stay: state.stay || '', name: el['name'].value.trim(), email: email, phone: el['phone'].value.trim(),
+      notes: el['notes'].value.trim(), page: location.href, website: el['website'] ? el['website'].value : '',
+      secs: Math.round((Date.now() - t0) / 1000), human: human };
+    var ctl = typeof AbortController !== 'undefined' ? new AbortController() : null;
+    var tm = setTimeout(function(){ if (ctl) ctl.abort(); }, 12000);
+    fetch(ENDPOINT, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload), signal: ctl ? ctl.signal : undefined })
+      .then(function(r){ clearTimeout(tm); if (!r.ok) throw new Error(r.status); return r.json(); })
+      .then(function(){ sentOk(email); })
+      .catch(function(){ clearTimeout(tm); btn.disabled = false; btn.textContent = 'Send my request'; toast('Could not send. Use WhatsApp or email below'); send(null); });
+  }
+  $('#send-direct').addEventListener('click', direct);
   $('#send-wa').addEventListener('click', function(){ send('wa'); });
   $('#send-mail').addEventListener('click', function(){ send('mail'); });
   $('#send-copy').addEventListener('click', function(){ if (ready()) copy(build().text); });
   $('#sent-copy').addEventListener('click', function(){ copy($('#sent-text').textContent); });
-  $('#p-form').addEventListener('submit', function(e){ e.preventDefault(); send('wa'); });
+  $('#p-form').addEventListener('submit', function(e){ e.preventDefault(); direct(); });
 
   function copy(t){
     if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(t).then(function(){ toast('Copied'); }, function(){ toast('Select the text and copy'); });
