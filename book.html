@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Plan your day on the water | Great Marlin</title>
-<meta name="description" content="Pick the day, tell us when and how many, and the whole-boat price is on the screen before you send. Full day, half day, surf day, Tortuga Island — one boat, your group only.">
+<meta name="description" content="Pick the day, tell us when and how many, and the price is on the screen before you send. Full day, half day, surf day, Tortuga Island — one boat, your group only.">
 <link rel="canonical" href="https://greatmarlin.com/book.html">
 <meta name="robots" content="index,follow,max-image-preview:large">
 
@@ -13,7 +13,7 @@
 <meta property="og:site_name" content="Great Marlin">
 <meta property="og:url" content="https://greatmarlin.com/book.html">
 <meta property="og:title" content="Put a date on the water — Great Marlin">
-<meta property="og:description" content="Pick the day, when and how many. Whole-boat price before you send. One thread, answers fast.">
+<meta property="og:description" content="Pick the day, when and how many. Price on screen before you send. One thread, answers fast.">
 <meta property="og:image" content="https://greatmarlin.com/assets/og-card.jpg">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="theme-color" content="#091228">
@@ -71,9 +71,9 @@
     <div class="pg-hero-grade"></div>
     <div class="pg-hero-inner shell">
       <h1>Put a date on the water.</h1>
-      <p class="sub">Four questions. The whole-boat number is on the screen before you send, and the message lands in the same thread we answer from. Nobody else shares your day.</p>
+      <p class="sub">Four questions. The price is on the screen before you send, and the message lands in the same thread we answer from. Nobody else shares your day.</p>
       <div class="stamp">
-        <span>[ WHOLE BOAT ]</span>
+        <span>[ PRIVATE CHARTER ]</span>
         <span>[ 50% HOLDS THE DATE ]</span>
         <span>[ RAIN OR SHINE ]</span>
       </div>
@@ -96,7 +96,7 @@
         <!-- 01 THE DAY -->
         <div class="pane on" data-pane="day">
           <h2>Which day?</h2>
-          <p class="lead">Every price is the whole boat, not per head. Fishing days seat six, each guest beyond is $100. Surf and island days run to ten, each guest past the base $40.</p>
+          <p class="lead">Every price is for your group, not per head. Fishing days seat six, each guest beyond is $100. Surf and island days run to ten, each guest past the base $40.</p>
           <div class="opts">
             <label class="opt"><input type="radio" name="day" value="full"><b>Full day</b><span class="meta"><em>$1,750</em> · up to six · offshore</span><small>Past the drop, sailfish water. Lunch, beer, water and fruit aboard.</small></label>
             <label class="opt"><input type="radio" name="day" value="half"><b>Half day</b><span class="meta"><em>$1,350</em> · up to six · mornings</span><small>Inshore and nearshore — roosterfish, cubera, jacks. Beer, water, fruit, snacks aboard.</small></label>
@@ -310,7 +310,7 @@
     if (!d) { r.innerHTML = '<span class="m m-dim">Pick a day first</span>'; return; }
     var e = est(), extra = Math.max(0, state.crew - d.base);
     r.innerHTML = '<span class="m">' + esc(d.name) + ' &#183; ' + state.crew + ' aboard' + (extra ? ' &#183; ' + extra + ' beyond the base ' + d.base : '') + '</span>'
-      + (e ? '<b>' + money(e) + '</b><span class="m m-dim">whole boat' + (extra ? ' &#183; incl. ' + money(extra * d.extra) + ' for the extra ' + (extra === 1 ? 'guest' : 'guests') : '') + '</span>'
+      + (e ? '<b>' + money(e) + '</b><span class="m m-dim">for your group' + (extra ? ' &#183; incl. ' + money(extra * d.extra) + ' for the extra ' + (extra === 1 ? 'guest' : 'guests') : '') + '</span>'
            : '<b>On request</b><span class="m m-dim">we price it with you</span>');
   }
 
@@ -325,7 +325,7 @@
       + '<dt>Aboard</dt><dd>' + state.crew + '</dd>'
       + '<dt>To the dock</dt><dd>' + esc(RIDES[state.ride] || 'Not said yet') + (state.stay ? '<br><span class="m m-dim">' + esc(state.stay) + '</span>' : '') + '</dd>'
       + '</dl>'
-      + '<div class="total"><span class="m m-dim">' + (e ? 'Whole boat, not per head' : 'Priced with you') + '</span><b>' + (e ? money(e) : 'On request') + '</b></div>'
+      + '<div class="total"><span class="m m-dim">' + (e ? 'For your group, not per head' : 'Priced with you') + '</span><b>' + (e ? money(e) : 'On request') + '</b></div>'
       + '<p class="fine">' + (d.inc ? esc(d.inc) + '. ' : '') + 'A 50% deposit holds your date; the balance is settled the day of the trip. Nothing is held until we answer.</p>';
   }
 
@@ -341,7 +341,7 @@
       'Day: ' + (d ? d.name + ' (' + d.desc + ')' : 'not picked'),
       'Date: ' + dateLabel(),
       'Aboard: ' + state.crew,
-      'Whole boat: ' + (e ? money(e) : 'on request'),
+      'Price: ' + (e ? money(e) : 'on request'),
       'Ride to the dock: ' + (RIDES[state.ride] || 'not said') + (state.stay ? ' — staying at ' + state.stay : '')
     ];
   }
