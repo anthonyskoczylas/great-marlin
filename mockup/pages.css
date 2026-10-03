@@ -11,12 +11,12 @@
 @font-face{font-family:'Fragment Mono';src:url('fonts/fragment-mono.woff2') format('woff2');font-weight:400;font-display:swap}
 
 :root{
-  --hull:#0b0f16; --hull-2:#151b25;
+  --hull:#101d3a; --hull-2:#18284a;
   --tower:#f2f4f3; --tower-2:#e3e8e7;
   --pacific:#0a4a6a; --pacific-bar:#2a7fa8;
-  --flag:#ff5b1f; --flag-ink:#1a0a03; --flag-on-light:#b83607;
+  --flag:#d6a641; --flag-ink:#1a1204; --flag-on-light:#86600f;
   --soft-on-dark:rgba(242,244,243,.74); --soft-on-light:#3b4552; --soft-on-pacific:#bcd6e2;
-  --rule-dark:rgba(242,244,243,.18); --rule-light:rgba(11,15,22,.16);
+  --rule-dark:rgba(242,244,243,.18); --rule-light:rgba(16,29,58,.16);
   --display:'Archivo','Arial Narrow',sans-serif;
   --body:'Archivo','Helvetica Neue',arial,sans-serif;
   --mono:'Fragment Mono',ui-monospace,monospace;
@@ -81,7 +81,7 @@ a{color:inherit}
 .pg-hero{position:relative;min-height:84svh;display:flex;align-items:flex-end;overflow:hidden;background:var(--hull)}
 .pg-hero-media{position:absolute;inset:0}
 .pg-hero-media img{width:100%;height:100%;object-fit:cover}
-.pg-hero-grade{position:absolute;inset:0;background:linear-gradient(180deg,rgba(11,15,22,.25) 0%,rgba(11,15,22,.2) 35%,rgba(11,15,22,.82) 78%,rgba(11,15,22,.96) 100%)}
+.pg-hero-grade{position:absolute;inset:0;background:linear-gradient(180deg,rgba(16,29,58,.25) 0%,rgba(16,29,58,.2) 35%,rgba(16,29,58,.82) 78%,rgba(16,29,58,.96) 100%)}
 .pg-hero-inner{position:relative;z-index:2;width:100%;padding-top:140px;padding-bottom:clamp(48px,8vh,96px)}
 .pg-hero h1{font-family:var(--display);font-stretch:62%;font-weight:900;text-transform:uppercase;line-height:.86;
   font-size:clamp(3.4rem,9vw,8.6rem);max-width:12ch;text-wrap:balance}
@@ -123,7 +123,7 @@ a{color:inherit}
 .cal tbody th{font-family:var(--display);font-stretch:62%;font-weight:900;text-transform:uppercase;font-size:1.5rem;padding:16px 20px 16px 0;white-space:nowrap}
 .cal .mo{padding:16px 2px}
 .cal .mo i{display:block;height:16px;background:rgba(242,244,243,.08)}
-.band:not(.band-deep) .cal .mo i{background:rgba(11,15,22,.07)}
+.band:not(.band-deep) .cal .mo i{background:rgba(16,29,58,.07)}
 .cal .mo.good i{background:var(--pacific-bar)}
 .cal .mo.peak i{background:var(--flag)}
 .cal-key{display:flex;gap:22px;flex-wrap:wrap;margin-top:22px;font-family:var(--display);font-stretch:80%;font-weight:700;text-transform:uppercase;letter-spacing:.05em;font-size:.8125rem}
@@ -132,7 +132,7 @@ a{color:inherit}
 .cal-key .k-peak{background:var(--flag)}
 .cal-key .k-good{background:var(--pacific-bar)}
 .cal-key .k-slow{background:rgba(242,244,243,.14)}
-.band:not(.band-deep) .cal-key .k-slow{background:rgba(11,15,22,.1)}
+.band:not(.band-deep) .cal-key .k-slow{background:rgba(16,29,58,.1)}
 .cal-note{margin-top:22px;max-width:64ch;color:var(--soft-on-dark)}
 .band:not(.band-deep) .cal-note{color:var(--soft-on-light)}
 .cal-note strong{color:inherit;font-weight:700;color:var(--tower)}
@@ -320,14 +320,6 @@ form.off{display:none}
   .sum dt{padding-top:10px}
 }
 
-/* GOLD variant (preview switch): same roles, brass instead of release-flag orange */
-html.gold{--flag:#d6a641;--flag-ink:#1a1204;--flag-on-light:#86600f}
-.accent-switch{position:fixed;right:12px;top:78px;z-index:70;display:flex;background:#0b0f16;border:2px solid rgba(242,244,243,.25);
-  font-family:'Archivo',sans-serif;font-stretch:80%;font-weight:800;text-transform:uppercase;letter-spacing:.05em;font-size:.75rem}
-.accent-switch button{background:none;border:0;color:rgba(242,244,243,.7);padding:8px 12px;cursor:pointer;display:flex;align-items:center;gap:7px}
-.accent-switch button i{width:10px;height:10px;display:block}
-.accent-switch button.on{color:#f2f4f3;background:#151b25}
-@media(max-width:860px){.accent-switch{top:auto;bottom:calc(12px + env(safe-area-inset-bottom));right:12px}.accent-switch button{padding:7px 10px}}
 
 /* reveal hook from the old pages: content is visible by default here */
 .rv{opacity:1}

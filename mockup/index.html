@@ -6,7 +6,7 @@
 <title>Great Marlin</title>
 <meta name="description" content="Redesign preview. A 36-foot sportfisher out of Herradura Bay, Costa Rica.">
 <meta name="robots" content="noindex, nofollow">
-<meta name="theme-color" content="#0b0f16">
+<meta name="theme-color" content="#101d3a">
 <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
 <link rel="preload" href="fonts/archivo-var.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" as="image" href="../assets/orbit360-poster.jpg?v=4" media="(min-width: 861px), (pointer: fine)">
@@ -14,33 +14,27 @@
 document.documentElement.className += ' js';
 if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
 </script>
-<script>
-/* preview-only accent switch: ?accent=gold / ?accent=orange, remembered while browsing */
-(function(){ try { var q = new URLSearchParams(location.search).get('accent');
-  if (q === 'gold' || q === 'orange') localStorage.setItem('gm_accent', q);
-  if (localStorage.getItem('gm_accent') === 'gold') document.documentElement.classList.add('gold'); } catch(e){} })();
-</script>
 <style>
 @font-face{font-family:'Archivo';src:url('fonts/archivo-var.woff2') format('woff2');font-weight:100 900;font-stretch:62% 125%;font-style:normal;font-display:swap}
 @font-face{font-family:'Archivo';src:url('fonts/archivo-var-italic.woff2') format('woff2');font-weight:100 900;font-stretch:62% 125%;font-style:italic;font-display:swap}
 @font-face{font-family:'Fragment Mono';src:url('fonts/fragment-mono.woff2') format('woff2');font-weight:400;font-display:swap}
 
 :root{
-  --hull:#0b0f16;        /* the black hull */
-  --hull-2:#151b25;
+  --hull:#101d3a;        /* the navy hull */
+  --hull-2:#18284a;
   --tower:#f2f4f3;       /* the white tuna tower */
   --tower-2:#e3e8e7;
   --pacific:#0a4a6a;     /* the water past the drop */
   --pacific-2:#0d5a80;
-  --flag:#ff5b1f;        /* release-flag orange: actions + prices only */
-  --flag-ink:#1a0a03;
-  --flag-on-light:#b83607; /* orange as TEXT on tower white: 4.9:1 */
+  --flag:#d6a641;        /* brass gold: actions only */
+  --flag-ink:#1a1204;
+  --flag-on-light:#86600f; /* orange as TEXT on tower white: 4.9:1 */
   --ink-on-dark:#f2f4f3;
   --soft-on-dark:rgba(242,244,243,.74);
   --soft-on-pacific:#bcd6e2;
   --soft-on-light:#3b4552;
   --rule-dark:rgba(242,244,243,.18);
-  --rule-light:rgba(11,15,22,.16);
+  --rule-light:rgba(16,29,58,.16);
   --display:'Archivo','Arial Narrow',sans-serif;
   --body:'Archivo','Helvetica Neue',arial,sans-serif;
   --mono:'Fragment Mono',ui-monospace,monospace;
@@ -136,7 +130,7 @@ a{color:inherit}
 .dawn-warm{mix-blend-mode:color;background:linear-gradient(180deg,rgba(232,190,160,.16) 0%,rgba(238,186,148,.22) 34%,rgba(244,176,128,.34) 46%,rgba(246,168,116,.40) 53%,rgba(240,180,140,.26) 62%,rgba(230,190,160,.12) 78%,rgba(228,196,170,.08) 100%)}
 .dawn-glow{mix-blend-mode:screen;background:linear-gradient(180deg,rgba(255,158,96,0) 40%,rgba(255,166,104,.07) 47%,rgba(255,158,96,.08) 51%,rgba(255,166,104,0) 58%)}
 .opening-ramp{position:absolute;inset:0;z-index:1;pointer-events:none;
-  background:linear-gradient(180deg,rgba(11,15,22,0) 58%,rgba(11,15,22,.5) 80%,rgba(11,15,22,.94))}
+  background:linear-gradient(180deg,rgba(16,29,58,0) 58%,rgba(16,29,58,.5) 80%,rgba(16,29,58,.94))}
 .stage{position:relative;z-index:2;min-height:100svh;display:grid;align-items:start;padding:clamp(86px,13svh,140px) var(--pad) 0}
 .st{grid-area:1/1;max-width:var(--max);width:100%;margin:0 auto}
 #st1 h1{font-size:clamp(4.2rem,12.4vw,12rem);color:var(--hull)}
@@ -173,7 +167,26 @@ a{color:inherit}
 .on-light{background:var(--tower);color:var(--hull)}
 .sec{padding:clamp(88px,13vh,160px) 0}
 #water h2{font-size:clamp(2.7rem,5.8vw,6rem);max-width:17ch}
-#water .lede-row{display:grid;grid-template-columns:1.25fr 1fr;gap:clamp(28px,5vw,80px);align-items:end}
+#water .lede-row{display:grid;grid-template-columns:1.1fr 1fr;gap:clamp(28px,5vw,80px);align-items:center}
+/* the coast from orbit (NASA Blue Marble, shaded relief + bathymetry, public domain).
+   Markers sit at real coordinates: x = (lon+86.1)/3.5, y = (11.25-lat)/3.25 of the frame. */
+.coast{position:relative;margin:0 0 clamp(28px,4vh,40px);background:#0b2a45}
+.coast img{width:100%;height:auto;aspect-ratio:1600/1486}
+.coast svg{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+.coast .pin{position:absolute;transform:translate(-50%,-50%);width:14px;height:14px;border-radius:50%;background:var(--flag);box-shadow:0 0 0 3px rgba(16,29,58,.55)}
+.coast .pin::after{content:"";position:absolute;inset:-10px;border-radius:50%;border:2px solid var(--flag);animation:ping 2.4s var(--ease) infinite}
+@keyframes ping{0%{transform:scale(.4);opacity:.9}100%{transform:scale(1.9);opacity:0}}
+.coast .spot{position:absolute;transform:translate(-50%,-50%);width:8px;height:8px;border-radius:50%;background:var(--tower);box-shadow:0 0 0 2px rgba(16,29,58,.6)}
+.coast .tag{position:absolute;font-family:var(--display);font-stretch:80%;font-weight:800;text-transform:uppercase;letter-spacing:.05em;
+  font-size:.75rem;line-height:1.15;color:var(--tower);text-shadow:0 1px 8px rgba(5,12,28,.95),0 0 2px rgba(5,12,28,.9);white-space:nowrap}
+.coast .tag b{display:block;font-size:1.05rem;color:var(--flag);font-weight:900}
+.coast .tag-boat{left:calc(41.15% + 16px);top:calc(49.38% - 6px)}
+.coast .tag-grounds{right:calc(100% - 35.24% + 12px);top:calc(58.46% + 4px);text-align:right}
+.coast .tag-sjo{left:calc(54.03% + 10px);top:calc(38.65% - 8px)}
+.coast .tag-tortuga{right:calc(100% - 34.54% + 10px);top:calc(45.48% - 8px);text-align:right}
+.coast .tag-ocean{left:7%;bottom:9%;font-size:clamp(1.1rem,2.2vw,1.6rem);font-stretch:62%;font-weight:900;letter-spacing:.12em;color:rgba(242,244,243,.45);text-shadow:none}
+.coast figcaption{position:absolute;right:8px;bottom:6px;font-size:.625rem;letter-spacing:.04em;color:rgba(242,244,243,.6);font-family:var(--body)}
+@media(max-width:520px){.coast .tag{font-size:.625rem}.coast .tag b{font-size:.8125rem}}
 #water p.body{color:var(--soft-on-pacific);max-width:42ch;font-size:1.125rem}
 #water p.body + p.body{margin-top:14px}
 .board{margin-top:clamp(56px,9vh,96px);border-top:2px solid var(--tower)}
@@ -210,9 +223,9 @@ a{color:inherit}
 .reel .r-main{grid-row:1/3;aspect-ratio:16/10}
 .reel .r-a{aspect-ratio:auto}
 .reel figcaption,.mosaic figcaption{position:absolute;left:14px;bottom:12px;z-index:2;font-family:var(--display);font-stretch:80%;font-weight:800;
-  text-transform:uppercase;letter-spacing:.06em;font-size:.8125rem;color:var(--tower);text-shadow:0 1px 10px rgba(11,15,22,.85)}
+  text-transform:uppercase;letter-spacing:.06em;font-size:.8125rem;color:var(--tower);text-shadow:0 1px 10px rgba(16,29,58,.85)}
 .reel figure::after,.mosaic figure::after{content:"";position:absolute;inset:auto 0 0 0;height:36%;z-index:1;pointer-events:none;
-  background:linear-gradient(180deg,rgba(11,15,22,0),rgba(11,15,22,.6))}
+  background:linear-gradient(180deg,rgba(16,29,58,0),rgba(16,29,58,.6))}
 .specs{display:grid;grid-template-columns:repeat(6,1fr);margin-top:clamp(40px,6vh,64px);border-top:2px solid var(--hull)}
 .spec{padding:16px 14px 0 0}
 .spec .k{font-family:var(--display);font-stretch:80%;font-weight:700;text-transform:uppercase;letter-spacing:.06em;font-size:.8125rem;color:var(--soft-on-light)}
@@ -254,10 +267,10 @@ a{color:inherit}
   .m4,.m5{aspect-ratio:4/3}
   .m2,.m3{grid-column:auto}
 }
-/* below the surface: library footage, the water not our catch */
+/* below the surface: stock footage of the water; captions describe the water only */
 .below{position:relative;margin:clamp(56px,9vh,96px) 0 0;background:var(--hull-2);overflow:hidden}
 .below video{width:100%;aspect-ratio:21/9;object-fit:cover}
-.below::after{content:"";position:absolute;inset:auto 0 0 0;height:60%;z-index:1;pointer-events:none;background:linear-gradient(180deg,rgba(11,15,22,0),rgba(11,15,22,.55) 55%,rgba(11,15,22,.9))}
+.below::after{content:"";position:absolute;inset:auto 0 0 0;height:60%;z-index:1;pointer-events:none;background:linear-gradient(180deg,rgba(16,29,58,0),rgba(16,29,58,.55) 55%,rgba(16,29,58,.9))}
 .below figcaption{position:absolute;z-index:2;left:clamp(16px,2.4vw,32px);right:clamp(16px,2.4vw,32px);bottom:clamp(14px,2.2vw,28px);display:flex;justify-content:space-between;align-items:flex-end;gap:16px}
 .below .bt{font-family:var(--display);font-stretch:62%;font-weight:900;text-transform:uppercase;font-size:clamp(2rem,4.6vw,4.4rem);line-height:.9;transition:opacity .45s var(--ease)}
 .below .bt.swap{opacity:0}
@@ -276,8 +289,7 @@ a{color:inherit}
 .species img{width:88%;height:96px;object-fit:contain;object-position:left center;margin:0 0 20px -4px}
 .species .nm{font-family:var(--display);font-stretch:62%;font-weight:900;text-transform:uppercase;font-size:clamp(1.9rem,2.6vw,2.5rem);line-height:.9}
 .species .ss{margin-top:10px;font-family:var(--display);font-stretch:80%;font-weight:700;text-transform:uppercase;letter-spacing:.05em;font-size:.8125rem;color:var(--flag)}
-.species li.lead .ss{color:#ffd2bd}
-html.gold .species li.lead .ss{color:#f1d58c}
+.species li.lead .ss{color:#f1d58c}
 .species .nt{margin-top:auto;padding-top:14px;color:var(--soft-on-dark);font-size:.9375rem;line-height:1.5}
 .species li.lead .nt{color:var(--soft-on-pacific)}
 @media(max-width:1100px){.species{grid-template-columns:repeat(2,1fr)}}
@@ -314,13 +326,13 @@ html.gold .species li.lead .ss{color:#f1d58c}
 #book{position:relative;min-height:100svh;display:flex;align-items:flex-end;overflow:hidden;background:var(--hull)}
 #book .bg{position:absolute;inset:0}
 #book .bg img{width:100%;height:100%;object-fit:cover}
-#book::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(11,15,22,.15) 0%,rgba(11,15,22,.2) 40%,rgba(11,15,22,.85) 100%)}
+#book::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(16,29,58,.15) 0%,rgba(16,29,58,.2) 40%,rgba(16,29,58,.85) 100%)}
 /* phones: photo on top with the boat whole, words on the hull below it */
 @media(max-width:860px){
   #book{display:block;min-height:0}
   #book .bg{position:relative;height:62svh}
   #book .bg img{object-position:64% 50%}
-  #book::after{inset:0 0 auto 0;height:62svh;background:linear-gradient(180deg,rgba(11,15,22,0) 70%,rgba(11,15,22,1) 100%)}
+  #book::after{inset:0 0 auto 0;height:62svh;background:linear-gradient(180deg,rgba(16,29,58,0) 70%,rgba(16,29,58,1) 100%)}
   #book .wrap{padding-top:8px}
 }
 #book .wrap{position:relative;z-index:2;width:100%;padding-bottom:clamp(56px,10vh,110px)}
@@ -360,14 +372,6 @@ html.gold .species li.lead .ss{color:#f1d58c}
   *,*::before,*::after{animation:none!important;transition:none!important}
 }
 
-/* GOLD variant (preview switch): same roles, brass instead of release-flag orange */
-html.gold{--flag:#d6a641;--flag-ink:#1a1204;--flag-on-light:#86600f}
-.accent-switch{position:fixed;right:12px;top:78px;z-index:70;display:flex;background:#0b0f16;border:2px solid rgba(242,244,243,.25);
-  font-family:'Archivo',sans-serif;font-stretch:80%;font-weight:800;text-transform:uppercase;letter-spacing:.05em;font-size:.75rem}
-.accent-switch button{background:none;border:0;color:rgba(242,244,243,.7);padding:8px 12px;cursor:pointer;display:flex;align-items:center;gap:7px}
-.accent-switch button i{width:10px;height:10px;display:block}
-.accent-switch button.on{color:#f2f4f3;background:#151b25}
-@media(max-width:860px){.accent-switch{top:auto;bottom:calc(12px + env(safe-area-inset-bottom));right:12px}.accent-switch button{padding:7px 10px}}
 </style>
 </head>
 <body>
@@ -437,6 +441,22 @@ html.gold{--flag:#d6a641;--flag-ink:#1a1204;--flag-on-light:#86600f}
     <div class="lede-row">
       <h2 class="d">This stretch of Pacific releases more sailfish than almost anywhere on earth.</h2>
       <div>
+        <figure class="coast" aria-label="Costa Rica from above, with the Great Marlin's home port at Herradura Bay marked">
+          <img src="img/costa-rica-1600.jpg" srcset="img/costa-rica-900.jpg 900w, img/costa-rica-1600.jpg 1600w" sizes="(max-width:860px) 100vw, 44vw" alt="Satellite view of Costa Rica and its Pacific coast, the seafloor shading showing deep water close offshore" loading="lazy" decoding="async">
+          <svg viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+            <line x1="41.15" y1="49.38" x2="35.24" y2="58.46" stroke="#d6a641" stroke-width="2" stroke-dasharray="5 4" vector-effect="non-scaling-stroke"/>
+          </svg>
+          <span class="pin" style="left:41.15%;top:49.38%"></span>
+          <span class="tag tag-boat"><b>Great Marlin</b>Herradura Bay</span>
+          <span class="spot" style="left:35.24%;top:58.46%;background:var(--flag)"></span>
+          <span class="tag tag-grounds">Sailfish water<br>22&#8211;28 mi out</span>
+          <span class="spot" style="left:54.03%;top:38.65%"></span>
+          <span class="tag tag-sjo">SJO airport<br>about 90 min</span>
+          <span class="spot" style="left:34.54%;top:45.48%"></span>
+          <span class="tag tag-tortuga">Tortuga Island</span>
+          <span class="tag tag-ocean">Pacific Ocean</span>
+          <figcaption>Imagery: NASA Blue Marble</figcaption>
+        </figure>
         <p class="body">The Great Marlin fishes it out of Herradura. The seafloor falls away fast here, and the big water starts where other coasts are still wading.</p>
         <p class="body">We run it year round. Billfish released, meat fish kept, weather respected.</p>
       </div>
@@ -517,10 +537,10 @@ html.gold{--flag:#d6a641;--flag-ink:#1a1204;--flag-on-light:#86600f}
       <figure class="m5"><img src="../assets/photos/sail-jump.jpg" alt="A sailfish tail-walking a boat-length off the stern" loading="lazy" decoding="async" style="object-position:50% 40%"><figcaption>Tail-walking, a boat-length off</figcaption></figure>
     </div>
 
-    <figure class="below" id="below" aria-label="Library footage of the water below the surface: bait, dolphins and predators">
+    <figure class="below" id="below" aria-label="Below the surface: bait, dolphins and predators">
       <video data-clip="../assets/clips/below.mp4?v=1" poster="../assets/clips/below-poster.jpg" muted playsinline loop preload="none" aria-hidden="true"></video>
       <figcaption>
-        <span><span class="bt" id="belowCap">Bait, balled up</span><span class="src lbl">Below the surface &#183; library footage, not our boat</span></span>
+        <span><span class="bt" id="belowCap">Bait, balled up</span><span class="src lbl">Below the surface</span></span>
         <span class="ticks" aria-hidden="true"><i class="on"></i><i></i><i></i><i></i></span>
       </figcaption>
     </figure>
@@ -661,19 +681,6 @@ html.gold{--flag:#d6a641;--flag-ink:#1a1204;--flag-on-light:#86600f}
   </div>
 </footer>
 
-<div class="accent-switch" role="group" aria-label="Accent colour (preview)">
-  <button type="button" data-accent="orange"><i style="background:#ff5b1f"></i>Orange</button>
-  <button type="button" data-accent="gold"><i style="background:#d6a641"></i>Gold</button>
-</div>
-<script>
-(function(){ var root = document.documentElement;
-  function paint(){ var g = root.classList.contains('gold');
-    document.querySelectorAll('.accent-switch button').forEach(function(b){ b.classList.toggle('on', (b.getAttribute('data-accent') === 'gold') === g); }); }
-  document.querySelectorAll('.accent-switch button').forEach(function(b){ b.addEventListener('click', function(){
-    var gold = b.getAttribute('data-accent') === 'gold'; root.classList.toggle('gold', gold);
-    try { localStorage.setItem('gm_accent', gold ? 'gold' : 'orange'); } catch(e){} paint(); }); });
-  paint(); })();
-</script>
 <div class="preview-tag" aria-hidden="true">Redesign preview</div>
 
 <script src="../vendor/gsap.min.js" defer></script>
@@ -708,7 +715,7 @@ document.querySelectorAll('[data-scroll]').forEach(function(a){
 
 /* ---------- nav: transparent over the fog, solid once past the hero ---------- */
 var nav = document.getElementById('nav'), water = document.getElementById('water');
-function navState(){ nav.classList.toggle('solid', water.getBoundingClientRect().top < 70); }
+function navState(){ nav.classList.toggle('solid', water.getBoundingClientRect().top < innerHeight - 4); }
 window.addEventListener('scroll', navState, { passive: true }); navState();
 
 /* ---------- menu sheet ---------- */

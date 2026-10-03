@@ -16,15 +16,9 @@
 <meta property="og:description" content="Canopy, waterfalls and parks ashore — Tortuga Island days and sunset cruises on our own boat. One thread, no desks.">
 <meta property="og:image" content="https://greatmarlin.com/assets/clips/coast-poster.jpg">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="theme-color" content="#0b0f16">
+<meta name="theme-color" content="#101d3a">
 <link rel="preload" href="fonts/archivo-var.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="pages.css">
-<script>
-/* preview-only accent switch: ?accent=gold / ?accent=orange, remembered while browsing */
-(function(){ try { var q = new URLSearchParams(location.search).get('accent');
-  if (q === 'gold' || q === 'orange') localStorage.setItem('gm_accent', q);
-  if (localStorage.getItem('gm_accent') === 'gold') document.documentElement.classList.add('gold'); } catch(e){} })();
-</script>
 <script>document.documentElement.className+=' js';</script>
 <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
@@ -226,18 +220,5 @@
 </footer>
 
 <script src="pages.js" defer></script>
-<div class="accent-switch" role="group" aria-label="Accent colour (preview)">
-  <button type="button" data-accent="orange"><i style="background:#ff5b1f"></i>Orange</button>
-  <button type="button" data-accent="gold"><i style="background:#d6a641"></i>Gold</button>
-</div>
-<script>
-(function(){ var root = document.documentElement;
-  function paint(){ var g = root.classList.contains('gold');
-    document.querySelectorAll('.accent-switch button').forEach(function(b){ b.classList.toggle('on', (b.getAttribute('data-accent') === 'gold') === g); }); }
-  document.querySelectorAll('.accent-switch button').forEach(function(b){ b.addEventListener('click', function(){
-    var gold = b.getAttribute('data-accent') === 'gold'; root.classList.toggle('gold', gold);
-    try { localStorage.setItem('gm_accent', gold ? 'gold' : 'orange'); } catch(e){} paint(); }); });
-  paint(); })();
-</script>
 </body>
 </html>
