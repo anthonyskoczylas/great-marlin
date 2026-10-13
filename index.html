@@ -281,6 +281,7 @@ a{color:inherit}
 .hero-actions .btn-line:hover span{color:var(--hull)}
 .st-line h2{font-size:clamp(1.8rem,4.56vw,4.44rem);color:var(--tower);max-width:9ch}
 .st-line h2 .w{display:inline-block}
+#st2,#st3{display:none} /* scroll-story lines retired 10-12: the boat turns on its own */
 .hero-foot{position:absolute;z-index:3;left:0;right:0;bottom:0;padding:0 var(--pad) 22px;display:flex;justify-content:space-between;align-items:flex-end;gap:16px;
   color:var(--soft-on-dark)}
 .hero-foot .scrollcue{font-family:var(--display);font-stretch:80%;font-weight:800;text-transform:uppercase;letter-spacing:.08em;font-size:.8125rem;color:var(--tower);display:flex;align-items:center;gap:10px}
@@ -649,7 +650,7 @@ a{color:inherit}
 <!-- ================= HERO: the 360, scroll turns her ================= -->
 <section id="opening">
   <div class="opening-media" id="openingMedia">
-    <video muted playsinline webkit-playsinline preload="auto" aria-hidden="true" data-src="assets/orbit360.mp4?v=18"></video>
+    <video muted playsinline webkit-playsinline autoplay loop preload="auto" aria-hidden="true" data-src="assets/orbit360-loop.mp4?v=1"></video>
     <div class="dawn-warm" aria-hidden="true"></div>
     <div class="dawn-glow" aria-hidden="true"></div>
   </div>
@@ -668,7 +669,7 @@ a{color:inherit}
     <div class="st st-line" id="st3"><h2 class="d">The water turns to ink. The riggers go up.</h2></div>
   </div>
   <div class="hero-foot">
-    <a class="scrollcue" href="#water" data-scroll aria-label="Scroll past the boat to the rest of the page"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 2v11M3.5 8.5L8 13l4.5-4.5"/></svg><span class="sc-d">Scroll to turn her</span><span class="sc-m">Tap / scroll for more</span></a>
+    <a class="scrollcue" href="#water" data-scroll aria-label="Scroll to the rest of the page"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 2v11M3.5 8.5L8 13l4.5-4.5"/></svg><span class="sc-d">Scroll for more</span><span class="sc-m">Tap / scroll for more</span></a>
     <span class="data coords" id="liveCoords">[ 09&#176; 38' 43" N &#183; 84&#176; 39' 35" W ]</span>
     <span class="wx-chip data" id="wxChip"><i></i><span id="wxChipTxt"></span></span>
   </div>
@@ -1005,7 +1006,7 @@ if (hasGSAP && typeof Lenis !== 'undefined' && !reduce){
 }
 function goTo(sel, now){
   var t = document.querySelector(sel); if (!t) return;
-  if (lenis) lenis.scrollTo(t, { offset: sel === '#opening' ? 0 : -60, immediate: !!now, duration: sel === '#water' ? 5.2 : 1.1 }); else t.scrollIntoView({ behavior: (reduce || now) ? 'auto' : 'smooth' });
+  if (lenis) lenis.scrollTo(t, { offset: sel === '#opening' ? 0 : -60, immediate: !!now, duration: 1.1 }); else t.scrollIntoView({ behavior: (reduce || now) ? 'auto' : 'smooth' });
 }
 /* arriving from another page with a section (e.g. index.html#boat): jump there once pins are measured */
 if (window.__arrive && /^#[\w-]+$/.test(window.__arrive)){
@@ -1045,8 +1046,8 @@ function mountOrbit(){
   var mobile = !ORBIT_MQ.matches;
   v.muted = true; v.setAttribute('playsinline', '');
   var s = document.createElement('source');
-  s.src = mobile ? 'assets/orbit360-scrub.mp4?v=18' : v.getAttribute('data-src');
-  s.type = 'video/mp4'; v.appendChild(s); v.load();
+  s.src = mobile ? 'assets/orbit360-loop-m.mp4?v=1' : 'assets/orbit360-loop.mp4?v=1';
+  s.type = 'video/mp4'; v.loop = true; v.appendChild(s); v.load();
 }
 if (ORBIT_MQ.addEventListener) ORBIT_MQ.addEventListener('change', mountOrbit);
 window.addEventListener('resize', mountOrbit, { passive: true });
@@ -1055,8 +1056,7 @@ function primeOrbit(){
   var v = document.querySelector('#openingMedia video'); if (!v) return;
   mountOrbit();
   var p; try { p = v.play(); } catch(e){ return; }
-  if (p && p.then) p.then(function(){ v.pause(); try { v.currentTime = 0.001; } catch(e){} }).catch(function(){});
-  else { try { v.pause(); v.currentTime = 0.001; } catch(e){} }
+  if (p && p.catch) p.catch(function(){});
 }
 primeOrbit();
 var primed = false;
@@ -1075,51 +1075,19 @@ function dms(v){ var d = Math.floor(v), mf = (v - d) * 60, m = Math.floor(mf), s
 function drawCoords(){ coordsEl.textContent = '[ ' + dms(pos.lat) + ' N · ' + dms(pos.lon) + ' W ]'; }
 
 function initChoreo(){
+  /* the boat turns on its own from the moment the page opens (Tony 10-12) — no scroll pin.
+     The coordinates drift out to the drop and back as she turns. */
   var orbit = document.querySelector('#openingMedia video');
-  var orbitDur = 0, orbitFrame = -1, FPS = 24;
   if (orbit){
-    orbit.pause();
-    var ready = function(){ orbitDur = orbit.duration || 0; if (orbitDur && orbit.currentTime === 0){ try { orbit.currentTime = 0.001; } catch(e){} } };
-    if (orbit.readyState >= 1) ready();
-    orbit.addEventListener('loadedmetadata', ready);
+    orbit.addEventListener('timeupdate', function(){
+      if (!orbit.duration) return;
+      var k = Math.sin(Math.PI * (orbit.currentTime / orbit.duration));
+      pos.lat = 9.6453 + (9.35 - 9.6453) * k; pos.lon = 84.6597 + (84.8667 - 84.6597) * k; drawCoords();
+    });
   }
-  function seekOrbit(p){
-    if (!orbit || !orbitDur) return;
-    var f = Math.round(Math.min(Math.max(p, 0), 1) * (orbitDur * FPS - 1));
-    if (f === orbitFrame) return; orbitFrame = f;
-    try { orbit.currentTime = f / FPS; } catch(e){}
-  }
-  var REMAP=[0,1]; /* new turquoise orbit (10-10): four equal quarters = even speed, no remap needed */
-  function remap(p){ p = Math.min(Math.max(p, 0), 1); var x = p * (REMAP.length - 1), i = Math.floor(x), f = x - i;
-    if (i >= REMAP.length - 1) return 1; return REMAP[i] + (REMAP[i + 1] - REMAP[i]) * f; }
-
-  /* the one authored move: the name rises on load, then scroll pulls it
-     off the top while the boat turns and two lines take its place */
   gsap.from('#st1 .li', { yPercent: 105, duration: 1.1, stagger: 0.08, ease: 'power4.out', delay: 0.15 });
-
-  var mm = gsap.matchMedia();
-  mm.add('(min-width: 861px), (pointer: fine)', function(){
-    gsap.set('#st2 .w, #st3 .w', { yPercent: 110, opacity: 0 });
-    var o = { p: 0 };
-    var tl = gsap.timeline({ scrollTrigger: { trigger: '#opening', start: 'top top', end: '+=280%', scrub: 1, pin: true, anticipatePin: 1 } });
-    tl.to(o, { p: 1, ease: 'none', duration: 9, onUpdate: function(){ seekOrbit(o.p); } }, 0)
-      .to(pos, { lat: 9.35, lon: 84.8667, ease: 'none', duration: 9, onUpdate: drawCoords }, 0)
-      .fromTo('#st1 .lw', { yPercent: 0 }, { yPercent: -105, duration: 1.1, stagger: 0.06, ease: 'power2.in', immediateRender: false }, 1.2)
-      .fromTo('#st1 .hero-actions', { opacity: 1, y: 0 }, { opacity: 0, y: -20, duration: 0.8, ease: 'power2.in', immediateRender: false }, 1.2)
-      .to('#st2 .w', { yPercent: 0, opacity: 1, duration: 1.2, stagger: 0.05, ease: 'power3.out' }, 2.6)
-      .to('#st2 .w', { yPercent: -110, opacity: 0, duration: 1.0, stagger: 0.04, ease: 'power2.in' }, 4.6)
-      .to('#st3 .w', { yPercent: 0, opacity: 1, duration: 1.3, stagger: 0.05, ease: 'power3.out' }, 5.8)
-      .to('.hero-foot .scrollcue', { opacity: 0, duration: 0.5 }, 0.3);
-    return function(){};
-  });
-  mm.add('(max-width: 860px) and (pointer: coarse)', function(){
-    var o = { p: 0 };
-    gsap.timeline({ scrollTrigger: { trigger: '#opening', start: 'top top', end: '+=220%', scrub: 1, pin: true, anticipatePin: 1 } })
-      .to(o, { p: 1, ease: 'none', duration: 9, onUpdate: function(){ seekOrbit(remap(o.p)); } }, 0)
-      .to('.hero-foot .scrollcue', { opacity: 0, duration: 0.5 }, 0.3);
-    return function(){};
-  });
 }
+
 /* split the two hero lines into words for the scrub */
 document.querySelectorAll('.st-line h2').forEach(function(h){
   h.innerHTML = h.textContent.trim().split(/\s+/).map(function(w){ return '<span class="w">' + w + '</span>'; }).join(' ');
