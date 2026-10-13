@@ -289,7 +289,8 @@ a{color:inherit}
 @keyframes nudge{0%,100%{transform:translateY(0)}50%{transform:translateY(5px)}}
 .hero-foot .scrollcue .sc-m{display:none}
 .hero-foot a.scrollcue{text-decoration:none;cursor:pointer;-webkit-tap-highlight-color:transparent}
-@media(max-width:760px){.hero-foot .scrollcue{margin:0 auto;padding:11px 20px;border:2px solid rgba(255,255,255,.85);border-radius:0;background:rgba(10,14,20,.45);-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px);font-size:.875rem;letter-spacing:.1em}.hero-foot .scrollcue .sc-d{display:none}.hero-foot .scrollcue .sc-m{display:inline}.hero-foot .scrollcue svg{width:18px;height:18px}}
+/* phones: plain words, no box, nothing to tap (Tony 10-12) */
+@media(max-width:760px){.hero-foot .scrollcue{margin:0 auto;font-size:.875rem;letter-spacing:.1em;color:#fff;text-shadow:0 1px 10px rgba(0,0,0,.55)}.hero-foot .scrollcue svg{width:18px;height:18px;filter:drop-shadow(0 1px 6px rgba(0,0,0,.5))}}
 .hero-foot .coords{white-space:nowrap;order:-1}
 @media(max-width:1000px){.hero-foot .coords{display:none}}
 .wx-chip{display:none;align-items:center;gap:10px;border:2px solid var(--rule-dark);padding:8px 12px;color:var(--tower)}
@@ -669,7 +670,7 @@ a{color:inherit}
     <div class="st st-line" id="st3"><h2 class="d">The water turns to ink. The riggers go up.</h2></div>
   </div>
   <div class="hero-foot">
-    <a class="scrollcue" href="#water" data-scroll aria-label="Scroll to the rest of the page"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 2v11M3.5 8.5L8 13l4.5-4.5"/></svg><span class="sc-d">Scroll for more</span><span class="sc-m">Tap / scroll for more</span></a>
+    <span class="scrollcue"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M8 2v11M3.5 8.5L8 13l4.5-4.5"/></svg><span>Scroll for more</span></span>
     <span class="data coords" id="liveCoords">[ 09&#176; 38' 43" N &#183; 84&#176; 39' 35" W ]</span>
     <span class="wx-chip data" id="wxChip"><i></i><span id="wxChipTxt"></span></span>
   </div>

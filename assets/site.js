@@ -12,11 +12,10 @@
   });
 })();
 
-/* phone scroll cue: shows on load when the page has a hero, fades on first scroll, tap = scroll down */
+/* phone scroll cue: plain words on load when the page has a hero, fades on first scroll (no box, nothing to tap — Tony 10-12) */
 (function(){
   var hero = document.querySelector(".pg-hero"); if (!hero || window.scrollY > 40) return;
-  var c = document.createElement("a"); c.className = "scroll-cue"; c.href = "#"; c.textContent = "Tap / scroll for more \u2193";
-  c.addEventListener("click", function(e){ e.preventDefault(); window.scrollBy({ top: window.innerHeight * 0.8, behavior: "smooth" }); });
+  var c = document.createElement("div"); c.className = "scroll-cue"; c.setAttribute("aria-hidden", "true"); c.textContent = "Scroll for more \u2193";
   document.body.appendChild(c);
   function hide(){ if (window.scrollY > 60){ c.classList.add("gone"); window.removeEventListener("scroll", hide); setTimeout(function(){ c.remove(); }, 400); } }
   window.addEventListener("scroll", hide, { passive: true });
