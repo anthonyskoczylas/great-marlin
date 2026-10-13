@@ -651,7 +651,7 @@ a{color:inherit}
 <!-- ================= HERO: the 360, scroll turns her ================= -->
 <section id="opening">
   <div class="opening-media" id="openingMedia">
-    <video muted playsinline webkit-playsinline autoplay loop preload="auto" aria-hidden="true" data-src="assets/orbit360-loop.mp4?v=1"></video>
+    <video muted playsinline webkit-playsinline autoplay loop preload="auto" aria-hidden="true" data-src="assets/orbit360-loop.mp4?v=2"></video>
     <div class="dawn-warm" aria-hidden="true"></div>
     <div class="dawn-glow" aria-hidden="true"></div>
   </div>
@@ -1047,7 +1047,7 @@ function mountOrbit(){
   var mobile = !ORBIT_MQ.matches;
   v.muted = true; v.setAttribute('playsinline', '');
   var s = document.createElement('source');
-  s.src = mobile ? 'assets/orbit360-loop-m.mp4?v=1' : 'assets/orbit360-loop.mp4?v=1';
+  s.src = mobile ? 'assets/orbit360-loop-m.mp4?v=2' : 'assets/orbit360-loop.mp4?v=2';
   s.type = 'video/mp4'; v.loop = true; v.appendChild(s); v.load();
 }
 if (ORBIT_MQ.addEventListener) ORBIT_MQ.addEventListener('change', mountOrbit);
