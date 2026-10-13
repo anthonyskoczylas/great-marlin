@@ -228,6 +228,13 @@ a{color:inherit}
   .nav .btn-flag{padding:10px 12px 9px;font-size:.8125rem}
   .brand{font-size:.8rem;white-space:nowrap}.nav .btn{white-space:nowrap}
 }
+/* small phones (iPhone SE, 320px): nav + rates fit without spilling sideways (audit 10-12) */
+@media(max-width:380px){
+  .nav-cta{gap:6px}.nav .btn-flag{padding:9px 8px 8px;font-size:.75rem}.menu-btn{width:38px;height:38px}.brand span{display:none}.brand-mark{height:22px}
+}
+/* bigger tap area on the logo link and the WhatsApp text links, same look */
+.brand{padding:12px 0;margin:-12px 0}
+.rate .go .wa{padding:8px 0 2px}
 
 /* ================= HERO: the 360 ================= */
 #opening{position:relative;min-height:100svh;overflow:hidden;background:#c3ccd6}
@@ -450,10 +457,12 @@ a{color:inherit}
 .rate .price small{display:block;margin-top:6px;font-family:var(--display);font-stretch:80%;font-weight:700;text-transform:uppercase;letter-spacing:.05em;font-size:.8125rem;color:var(--soft-on-light)}
 .rate .price.req{font-size:clamp(1.4rem,1.9vw,1.85rem);text-transform:uppercase;white-space:nowrap;padding-right:20px}
 @media(max-width:760px){.rate .price.req{font-size:1.25rem;padding-right:0}}
+@media(max-width:380px){.rate{grid-template-columns:minmax(0,1fr) auto;column-gap:10px}.rate .price.req{font-size:.82rem}.rate h3{font-size:1.05rem}}
 .rate .go{display:flex;flex-direction:column;align-items:flex-end;gap:10px}
 .rate .go .btn{padding:12px 18px 11px;font-size:.875rem}
 .rate .go .wa{font-size:.8125rem;font-family:var(--display);font-stretch:80%;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--soft-on-light);text-decoration:none;border-bottom:1px solid var(--rule-light)}
 .rate .go .wa:hover{color:var(--hull);border-color:var(--flag)}
+@media(max-width:380px){.rate .go .btn{padding:11px 12px 10px}.rate .go{flex-wrap:wrap;gap:10px 14px}}
 .math{margin-top:28px;max-width:70ch;color:var(--soft-on-light)}
 .math b{color:var(--hull)}
 .beyond{margin-top:34px;display:flex;flex-wrap:wrap;gap:22px 40px}
@@ -584,7 +593,7 @@ a{color:inherit}
 <body>
 
 <header class="nav" id="nav">
-  <a class="brand" href="#opening" data-scroll><img class="brand-mark" src="assets/logo/gm-mark-white-160.png" alt="" width="160" height="93"><span>Great Marlin</span></a>
+  <a class="brand" href="#opening" data-scroll aria-label="Great Marlin, home"><img class="brand-mark" src="assets/logo/gm-mark-white-160.png" alt="" width="160" height="93"><span>Great Marlin</span></a>
   <ul class="nav-links">
     <li class="has-drop"><a href="#rates" data-scroll aria-haspopup="true">Trips<svg class="caret" viewBox="0 0 10 6" aria-hidden="true"><path d="M1 1l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.6"/></svg></a><ul class="drop"><li><a href="full-day-fishing-charter.html">Full day fishing</a></li><li><a href="half-day-fishing-charter.html">Half day fishing</a></li><li><a href="surf-trip.html">Surf day</a></li><li><a href="#rates">All trips &amp; rates</a></li></ul></li>
     <li class="has-drop"><a href="costa-rica-fishing.html" aria-haspopup="true">The fishing<svg class="caret" viewBox="0 0 10 6" aria-hidden="true"><path d="M1 1l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.6"/></svg></a><ul class="drop"><li><a href="costa-rica-fishing.html">What we catch</a></li><li><a href="first-time-offshore.html">Your first day offshore</a></li></ul></li>
