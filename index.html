@@ -1060,6 +1060,16 @@ function primeOrbit(){
   if (p && p.catch) p.catch(function(){});
 }
 primeOrbit();
+/* keep nudging play until she turns: when data arrives, when the tab comes back, when the hero is on screen.
+   (iPhone Low Power Mode still blocks all autoplay until a tap — that part is the phone's rule.) */
+(function(){
+  var v = document.querySelector('#openingMedia video'); if (!v || reduce) return;
+  function go(){ if (v.paused){ var p; try { p = v.play(); } catch(e){} if (p && p.catch) p.catch(function(){}); } }
+  ['loadedmetadata','loadeddata','canplay'].forEach(function(t){ v.addEventListener(t, go); });
+  document.addEventListener('visibilitychange', function(){ if (!document.hidden) go(); });
+  window.addEventListener('pageshow', go);
+  window.addEventListener('scroll', function once(){ go(); window.removeEventListener('scroll', once); }, { passive: true });
+})();
 var primed = false;
 function primeOnGesture(){
   if (primed) return; primed = true;
