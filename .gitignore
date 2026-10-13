@@ -21,3 +21,7 @@ print/
 
 # preview build tooling (not published)
 mockup-tools/
+
+# raw media drops from Tony (sources for site assets, not published)
+surf-media/
+tours-media/

@@ -18,7 +18,7 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="theme-color" content="#091228">
 <link rel="preload" href="assets/fonts/archivo-var.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="assets/site.css">
+<link rel="stylesheet" href="assets/site.css?v=2d193ff1">
 <script>document.documentElement.className+=' js';</script>
 
 <script type="application/ld+json">
@@ -42,12 +42,12 @@
 <body>
 
 <header class="topnav">
-  <a class="brand" href="index.html">Great Marlin</a>
+  <a class="brand" href="index.html"><img class="brand-mark" src="assets/logo/gm-mark-white-160.png" alt="" width="160" height="93"><span>Great Marlin</span></a>
   <ul class="nav-links">
-    <li><a href="index.html#boat">The boat</a></li>
-    <li><a href="index.html#rates">Trips</a></li>
-    <li><a href="costa-rica-fishing.html">The fishing</a></li>
-    <li><a href="getting-here.html">Getting here</a></li>
+    <li class="has-drop"><a href="index.html#rates" aria-haspopup="true">Trips<svg class="caret" viewBox="0 0 10 6" aria-hidden="true"><path d="M1 1l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.6"/></svg></a><ul class="drop"><li><a href="full-day-fishing-charter.html">Full day fishing</a></li><li><a href="half-day-fishing-charter.html">Half day fishing</a></li><li><a href="surf-trip.html">Surf day</a></li><li><a href="index.html#rates">All trips &amp; rates</a></li></ul></li>
+    <li class="has-drop"><a href="costa-rica-fishing.html" aria-haspopup="true">The fishing<svg class="caret" viewBox="0 0 10 6" aria-hidden="true"><path d="M1 1l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.6"/></svg></a><ul class="drop"><li><a href="costa-rica-fishing.html">What we catch</a></li><li><a href="first-time-offshore.html">Your first day offshore</a></li></ul></li>
+    <li class="has-drop"><a href="getting-here.html" aria-haspopup="true">Getting here<svg class="caret" viewBox="0 0 10 6" aria-hidden="true"><path d="M1 1l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.6"/></svg></a><ul class="drop"><li><a href="getting-here.html">From the airport</a></li><li><a href="transportation.html">Transportation</a></li></ul></li>
+    <li><a href="tours.html">Tours</a></li>
   </ul>
   <div class="nav-cta">
     <a class="btn btn-flag" href="book.html">Plan my day</a>
@@ -62,16 +62,19 @@
   </button>
   <a class="big" href="index.html">Home</a>
   <a class="big" href="index.html#rates">Trips &amp; rates</a>
-  <a class="big sm" href="full-day-fishing-charter.html">Full day</a>
-  <a class="big sm" href="half-day-fishing-charter.html">Half day</a>
+  <a class="big sm" href="full-day-fishing-charter.html">Full day fishing</a>
+  <a class="big sm" href="half-day-fishing-charter.html">Half day fishing</a>
+  <a class="big sm" href="surf-trip.html">Surf day</a>
+  <a class="big" href="index.html#boat">The boat</a>
   <a class="big" href="costa-rica-fishing.html">The fishing</a>
-  <a class="big" href="first-time-offshore.html">Your first day</a>
+  <a class="big sm" href="first-time-offshore.html">Your first day offshore</a>
   <a class="big" href="getting-here.html">Getting here</a>
-  <a class="big" href="transportation.html">Transportation</a>
+  <a class="big sm" href="transportation.html">Transportation</a>
   <a class="big" href="tours.html">Tours</a>
   <div class="sheet-foot">
     <a class="btn btn-flag" href="book.html">Plan my day</a>
     <a class="btn btn-line" href="https://wa.me/13213561951" target="_blank" rel="noopener">WhatsApp us</a>
+    <a class="btn btn-line" href="mailto:greatmarlincr@gmail.com?subject=Charter%20question">Email us</a>
   </div>
 </nav>
 
@@ -79,8 +82,8 @@
 
   <!-- ============ HERO ============ -->
   <header class="pg-hero">
-    <div class="pg-hero-media"><img src="assets/clips/coast-poster.jpg" alt="The central Pacific coastline from the air, rainforest meeting the sea" fetchpriority="high"></div>
-    <div class="pg-hero-grade"></div>
+    <div class="pg-hero-media"><img src="assets/photos/head-falls-real.jpg?v=2" alt="A two-tier jungle waterfall falling into a green pool near the coast" fetchpriority="high" style="object-position:60% 50%;--mpos:64% 50%"></div>
+    <div class="pg-hero-grade" style="background:linear-gradient(90deg,rgba(8,14,24,.7) 0%,rgba(8,14,24,.45) 40%,rgba(8,14,24,.05) 70%),linear-gradient(180deg,rgba(8,14,24,0) 60%,rgba(8,14,24,.5) 100%)"></div>
     <div class="pg-hero-inner shell">
       <h1>The days you're not fishing.</h1>
       <p class="sub">A fishing week is never only fishing. The days ashore run through our tour partner, Infinite Discoveries &#8212; rainforest, waterfalls, parks. The days on the water never leave our own boat: an island run, a sunset cruise, a surf trip. One thread books all of it.</p>
@@ -116,6 +119,25 @@
     </div>
   </section>
 
+  <!-- ============ FROM THE TRAIL (Tony's own photos + clips, 10-11) ============ -->
+  <section class="band" id="gallery">
+    <div class="shell">
+      <div class="sec-head"><h2 class="d sec-title">Off the boat</h2><p class="sec-sub lbl">Waterfalls near the coast</p></div>
+      <div class="g-grid">
+        <figure class="g-card"><video src="assets/clips/tours-img-3226.mp4" poster="assets/clips/tours-img-3226-poster.jpg" muted loop playsinline preload="none" aria-hidden="true"></video><figcaption>The pool at the bottom</figcaption></figure>
+        <figure class="g-card"><video src="assets/clips/tours-falls-jungle.mp4?v=4" poster="assets/clips/tours-falls-jungle-poster.jpg?v=2" muted loop playsinline preload="none" aria-hidden="true"></video><figcaption>A waterfall tucked in the jungle</figcaption></figure>
+        <figure class="g-card"><video src="assets/clips/tours-img-3276.mp4" poster="assets/clips/tours-img-3276-poster.jpg" muted loop playsinline preload="none" aria-hidden="true"></video><figcaption>Two tiers, one swim</figcaption></figure>
+      </div>
+    </div>
+  </section>
+  <style>
+    #gallery .g-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:clamp(12px,1.6vw,20px)}
+    #gallery .g-card{margin:0;position:relative;overflow:hidden;border-radius:2px;background:#0b1214}
+    #gallery .g-card video,#gallery .g-card img{display:block;width:100%;aspect-ratio:9/16;object-fit:cover}
+    #gallery .g-card figcaption{position:absolute;left:0;right:0;bottom:0;padding:40px 16px 14px;font-size:.8rem;letter-spacing:.08em;text-transform:uppercase;color:#fff;background:linear-gradient(180deg,rgba(0,0,0,0),rgba(0,0,0,.65))}
+    @media (max-width:760px){#gallery .g-grid{grid-template-columns:1fr 1fr;gap:10px}#gallery .g-card figcaption{padding:28px 10px 10px;font-size:.68rem;letter-spacing:.06em}}
+  </style>
+
   <!-- ============ 02 THE DAYS ============ -->
   <section class="band band-deep" id="days">
     <div class="shell">
@@ -150,7 +172,7 @@
         <li>
           <span class="name">The surf day</span>
           <span class="season">Our boat · not brokered</span>
-          <span class="note">The third of the boat days: a reef we don't name — white sand, an A-frame over reef, no road in. All three live with the fishing trips, <a class="xlink" href="index.html#rates">over on the rates page</a>.</span>
+          <span class="note">The third of the boat days: a reef we don't name — a private white-sand beach, an A-frame over reef, boat entry only. All three live with the fishing trips, <a class="xlink" href="index.html#rates">over on the rates page</a>.</span>
         </li>
       </ul>
 
@@ -182,7 +204,7 @@
           <span class="when">[ 03 ]</span>
           <div>
             <h3>The rides come with it</h3>
-            <p>Ground runs through our transport partner, so every day ashore includes the getting there and the getting back. <a class="xlink" href="transportation.html">That story is its own page.</a></p>
+            <p>We set up the rides too, so every day ashore includes the getting there and the getting back. <a class="xlink" href="transportation.html">That story is its own page.</a></p>
           </div>
         </li>
       </ul>
@@ -205,16 +227,26 @@
 
 <footer class="foot">
   <div class="shell">
+    <div class="foot-ig">
+      <p><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.4" cy="6.6" r="1.1" fill="currentColor" stroke="none"/></svg><span>Follow the boat on Instagram</span></p>
+      <a class="btn btn-flag" href="https://www.instagram.com/greatmarlincr/" target="_blank" rel="noopener">@greatmarlincr</a>
+    </div>
     <div class="foot-grid">
       <div>
-        <p class="d big">Great Marlin</p>
+        <img class="foot-logo" src="assets/logo/gm-logo-teal.png?v=1" alt="Great Marlin, Herradura Bay, Costa Rica" width="900" height="730" loading="lazy" decoding="async">
         <p class="about">A 36-foot sportfisher working the drop off Herradura Bay, Costa Rica. One boat, one crew, your group only.</p>
+        <ul class="foot-contact">
+          <li><a href="mailto:greatmarlincr@gmail.com">greatmarlincr@gmail.com</a></li>
+          <li><a href="https://wa.me/13213561951" target="_blank" rel="noopener">WhatsApp +1 321 356 1951</a></li>
+          <li><a href="https://www.instagram.com/greatmarlincr/" target="_blank" rel="noopener">Instagram @greatmarlincr</a></li>
+        </ul>
       </div>
       <div>
         <h2 class="fh">Trips</h2>
         <ul>
           <li><a href="full-day-fishing-charter.html">Full-day fishing charter</a></li>
           <li><a href="half-day-fishing-charter.html">Half-day fishing charter</a></li>
+          <li><a href="surf-trip.html">Surf day by boat</a></li>
         </ul>
       </div>
       <div>
@@ -244,6 +276,6 @@
   </div>
 </footer>
 
-<script src="assets/site.js" defer></script>
+<script src="assets/site.js?v=6c1ee310" defer></script>
 </body>
 </html>
