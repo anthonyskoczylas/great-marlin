@@ -97,8 +97,8 @@
   ]
 }
 </script>
-<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
-<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<link rel="icon" href="assets/favicon-32.png?v=2" type="image/png" sizes="32x32"><link rel="icon" href="assets/favicon-64.png?v=2" type="image/png" sizes="64x64">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon-v2.png">
 <link rel="preload" href="assets/fonts/archivo-var.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" as="image" href="assets/orbit360-poster.jpg?v=18" media="(min-width: 861px), (pointer: fine)">
 <script>
@@ -517,6 +517,8 @@ a{color:inherit}
 .foot ul a:hover{color:var(--tower)}
 .foot-bar{margin-top:clamp(48px,8vh,90px);padding-top:18px;border-top:1px solid var(--rule-dark);display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;color:var(--soft-on-dark)}
 @media(max-width:860px){.foot-grid{grid-template-columns:1fr 1fr}.foot-grid>div:first-child{grid-column:1/-1}}
+/* phones: whole footer centred (Tony 10-12) */
+@media(max-width:760px){.foot{text-align:center}.foot .foot-logo{margin-left:auto;margin-right:auto}.foot .about{margin-left:auto;margin-right:auto}.foot-contact{justify-items:center}.foot-grid>div:last-child{grid-column:1/-1}.foot-bar{flex-direction:column;align-items:center;gap:8px}.foot-ig{flex-direction:column;align-items:center;justify-content:center}.foot-ig p{flex-direction:column;justify-content:center}#ig .ig-head{flex-direction:column;align-items:center;text-align:center}.ig-kick{justify-content:center}.ig-sub{margin-left:auto;margin-right:auto}}
 
 
 @media (prefers-reduced-motion: reduce){
@@ -938,7 +940,7 @@ a{color:inherit}
           <li><a href="#boat" data-scroll>The boat</a></li>
           <li><a href="#fish" data-scroll>What we chase</a></li>
           <li><a href="#rates" data-scroll>Days and rates</a></li>
-          <li><a href="#book" data-scroll>Book</a></li>
+          <li><a href="#book" data-scroll>Plan the day</a></li>
         </ul>
       </div>
     </div>

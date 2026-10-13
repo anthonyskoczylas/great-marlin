@@ -272,6 +272,8 @@ figcaption{margin-top:10px;font-family:var(--display);font-stretch:80%;font-weig
 .foot ul a:hover{color:var(--tower)}
 .foot-bar{margin-top:clamp(48px,8vh,90px);padding-top:18px;border-top:1px solid var(--rule-dark);display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;color:var(--soft-on-dark)}
 @media(max-width:860px){.foot-grid{grid-template-columns:1fr 1fr}.foot-grid>div:first-child{grid-column:1/-1}}
+/* phones: whole footer centred (Tony 10-12) */
+@media(max-width:760px){.foot{text-align:center}.foot .foot-logo{margin-left:auto;margin-right:auto}.foot .about{margin-left:auto;margin-right:auto}.foot-contact{justify-items:center}.foot-grid>div:last-child{grid-column:1/-1}.foot-bar{flex-direction:column;align-items:center;gap:8px}.foot-ig{flex-direction:column;align-items:center;justify-content:center}.foot-ig p{flex-direction:column;justify-content:center}}
 
 /* =================== THE PLANNER (book.html) ===================
    Go Fish's shape in this world: a white card that rides up over the photo,
