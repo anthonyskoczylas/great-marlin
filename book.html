@@ -101,10 +101,10 @@
           <h2>Which day?</h2>
           <p class="lead">Every price is for your group, not per head. Every trip includes up to six guests. Fishing days: $100 each beyond six, up to eight aboard. Every other day: $40 each beyond six, up to ten.</p>
           <div class="opts">
-            <label class="opt"><input type="radio" name="day" value="full"><b>Full day</b><span class="meta"><em>$1,750</em> · up to six · offshore · about 9 hrs</span><small>Past the drop, sailfish water. Lunch, beer, water and fruit aboard.</small></label>
-            <label class="opt"><input type="radio" name="day" value="three"><b>3/4 day</b><span class="meta"><em>$1,550</em> · up to six · offshore · about 7 hrs</span><small>Past the drop, sailfish water. Lunch, beer, water and fruit aboard.</small></label>
-            <label class="opt"><input type="radio" name="day" value="half"><b>Half day</b><span class="meta"><em>$1,350</em> · up to six · inshore · about 5 hrs</span><small>Along the rocks and the beach — roosterfish, cubera, jacks. Beer, water and fruit aboard.</small></label>
-            <label class="opt"><input type="radio" name="day" value="surf"><b>Surf day</b><span class="meta"><em>$1,450</em> · up to six · six hours</span><small>A reef we don&#8217;t name. White sand, empty on purpose, boat access only. Provisioned like an offshore day.</small></label>
+            <label class="opt"><input type="radio" name="day" value="full"><b>Full day</b><span class="meta"><em>$2,000</em> · up to six · offshore · about 9 hrs</span><small>Past the drop, sailfish water. Lunch, beer, water and fruit aboard.</small></label>
+            <label class="opt"><input type="radio" name="day" value="three"><b>3/4 day</b><span class="meta"><em>$1,800</em> · up to six · offshore · about 7 hrs</span><small>Past the drop, sailfish water. Lunch, beer, water and fruit aboard.</small></label>
+            <label class="opt"><input type="radio" name="day" value="half"><b>Half day</b><span class="meta"><em>$1,600</em> · up to six · inshore · about 5 hrs</span><small>Along the rocks and the beach — roosterfish, cubera, jacks. Beer, water and fruit aboard.</small></label>
+            <label class="opt"><input type="radio" name="day" value="surf"><b>Surf day</b><span class="meta"><em>$1,700</em> · up to six · six hours</span><small>A reef we don&#8217;t name. White sand, empty on purpose, boat access only. Provisioned like an offshore day.</small></label>
             <label class="opt"><input type="radio" name="day" value="tortuga"><b>Tortuga Island</b><span class="meta"><em>On request</em> · the island · no rods</span><small>A day at the island. Water clear enough to snorkel, white sand, lunch aboard.</small></label>
             <label class="opt"><input type="radio" name="day" value="sunset"><b>Sunset cruise</b><span class="meta"><em>On request</em> · the last hour of light</span><small>The coast from the water, an easy evening run.</small></label>
             <label class="opt"><input type="radio" name="day" value="custom"><b>Custom &amp; events</b><span class="meta"><em>On request</em> · multi-day · film days</span><small>Tell us the occasion. We build the day around it.</small></label>
@@ -283,10 +283,10 @@
 
   /* the price sheet mirrors index.html#rates — change both or neither */
   var DAYS = {
-    full:    { name: 'Full day',        desc: 'offshore, about nine hours',       price: 1750, base: 6, extra: 100, max: 8, inc: 'Lunch, beer, water and fruit aboard' },
-    three:   { name: '3/4 day',         desc: 'offshore, about seven hours',      price: 1550, base: 6, extra: 100, max: 8, inc: 'Lunch, beer, water and fruit aboard' },
-    half:    { name: 'Half day',        desc: 'inshore, about five hours',        price: 1350, base: 6, extra: 100, max: 8, inc: 'Beer, water and fruit aboard' },
-    surf:    { name: 'Surf day',        desc: 'the reef, six hours',              price: 1450, base: 6, extra: 40,  max: 10, inc: 'Provisioned like an offshore day' },
+    full:    { name: 'Full day',        desc: 'offshore, about nine hours',       price: 2000, base: 6, extra: 100, max: 8, inc: 'Lunch, beer, water and fruit aboard' },
+    three:   { name: '3/4 day',         desc: 'offshore, about seven hours',      price: 1800, base: 6, extra: 100, max: 8, inc: 'Lunch, beer, water and fruit aboard' },
+    half:    { name: 'Half day',        desc: 'inshore, about five hours',        price: 1600, base: 6, extra: 100, max: 8, inc: 'Beer, water and fruit aboard' },
+    surf:    { name: 'Surf day',        desc: 'the reef, six hours',              price: 1700, base: 6, extra: 40,  max: 10, inc: 'Provisioned like an offshore day' },
     tortuga: { name: 'Tortuga Island',  desc: 'the island, no rods',              price: 0,    base: 6, extra: 40,  max: 10, inc: '' },
     sunset:  { name: 'Sunset cruise',   desc: 'the last hour of light',           price: 0,    base: 6, extra: 40,  max: 10, inc: '' },
     custom:  { name: 'Custom & events', desc: 'multi-day, film days, occasions',  price: 0,    base: 6, extra: 0,   max: 13, inc: '' }
