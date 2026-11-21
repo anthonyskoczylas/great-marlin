@@ -309,6 +309,13 @@ a{color:inherit}
 .on-pacific{background:var(--pacific);color:var(--hull)} /* sand field (Tony 10-10: option C, less blue) */
 .on-dark{background:var(--hull);color:var(--tower)}
 .on-light{background:var(--tower);color:var(--hull)}
+/* Tidal pattern (Tony 11-21, option C teal): own flow-line print behind every field; nav, hero and footer stay plain */
+.on-pacific{background-image:url('assets/pattern/tidal-sand.webp?v=1')}
+.on-light{background-image:url('assets/pattern/tidal-white.webp?v=1')}
+.on-dark{background-image:url('assets/pattern/tidal-dark.webp?v=1')}
+.on-pacific,.on-light,.on-dark{background-size:720px;background-repeat:repeat}
+@media(max-width:760px){.on-pacific,.on-light,.on-dark{background-size:520px}}
+#chase{display:flow-root} /* its heading's top margin used to leak out above the section, leaving a bare unpatterned strip under #fish */
 #rates + #boat{border-top:1px solid var(--rule-light)} /* prices moved under the water (10-10): two white fields meet here */
 .sec{padding:clamp(88px,13vh,160px) 0}
 #boat + #rates{border-top:1px solid var(--rule-light)}
@@ -1200,6 +1207,17 @@ document.querySelectorAll('#boat video[data-clip]').forEach(function(v){ lazyPla
   load();
 })();
 });
+</script>
+<script>
+/* Tidal pattern (11-21): pin every section's tile to the page, so two same-colour sections in a row read as one continuous sheet (no restart line at the join) */
+(function(){
+  var q = '.band,.closer,.on-pacific,.on-light,.on-dark', raf = 0;
+  function align(){ raf = 0; var y = window.scrollY || 0;
+    document.querySelectorAll(q).forEach(function(e){ e.style.backgroundPositionY = -Math.round(e.getBoundingClientRect().top + y) + 'px'; }); }
+  function soon(){ if (!raf) raf = requestAnimationFrame(align); }
+  align(); window.addEventListener('load', align); window.addEventListener('resize', soon);
+  if (window.ResizeObserver) new ResizeObserver(soon).observe(document.body);
+})();
 </script>
 </body>
 </html>

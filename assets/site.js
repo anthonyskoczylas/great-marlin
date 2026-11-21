@@ -37,3 +37,12 @@
   document.addEventListener("touchend", wake, { passive: true });
   document.addEventListener("click", wake);
 })();
+/* Tidal pattern (11-21): pin every section's tile to the page, so two same-colour sections in a row read as one continuous sheet (no restart line at the join) */
+(function(){
+  var q = '.band,.closer,.on-pacific,.on-light,.on-dark', raf = 0;
+  function align(){ raf = 0; var y = window.scrollY || 0;
+    document.querySelectorAll(q).forEach(function(e){ e.style.backgroundPositionY = -Math.round(e.getBoundingClientRect().top + y) + 'px'; }); }
+  function soon(){ if (!raf) raf = requestAnimationFrame(align); }
+  align(); window.addEventListener('load', align); window.addEventListener('resize', soon);
+  if (window.ResizeObserver) new ResizeObserver(soon).observe(document.body);
+})();

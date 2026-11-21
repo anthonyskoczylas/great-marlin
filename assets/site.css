@@ -106,6 +106,11 @@ a{color:inherit}
 /* ---------- the three fields ---------- */
 .band{background:var(--tower);color:var(--hull);padding:clamp(80px,12vh,150px) 0}
 .band.band-deep{background:var(--hull);color:var(--tower)}
+/* Tidal pattern (Tony 11-21, option C teal): white bands, dark bands and the closer; nav, hero and footer stay plain */
+.band{background-image:url('pattern/tidal-white.webp?v=1')}
+.band.band-deep,.closer{background-image:url('pattern/tidal-dark.webp?v=1')}
+.band,.closer{background-size:720px;background-repeat:repeat}
+@media(max-width:760px){.band,.closer{background-size:520px}}
 .sec-head{margin-bottom:clamp(36px,6vh,64px)}
 .sec-title{font-size:clamp(1.68rem,3.84vw,3.84rem);max-width:14ch}
 .sec-sub{margin-top:14px;color:var(--soft-on-light)}
@@ -233,7 +238,7 @@ figcaption{margin-top:10px;font-family:var(--display);font-stretch:80%;font-weig
 .band-deep .guide-link:hover{color:var(--flag)}
 
 /* ---------- closer: the Pacific field ---------- */
-.closer{background:var(--hull);color:var(--tower);padding:clamp(88px,14vh,160px) 0;border-top:2px solid var(--flag)}
+.closer{background-color:var(--hull);color:var(--tower);padding:clamp(88px,14vh,160px) 0;border-top:2px solid var(--flag)}
 .closer h2{font-family:var(--headline);font-stretch:100%;font-weight:400;text-transform:uppercase;line-height:1.1;font-size:clamp(1.92rem,4.8vw,4.56rem);max-width:12ch;text-wrap:balance}
 .closer .note{margin-top:20px;max-width:46ch;color:var(--soft-on-pacific);font-size:1.125rem}
 .closer-actions{display:flex;gap:12px;margin-top:28px;flex-wrap:wrap}
